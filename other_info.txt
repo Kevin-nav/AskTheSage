@@ -1,0 +1,16 @@
+(venv)
+Kevin Nchorbuno@Kevin MINGW64 ~/Project/other_projects/Johnson_Bot (master)
+$ python -m src.main
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\MORO\Project\other_projects\Johnson_Bot\src\main.py", line 6, in <module>
+    from src.handlers.conversation_handlers import quiz_conv_handler
+  File "C:\Users\MORO\Project\other_projects\Johnson_Bot\src\handlers\conversation_handlers.py", line 5, in <module>
+    from src.database import get_db
+  File "C:\Users\MORO\Project\other_projects\Johnson_Bot\src\database.py", line 9, in <module>
+    raise ValueError("No DATABASE_URL set for the database connection")
+ValueError: No DATABASE_URL set for the database connection
+(venv)
+Kevin Nchorbuno@Kevin MINGW64 ~/Project/other_projects/Johnson_Bot (master)
+$

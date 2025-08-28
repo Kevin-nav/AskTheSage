@@ -1,0 +1,186 @@
+Edge Cases for src/adaptive_bot/selector.py
+
+Below are many edge cases (grouped) that can break behavior, produce surprising results, or make outputs hard to trust. For each group I list what can go wrong and a one‑line mitigation where useful.
+
+Input / type issues
+
+available_questions is empty -> returns empty selection (ok) but downstream analytics/usage may divide by zero or expect >= quiz_length. Mitigation: validate and early-return.
+available_questions contains duplicates -> same question can be selected multiple times. Mitigation: dedupe input.
+available_questions items use non-int ids (str, UUID) while UserPerformance.question_id are ints -> lookup misses and all scored as NEW. Mitigation: normalize id types.
+user_performance is None or not a list -> TypeError. Mitigation: validate types.
+user_performance contains duplicate entries for same question_id -> last entry wins silently. Mitigation: detect duplicates and merge/validate.
+user_performance contains entries for questions not in available_questions (harmless but possibly wasteful).
+Missing / malformed performance fields
+
+performance.last_attempt_date is None or not a datetime -> _calculate_recency_factor fails. Mitigation: guard and provide fallback.
+performance.next_review_date is None or not a datetime -> current code treats missing as non-SRS, but mixing naive/aware datetimes raises TypeError. Mitigation: ensure timezone consistency or use aware datetimes.
+performance.total_attempts == 0 -> code uses max(...,1) in error_rate, OK but could hide data problems.
+performance.total_correct > performance.total_attempts -> error_rate negative, consecutive_errors negative. Mitigation: clamp and validate stats.
+correct_streak negative -> used to index srs_intervals (negative index selects from end). Mitigation: clamp correct_streak >= 0.
+missing attributes (e.g., last_attempt_correct) -> AttributeError. Mitigation: defensive attribute access or dataclass validation.
+Datetime & timezone issues
+
+Mixing timezone-aware and naive datetimes -> TypeError on subtraction. Mitigation: enforce UTC-aware times or convert to naive consistently.
+next_review_date and last_attempt_date in the future -> days calculations yield negative days, treated as recently answered/due; can produce odd scoring. Mitigation: clamp future dates or log anomalies.
+Using .days integer granularity ignores hours/minutes -> items slightly overdue (<1 day) treated as due (days_until_due <=0 yields due) or not overdue if 0. Mitigation: use total_seconds for finer granularity if desired.
+Scoring logic edge cases
+
+total_correct > total_attempts -> negative error_rate and thus negative weakness_boost lowering priority unexpectedly.
+error_rate calculation may produce 0/1 extremes; multiplicative boost is fixed 20 points and may be too small/large relative to weights.
+random_review_weight * recency_factor may produce 0 (if weights are zero) or negative if config corrupted.
+weights in config can be zero or negative -> weird ordering. Mitigation: validate config ranges.
+srs_intervals empty -> index error in calculate_next_review_date. Mitigation: require non-empty intervals.
+calculate_next_review_date uses min(correct_streak, len-1) but not max; negative correct_streak gives negative index (see above).
+Selection & distribution
+
+quiz_length <= 0 or negative -> target counts negative, list slicing with negative indices can select wrong items. Mitigation: validate quiz_length > 0.
+quiz_length larger than available pool -> returns fewer than requested; may be acceptable but should be explicit.
+integer truncation of target counts (int(...)) causes rounding down and leftover fill handles it but distribution might deviate from desired percentages.
+Slicing with negative target (from negative quiz_length) can return unexpected elements.
+If a category has fewer questions than its target, code uses leftovers to fill — fine but might under/over represent categories unexpectedly.
+Sorting by score only may starve lower-scoring categories if distribution control not applied or miscomputed.
+Final random.shuffle makes selection nondeterministic -> flaky tests. Mitigation: allow injectable RNG / seed.
+Numeric / arithmetic issues
+
+Large pools: memory/time overhead from scoring and sorting O(n log n). Mitigation: sampling or partial selection for very large n.
+Scores may be non-comparable if metadata contains non-numeric types (not used in sort but could confuse consumers).
+_calculate_consecutive_errors returns negative if total_correct > total_attempts.
+Metadata & serialization
+
+metadata may contain datetimes if extended later -> not JSON-serializable by default. Mitigation: avoid embedding datetimes or serialize them first.
+reason Enum values used as dict keys in analytics via .value — consistent but consumers expecting Enum objects may be surprised.
+Determinism, testing & reproducibility
+
+random.shuffle leads to non-deterministic order across runs. Mitigation: accept a random.Random instance in constructor for seeding.
+Sorting tie-breakers not deterministic (order among equal scores), making tests flaky.
+Data quality / integrity edge cases
+
+Inconsistent backend data (impossible dates, negative attempts, etc.) leads to nonsensical scores; the selector has no validation/logging to surface these anomalies.
+Performance data stale vs available_questions snapshot mismatch (e.g., question deleted or re-id'd).
+Concurrency & state
+
+UniversalQuestionSelector is effectively stateless aside from config, so concurrency is fine, but if config mutated concurrently it may race. Mitigation: treat config as immutable or copy.
+API & integration
+
+select_questions returns QuestionScore objects (with datetime-containing metadata if changed) — callers expecting primitive types may fail.
+get_selection_analytics divides by len(selected_questions) indirectly — if selected_questions empty, comprehension is safe but average_score guard exists; still check consumers.
+Minor correctness/UX issues
+
+Weakness takes precedence over SRS: a question both wrong and with next_review_date will be labeled WEAKNESS — this may be intended but should be explicit.
+days_since calculations use .days (int) which may underrepresent recency for recent attempts; yields discrete jumps.
+calculate_next_review_date uses current datetime; tests relying on exact date comparisons will be brittle.
+Malformed config values
+
+config passed with wrong types (strings, None) will lead to TypeErrors when used in arithmetic.
+config with percentages that don't sum to 1 is permitted; leftover fill handles it but may be surprising.
+Security / safety
+
+No user_id/course_id usage in algorithm; if used later for logging or DB access, be mindful of injection / logging PII.
+Summary of highest‑risk practical items to fix first
+
+Validate inputs: quiz_length > 0, available_questions deduped, types normalized.
+Defensive checks on performance fields (dates, counts, streaks) with clamping and warnings.
+Enforce timezone consistency for datetimes.
+Clamp correct_streak >= 0 and ensure srs_intervals non-empty.
+Make randomness injectable/seedable for deterministic testing.
+
+
+
+
+
+
+Below are many possible edge cases for src/adaptive_bot/service.py, grouped by category. Each item is short and actionable.
+
+Database / ORM result-shape issues
+
+Query(Column).all() returns tuples/scalars depending on SQLAlchemy version — code expects objects with .id/.difficulty_score attributes (e.g., _get_available_questions and _handle_new_user). This will raise AttributeError.
+Using Query.get(...) (deprecated) may behave differently or be removed; returns None if not found — subsequent attribute access will fail.
+latest_answers_query.subquery() usage and row unpacking: structure of rows may differ; row[0] might not be a UserAnswer instance.
+bulk_save_objects bypasses some attribute events/defaults — inserted QuizSessionQuestion objects may miss defaults (is_answered etc.).
+Missing / malformed data
+
+question (from DB) is None in submit_answer -> AttributeError when accessing correct_answer, explanation, options.
+question.correct_answer or user_answer is None -> calling .strip().lower() raises AttributeError.
+Question fields like total_attempts, total_incorrect may be None initially -> incrementing (+= 1) causes TypeError.
+QuizSession.total_questions or session fields may be None -> division by None or 0-handling issues.
+InteractionLog expects sq (QuizSessionQuestion) present — if not found, sq.selection_reason access will fail.
+UserAnswer/Question fields (timestamps, next_review_date) may be strings or naive/aware datetimes -> type errors on arithmetic.
+Datetime / timezone issues
+
+Mixing naive and timezone-aware datetimes causes TypeError on subtraction.
+next_review_date or timestamp in future/invalid -> negative days, unexpected SRS behavior.
+Using datetime.now() (naive) everywhere may desynchronize with DB timestamps stored as timezone-aware.
+Transaction / concurrency issues
+
+Race when checking existing ongoing_session -> two concurrent requests may both pass and create sessions. Need DB-level uniqueness constraint or FOR UPDATE lock.
+self.db.flush() followed by operations that depend on DB state may be susceptible to concurrent writes.
+Long-running selection queries may hold transaction open; commit/rollback behavior might conflict with other threads.
+Selection / availability edge cases
+
+quiz_length <= 0 or None -> creation of session and target counts leads to negative slicing, weird behavior.
+Not enough questions: code rolls back and returns error, but session object was created and flushed — ensure no orphan state left.
+_handle_new_user uses all_questions even if some questions are not available or filtered — mismatch with available_questions.
+Query correctness & aggregation
+
+Aggregation subqueries (performance_stats_query) might return None for counts; code uses "or 0" but depending on row shape indexing may be wrong.
+Duplicate UserAnswer rows for same timestamp could break latest-answer logic if multiple answers share max(timestamp).
+total_attempts/total_correct logic can be inconsistent if older records have NULL flags or inconsistent is_correct values.
+Scoring / business-logic pitfalls
+
+calculate_next_review_date called with huge correct_streak (no clamp) — selects last interval but still okay; negative streak would index from end unexpectedly.
+new_streak computation treats first correct as 1 always; if latest_answer exists but latest_answer.correct_streak is None, expression fails.
+Selecting and persisting selection_reason as string assumes enum .value mapping is stable; future refactor to Enum storage breaks comparisons.
+Update / persistence issues
+
+Updating QuizSessionQuestion via .update(...) without checking affected rows silently fails if filter mismatch — question remains unanswered.
+_update_user_answer_history: adding UserAnswer without populating timestamp means later "latest answer" logic may misorder entries (depends on model defaults).
+_log_interaction uses count() of InteractionLog to compute attempt_number — race condition can produce duplicate attempt numbers under concurrency.
+Type and input validation
+
+user_id, course_id, quiz_length not validated for type or range -> unexpected DB filters or huge loops.
+user_answer and time_taken unvalidated (time_taken negative or None, user_answer empty).
+available_questions / selected_questions lengths are not asserted before use (e.g., get_next_question expecting at least one).
+Performance & scalability
+
+Loading all questions and all user answers into memory for large courses could OOM / slow.
+Sorting, shuffling large lists in Python can be expensive — consider DB-driven sampling or limits.
+Randomness & determinism
+
+random.shuffle used in several places causes non-deterministic behavior; tests may be flaky.
+No injectable RNG or seed option.
+Logging & error handling
+
+Broad except Exception catches hide root causes and stack traces; logged message may leak sensitive data.
+Some errors are logged via logging.error and also re-raised — double-logging can be noisy.
+Security & integrity
+
+No authorization checks: user_id/course_id validated only for existence, not for enrollment/permissions.
+Potential for exposing correct_answer in submit_answer response (sends correct_answer unconditionally).
+Data integrity anomalies
+
+total_correct > total_attempts or negative counts from bad data leads to incorrect analytics.
+Duplicate UserPerformance entries could exist if DB aggregation logic wrong.
+Inconsistent selection_reason values stored as free text increase chance of mismatch when reading.
+Edge cases from external model changes
+
+Model schema changes (renamed columns, moved fields) will break attribute access widely.
+Field types changed in DB (e.g., options stored as JSON string vs list) will break get_next_question return structure.
+Minor API/UX issues
+
+start_quiz returns first_question by calling get_next_question which queries DB again — if session questions not fully saved (flush/commit semantics), it may return None.
+get_next_question returns question.options as-is; if options are JSON string, consumer expects list.
+Suggested high-priority mitigations (brief)
+
+Validate inputs (quiz_length > 0, non-null user/course, normalize types).
+Defensive None-checks after DB queries and before attribute access.
+Ensure SQLAlchemy query scalars vs objects (use .scalars()/.all() accordingly).
+Enforce timezone consistency for datetimes.
+Add DB uniqueness/transactional locks to avoid concurrent session creation.
+Seed or inject RNG for deterministic tests.
+Log full stack traces only to secure logs; return sanitized errors to clients.
+If desired, can produce a patch that:
+
+Adds defensive guards and validations,
+Fixes Query result handling to use .scalars() or tuple unpacking,
+Makes timestamps timezone-aware,
+Adds concurrency-safe session creation.

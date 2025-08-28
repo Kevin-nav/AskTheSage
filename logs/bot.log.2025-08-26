@@ -1,0 +1,357 @@
+2025-08-26 17:45:21,486 - __main__ - INFO - Bot is starting...
+2025-08-26 17:45:22,395 - __main__ - INFO - Bot is running... Send /quiz to start.
+2025-08-26 17:45:23,120 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getMe "HTTP/1.1 200 OK"
+2025-08-26 17:45:23,355 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/setMyCommands "HTTP/1.1 200 OK"
+2025-08-26 17:45:23,521 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/deleteWebhook "HTTP/1.1 200 OK"
+2025-08-26 17:45:23,523 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-26 17:45:23,523 - telegram.ext.Application - INFO - Application started
+2025-08-26 17:45:34,083 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:45:44,303 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:45:54,483 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:46:00,073 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:46:00,075 - src.handlers.conversation_handlers - INFO - Entering start_quiz for chat_id: 5135164547, user_id: 5135164547
+2025-08-26 17:46:00,897 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:02,531 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:46:02,842 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/answerCallbackQuery "HTTP/1.1 200 OK"
+2025-08-26 17:46:03,255 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/editMessageText "HTTP/1.1 200 OK"
+2025-08-26 17:46:04,376 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:46:04,685 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/answerCallbackQuery "HTTP/1.1 200 OK"
+2025-08-26 17:46:06,149 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/editMessageText "HTTP/1.1 200 OK"
+2025-08-26 17:46:08,163 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:46:08,338 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/answerCallbackQuery "HTTP/1.1 200 OK"
+2025-08-26 17:46:08,573 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/editMessageText "HTTP/1.1 200 OK"
+2025-08-26 17:46:09,707 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:46:10,005 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/answerCallbackQuery "HTTP/1.1 200 OK"
+2025-08-26 17:46:10,006 - src.handlers.conversation_handlers - INFO - User chose quiz length: 10 for course_id: 14
+2025-08-26 17:46:10,008 - root - INFO - Starting adaptive quiz for user 1 in course 14
+2025-08-26 17:46:10,084 - src.handlers.conversation_handlers - INFO - DEBUG: Context object in quiz_length_choice before ask_question: <telegram.ext._callbackcontext.CallbackContext object at 0x0000027F7EC16350> (Type: <class 'telegram.ext._callbackcontext.CallbackContext'>)
+2025-08-26 17:46:10,318 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/editMessageText "HTTP/1.1 200 OK"
+2025-08-26 17:46:10,374 - src.handlers.conversation_handlers - INFO - Asking question_id: 1291
+2025-08-26 17:46:10,754 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:10,951 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:11,252 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendPoll "HTTP/1.1 200 OK"
+2025-08-26 17:46:11,255 - apscheduler.scheduler - INFO - Added job "poll_timeout_5868494419623150970" to job store "default"
+2025-08-26 17:46:16,421 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:46:16,424 - apscheduler.scheduler - INFO - Removed job df6020066d134ad58ee5d5755366aef1
+2025-08-26 17:46:17,081 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:17,282 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:20,297 - src.handlers.conversation_handlers - INFO - Asking question_id: 1299
+2025-08-26 17:46:20,557 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:20,860 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:21,069 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendPoll "HTTP/1.1 200 OK"
+2025-08-26 17:46:21,070 - apscheduler.scheduler - INFO - Added job "poll_timeout_5868494419623150971" to job store "default"
+2025-08-26 17:46:26,698 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:46:30,327 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:46:30,329 - apscheduler.scheduler - INFO - Removed job e44a6f64acd84222a4960b20c8ff723e
+2025-08-26 17:46:31,009 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:31,267 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:34,277 - src.handlers.conversation_handlers - INFO - Asking question_id: 1256
+2025-08-26 17:46:34,490 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:34,830 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:35,063 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendPoll "HTTP/1.1 200 OK"
+2025-08-26 17:46:35,065 - apscheduler.scheduler - INFO - Added job "poll_timeout_5868494419623150972" to job store "default"
+2025-08-26 17:46:36,835 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:46:36,835 - apscheduler.scheduler - INFO - Removed job 7041fdf45b0d48939e19e45b88ce271d
+2025-08-26 17:46:37,142 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:37,399 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:40,406 - src.handlers.conversation_handlers - INFO - Asking question_id: 1269
+2025-08-26 17:46:40,729 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:41,033 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:41,340 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendPoll "HTTP/1.1 200 OK"
+2025-08-26 17:46:41,341 - apscheduler.scheduler - INFO - Added job "poll_timeout_5868494419623150973" to job store "default"
+2025-08-26 17:46:46,563 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:46:46,563 - apscheduler.scheduler - INFO - Removed job f7eca7dd85c54433a473b7d8df76f1d8
+2025-08-26 17:46:48,404 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:48,745 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:51,755 - src.handlers.conversation_handlers - INFO - Asking question_id: 1231
+2025-08-26 17:46:52,092 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:46:53,116 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendPhoto "HTTP/1.1 200 OK"
+2025-08-26 17:46:53,352 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendPoll "HTTP/1.1 200 OK"
+2025-08-26 17:46:53,354 - apscheduler.scheduler - INFO - Added job "poll_timeout_5868494419623150974" to job store "default"
+2025-08-26 17:46:58,267 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:47:00,693 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:47:00,694 - apscheduler.scheduler - INFO - Removed job f48db1fe21d74d5d8f075b82c063bcf8
+2025-08-26 17:47:01,414 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:47:02,267 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendPhoto "HTTP/1.1 200 OK"
+2025-08-26 17:47:05,286 - src.handlers.conversation_handlers - INFO - Asking question_id: 1321
+2025-08-26 17:47:05,654 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:47:06,058 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:47:06,357 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendPoll "HTTP/1.1 200 OK"
+2025-08-26 17:47:06,358 - apscheduler.scheduler - INFO - Added job "poll_timeout_5868494419623150975" to job store "default"
+2025-08-26 17:47:08,374 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:47:09,747 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/answerCallbackQuery "HTTP/1.1 200 OK"
+2025-08-26 17:47:09,748 - apscheduler.scheduler - INFO - Removed job b633f039328746148caf7b74eb3b5ead
+2025-08-26 17:47:09,748 - src.handlers.conversation_handlers - INFO - Removed timeout job for poll 5868494419623150975 due to quiz stop.
+2025-08-26 17:47:09,958 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/stopPoll "HTTP/1.1 200 OK"
+2025-08-26 17:47:09,959 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:47:10,253 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:47:10,254 - src.handlers.conversation_handlers - INFO - User stopped quiz session 35. Ending conversation.
+2025-08-26 17:47:14,856 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:47:15,152 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 17:47:24,766 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot7280159934:AAFoRChJMM4i_JLAspCotc_oeDbiHPw791M/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 17:47:24,767 - telegram.ext.Application - INFO - Application is stopping. This might take a moment.
+2025-08-26 17:47:24,768 - apscheduler.scheduler - INFO - Scheduler has been shut down
+2025-08-26 17:47:24,786 - telegram.ext.Application - INFO - Application.stop() complete
+2025-08-26 22:16:04,452 - __main__ - ERROR - An error occurred: (psycopg2.errors.UndefinedTable) relation "levels" does not exist
+LINE 2: FROM levels 
+             ^
+
+[SQL: SELECT levels.id AS levels_id, levels.name AS levels_name 
+FROM levels 
+WHERE levels.name = %(name_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'name_1': 'Level 100', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedTable: relation "levels" does not exist
+LINE 2: FROM levels 
+             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/AskTheSageQ/scripts/seed_db.py", line 70, in seed_database
+    level_100 = db.query(Level).filter_by(name="Level 100").first() or Level(name="Level 100")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) relation "levels" does not exist
+LINE 2: FROM levels 
+             ^
+
+[SQL: SELECT levels.id AS levels_id, levels.name AS levels_name 
+FROM levels 
+WHERE levels.name = %(name_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'name_1': 'Level 100', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-08-26 22:29:48,481 - __main__ - ERROR - An error occurred: (psycopg2.errors.UndefinedTable) relation "levels" does not exist
+LINE 2: FROM levels 
+             ^
+
+[SQL: SELECT levels.id AS levels_id, levels.name AS levels_name 
+FROM levels 
+WHERE levels.name = %(name_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'name_1': 'Level 100', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedTable: relation "levels" does not exist
+LINE 2: FROM levels 
+             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/AskTheSageQ/scripts/seed_db.py", line 70, in seed_database
+    level_100 = db.query(Level).filter_by(name="Level 100").first() or Level(name="Level 100")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ubuntu/AskTheSageQ/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) relation "levels" does not exist
+LINE 2: FROM levels 
+             ^
+
+[SQL: SELECT levels.id AS levels_id, levels.name AS levels_name 
+FROM levels 
+WHERE levels.name = %(name_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'name_1': 'Level 100', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-08-26 22:53:59,879 - __main__ - INFO - 
+Database seeding completed successfully!
+2025-08-26 23:08:41,577 - __main__ - INFO - Bot is starting...
+2025-08-26 23:08:41,754 - __main__ - INFO - Bot is running... Send /quiz to start.
+2025-08-26 23:08:44,669 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getMe "HTTP/1.1 200 OK"
+2025-08-26 23:08:44,727 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/setMyCommands "HTTP/1.1 200 OK"
+2025-08-26 23:08:44,758 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/deleteWebhook "HTTP/1.1 200 OK"
+2025-08-26 23:08:44,759 - apscheduler.scheduler - INFO - Scheduler started
+2025-08-26 23:08:44,759 - telegram.ext.Application - INFO - Application started
+2025-08-26 23:08:54,843 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:04,872 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:14,901 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:24,929 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:28,953 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:29,055 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 23:09:31,533 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:31,534 - src.handlers.conversation_handlers - INFO - Entering start_quiz for chat_id: 5135164547, user_id: 5135164547
+2025-08-26 23:09:31,770 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 23:09:35,076 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:35,139 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/answerCallbackQuery "HTTP/1.1 200 OK"
+2025-08-26 23:09:35,292 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/editMessageText "HTTP/1.1 200 OK"
+2025-08-26 23:09:37,041 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:37,096 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/answerCallbackQuery "HTTP/1.1 200 OK"
+2025-08-26 23:09:37,199 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/editMessageText "HTTP/1.1 200 OK"
+2025-08-26 23:09:38,401 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:38,434 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/answerCallbackQuery "HTTP/1.1 200 OK"
+2025-08-26 23:09:38,486 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/editMessageText "HTTP/1.1 200 OK"
+2025-08-26 23:09:42,001 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:42,039 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/answerCallbackQuery "HTTP/1.1 200 OK"
+2025-08-26 23:09:42,082 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/editMessageText "HTTP/1.1 200 OK"
+2025-08-26 23:09:43,333 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:43,367 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/answerCallbackQuery "HTTP/1.1 200 OK"
+2025-08-26 23:09:43,367 - src.handlers.conversation_handlers - INFO - User chose quiz length: 10 for course_id: 14
+2025-08-26 23:09:43,371 - root - INFO - Starting adaptive quiz for user 1 in course 14
+2025-08-26 23:09:43,420 - src.handlers.conversation_handlers - INFO - DEBUG: Context object in quiz_length_choice before ask_question: <telegram.ext._callbackcontext.CallbackContext object at 0x7437a4ffe740> (Type: <class 'telegram.ext._callbackcontext.CallbackContext'>)
+2025-08-26 23:09:43,462 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/editMessageText "HTTP/1.1 200 OK"
+2025-08-26 23:09:43,510 - src.handlers.conversation_handlers - INFO - Asking question_id: 1271
+2025-08-26 23:09:43,564 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 23:09:44,116 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/sendPhoto "HTTP/1.1 200 OK"
+2025-08-26 23:09:44,174 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/sendPoll "HTTP/1.1 200 OK"
+2025-08-26 23:09:44,176 - apscheduler.scheduler - INFO - Added job "poll_timeout_5868669615634121543" to job store "default"
+2025-08-26 23:09:53,362 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:53,921 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:53,922 - apscheduler.scheduler - INFO - Removed job 8f2c1501914b4170b5a287e35ef749b1
+2025-08-26 23:09:54,074 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 23:09:54,707 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/sendPhoto "HTTP/1.1 200 OK"
+2025-08-26 23:09:57,727 - src.handlers.conversation_handlers - INFO - Asking question_id: 1262
+2025-08-26 23:09:57,784 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 23:09:57,830 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 23:09:57,882 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/sendPoll "HTTP/1.1 200 OK"
+2025-08-26 23:09:57,883 - apscheduler.scheduler - INFO - Added job "poll_timeout_5868669615634121544" to job store "default"
+2025-08-26 23:09:59,487 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:59,530 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/answerCallbackQuery "HTTP/1.1 200 OK"
+2025-08-26 23:09:59,530 - apscheduler.scheduler - INFO - Removed job 5f8e7dc3b661404c99bb2ab5fb3f94f5
+2025-08-26 23:09:59,530 - src.handlers.conversation_handlers - INFO - Removed timeout job for poll 5868669615634121544 due to quiz stop.
+2025-08-26 23:09:59,573 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/stopPoll "HTTP/1.1 200 OK"
+2025-08-26 23:09:59,585 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:09:59,634 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 23:09:59,635 - src.handlers.conversation_handlers - INFO - User stopped quiz session 1. Ending conversation.
+2025-08-26 23:10:09,618 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:10:14,950 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:10:15,077 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/sendMessage "HTTP/1.1 200 OK"
+2025-08-26 23:10:24,997 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:10:35,033 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:10:45,061 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:10:55,090 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:11:05,119 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:11:15,147 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:11:25,178 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:11:35,206 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:11:45,237 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:11:55,266 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:12:05,299 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:12:15,330 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:12:25,360 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:12:35,389 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:12:45,418 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:12:55,452 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:13:05,481 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:13:15,510 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:13:25,538 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:13:35,567 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:13:45,594 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:13:55,622 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:14:05,650 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:14:15,678 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:14:25,711 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:14:35,743 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:14:45,772 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:14:55,801 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:15:05,831 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:15:15,861 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:15:25,892 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:15:35,922 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:15:45,950 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:15:55,979 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:16:06,009 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:16:16,037 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:16:26,065 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:16:36,093 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:16:46,122 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:16:56,150 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:17:06,180 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:17:16,208 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:17:26,237 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:17:36,267 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:17:46,295 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:17:56,323 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:18:06,359 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:18:16,388 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:18:26,416 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:18:36,450 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:18:46,487 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:18:56,515 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:19:06,550 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:19:16,580 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:19:26,610 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:19:36,646 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:19:46,678 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:19:56,705 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"
+2025-08-26 23:20:06,737 - httpx - INFO - HTTP Request: POST https://api.telegram.org/bot8306193285:AAE1jlkJfMlzGi-jJnnEIOwJSKzmc2KtpUE/getUpdates "HTTP/1.1 200 OK"

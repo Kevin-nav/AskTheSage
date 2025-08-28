@@ -1,0 +1,1476 @@
+[
+  {
+    "question_text": "The current gain of a transistor is defined as the ratio of the collector current to the",
+    "options": [
+      "Base current",
+      "Emitter current",
+      "Supply current",
+      "Collector current"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The common-emitter DC current gain, often called beta (\u03b2_{DC}), is the ratio of the collector current (I_{C}) to the base current (I_{B}). This is the fundamental definition of current gain in this configuration.",
+    "has_latex": true
+  },
+  {
+    "question_text": "The graph of current gain versus collector-current indicates that the current gain",
+    "options": [
+      "Is constant",
+      "Varies slightly",
+      "Varies significantly",
+      "Equals the collector current divided by the base current"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "While often treated as a constant for simple analysis, the current gain (\u03b2_{DC}) of a transistor actually varies slightly with changes in collector current and temperature, as seen on a transistor datasheet.",
+    "has_latex": true
+  },
+  {
+    "question_text": "When the collector current increases, what does the current gain do?",
+    "options": [
+      "Decreases",
+      "Stays the same",
+      "Increases",
+      "Any of the above"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "For a typical BJT, as the collector current (I_{C}) increases from a small value, the current gain (\u03b2_{DC}) also tends to increase until it reaches a peak and then starts to decrease at very high currents. For the purposes of this question, in the general operating range, it increases.",
+    "has_latex": true
+  },
+  {
+    "question_text": "As the temperature increases, the current gain",
+    "options": [
+      "Decreases",
+      "Remains the same",
+      "Increases",
+      "Can be any of the above"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The DC current gain of a bipolar junction transistor (BJT) increases with temperature. This is due to the increased thermal energy of the charge carriers, which causes more carriers to be injected from the emitter to the collector.",
+    "has_latex": false
+  },
+  {
+    "question_text": "When the base resistor decreases, the collector voltage will probably",
+    "options": [
+      "Decrease",
+      "Stay the same",
+      "Increase",
+      "Do all of the above"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "A decrease in the base resistor (R_{B}) will cause the base current (I_{B}) to increase, according to Ohm's law (I_{B} = (V_{CC} - V_{BE}) / R_{B}). A larger base current leads to a larger collector current (I_{C} = \beta I_{B}), which in turn causes a greater voltage drop across the collector resistor (V_R = I_{C} \times R_{C}), leading to a lower collector voltage (V_C = V_{CC} - V_R).",
+    "has_latex": true
+  },
+  {
+    "question_text": "If the base resistor is very small, the transistor will operate in the",
+    "options": [
+      "Cutoff region",
+      "Active region",
+      "Saturation region",
+      "Breakdown region"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "A very small base resistor allows a large base current to flow. This large base current forces the collector current to its maximum possible value, where the transistor can no longer function as an amplifier. This is known as the saturation region, where the collector-emitter voltage (V_{CE}) is at its minimum.",
+    "has_latex": true
+  },
+  {
+    "question_text": "Ignoring the bulk resistance of the collector diode, the collector-emitter saturation voltage is",
+    "options": [
+      "0",
+      "A few tenths of a volt",
+      "1 V",
+      "Supply voltage"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The collector-emitter saturation voltage, V_{CE(sat)}, is the voltage drop across the collector and emitter terminals when the transistor is in the saturation region. It is typically a small positive voltage, usually a few tenths of a volt, as a small voltage is still needed to keep the collector-base junction forward-biased.",
+    "has_latex": true
+  },
+  {
+    "question_text": "Three different Q points are shown on a load line. The upper Q point represents the",
+    "options": [
+      "Minimum current gain",
+      "Intermediate current gain",
+      "Maximum current gain",
+      "Cutoff point"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The Q point (quiescent point) on a load line moves along the line. An increase in current gain (\beta) for a given base current will move the Q point \"up\" the load line toward the saturation region, which represents a higher collector current and thus a maximum current gain.",
+    "has_latex": true
+  },
+  {
+    "question_text": "If a transistor operates at the middle of the load line, an increase in the base resistance will move the Q point",
+    "options": [
+      "Down",
+      "Up",
+      "Nowhere",
+      "Off the load line"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "An increase in base resistance (R_{B}) causes a decrease in base current (I_{B}). Since collector current is proportional to base current (I_{C} = \beta I_{B}), the collector current also decreases. This movement on the load line is represented by the Q point moving \"down\" toward the cutoff region.",
+    "has_latex": true
+  },
+  {
+    "question_text": "If a transistor operates at the middle of the load line, an increase in the current gain will move the Q point",
+    "options": [
+      "Down",
+      "Up",
+      "Nowhere",
+      "Off the load line"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "Current gain (\beta) directly affects the collector current. An increase in current gain leads to an increase in collector current (I_{C} = \beta I_{B}). This causes the Q point to move \"up\" the load line toward the saturation region.",
+    "has_latex": true
+  },
+  {
+    "question_text": "If the base supply voltage increases, the Q point moves",
+    "options": [
+      "Down",
+      "Up",
+      "Nowhere",
+      "Off the load line"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "Increasing the base supply voltage increases the base current. A larger base current leads to a larger collector current, which shifts the Q point \"up\" the load line towards saturation.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Suppose the base resistor is open. The Q point will be",
+    "options": [
+      "In the middle of the load line",
+      "At the upper end of the load line",
+      "At the lower end of the load line",
+      "Off the load line"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "If the base resistor is open, there is no path for base current to flow. With zero base current, there is no collector current, and the transistor is in the cutoff region. On the load line, this corresponds to the lowest possible collector current, which is at the lower end of the load line.",
+    "has_latex": false
+  },
+  {
+    "question_text": "If the base supply voltage is disconnected, the collector-emitter voltage will equal",
+    "options": [
+      "0 V",
+      "6 V",
+      "10.5 V",
+      "Collector supply voltage"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "When the base supply voltage is disconnected, the transistor is in cutoff. In this state, there is no base current and thus no collector current (I_{C} = 0). With no current flowing through the collector resistor, there is no voltage drop across it (V_R = I_{C} \times R_{C}), so the voltage at the collector terminal is equal to the collector supply voltage (V_{CC}), so V_{CE} = V_{CC}$.",
+    "has_latex": true
+  },
+  {
+    "question_text": "If the base resistor is shorted, the transistor will probably be",
+    "options": [
+      "Saturated",
+      "In cutoff",
+      "Destroyed",
+      "None of the above"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "A shorted base resistor means a very large, uncontrolled base current will flow. This can exceed the maximum ratings of the transistor, leading to a catastrophic failure and destroying the device.",
+    "has_latex": false
+  },
+  {
+    "question_text": "If the collector resistor decreases to zero in a base-biased circuit, the load line will become",
+    "options": [
+      "Horizontal",
+      "Vertical",
+      "Useless",
+      "Flat"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The load line is defined by the equation V_{CE} = V_{CC} - I_{C} \times R_{C}. If the collector resistor (R_{C}) is zero, the equation becomes V_{CE} = V_{CC}. This means that the collector-emitter voltage is fixed at the supply voltage regardless of the collector current, resulting in a vertical load line.",
+    "has_latex": true
+  },
+  {
+    "question_text": "The collector current is 10 mA. If the current gain is 100, the base current is",
+    "options": [
+      "1 \u03bcA",
+      "10 \u03bcA",
+      "100 \u03bcA",
+      "1 mA"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The formula for current gain is \beta = I_{C} / I_{B}. To find the base current, we rearrange the formula to I_{B} = I_{C} / \beta. I_{B} = 10 \text{ mA} / 100 = 0.1 \text{ mA} = 100 \mu\text{A}.",
+    "has_latex": true
+  },
+  {
+    "question_text": "The base current is 50 \u03bcA. If the current gain is 125, the collector current is closest in value to",
+    "options": [
+      "40 \u03bcA",
+      "500 \u03bcA",
+      "1 mA",
+      "6 mA"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "Using the formula I_{C} = \beta \times I_{B}: I_{C} = 125 \times 50 \mu\text{A} = 6250 \mu\text{A} = 6.25 \text{ mA}. The closest value is 6 mA.",
+    "has_latex": true
+  },
+  {
+    "question_text": "When the Q point moves along the load line, the voltage increases when the collector current",
+    "options": [
+      "Decreases",
+      "Stays the same",
+      "Increases",
+      "Does none of the above"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The load line equation is V_{CE} = V_{CC} - I_{C} \times R_{C}. The relationship is inverse; as collector current (I_{C}) decreases, the voltage drop across the collector resistor (I_{C} \times R_{C}) decreases, and thus the collector-emitter voltage (V_{CE}) increases.",
+    "has_latex": true
+  },
+  {
+    "question_text": "When there is no base current in a transistor switch, the output voltage from the transistor is",
+    "options": [
+      "Low",
+      "High",
+      "Unchanged",
+      "Unknown"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "No base current means the transistor is in cutoff. In cutoff, no collector current flows, so there is no voltage drop across the collector resistor. The output voltage at the collector is therefore high, equal to the supply voltage (V_{CC}).",
+    "has_latex": true
+  },
+  {
+    "question_text": "A circuit with a fixed emitter current is called",
+    "options": [
+      "Base bias",
+      "Emitter bias",
+      "Transistor bias",
+      "Two-supply bias"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "Emitter bias is a type of biasing circuit that uses a resistor in the emitter leg to provide a negative feedback mechanism. This makes the emitter current highly stable and independent of the transistor's current gain.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The first step in analyzing emitter-based circuits is to find the",
+    "options": [
+      "Base current",
+      "Emitter voltage",
+      "Emitter current",
+      "Collector current"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "For emitter-based circuits, the analysis typically begins by finding the base current (I_{B}) using the voltage divider rule and the base-emitter voltage drop. This is the first step in finding all other currents and voltages in the circuit.",
+    "has_latex": true
+  },
+  {
+    "question_text": "If the current gain is unknown in an emitter-biased circuit, you cannot calculate the",
+    "options": [
+      "Emitter voltage",
+      "Emitter current",
+      "Collector current",
+      "Base current"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "Emitter bias circuits are designed to be relatively independent of current gain (\beta). You can calculate the emitter voltage and emitter current using the voltage divider rule and Ohm's law, and the collector current will be very close to the emitter current (I_{C} \approx I_{E}). However, the base current is directly dependent on \beta (I_{B} = I_{E} / (\beta + 1)), so you cannot find it without knowing the current gain.",
+    "has_latex": true
+  },
+  {
+    "question_text": "If the emitter resistor is open, the collector voltage is",
+    "options": [
+      "Low",
+      "High",
+      "Unchanged",
+      "Unknown"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "An open emitter resistor breaks the circuit loop for the emitter and collector currents. No current can flow from the emitter to the collector. The transistor is effectively in the cutoff region, meaning there is no voltage drop across the collector resistor, and the collector voltage is high, equal to the supply voltage (V_{CC}).",
+    "has_latex": true
+  },
+  {
+    "question_text": "If the collector resistor is open, the collector voltage is",
+    "options": [
+      "Low",
+      "High",
+      "Unchanged",
+      "Unknown"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "If the collector resistor is open, the collector terminal is no longer connected to the supply voltage through the resistor. The voltage at the collector is undefined or \"floating\" as it's not referenced to a known potential.",
+    "has_latex": false
+  },
+  {
+    "question_text": "When the current gain increases from 50 to 300 in an emitter-biased circuit, the collector current",
+    "options": [
+      "Remains almost the same",
+      "Decreases by a factor of 6",
+      "Increases by a factor of 6",
+      "Is zero"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The key advantage of emitter-biased circuits is their stability. The emitter resistor provides negative feedback that stabilizes the collector current against changes in the current gain (\beta) and temperature. While there will be a very slight change, for practical purposes, it remains almost the same.",
+    "has_latex": true
+  },
+  {
+    "question_text": "If the emitter resistance decreases, the collector voltage",
+    "options": [
+      "Decreases",
+      "Stays the same",
+      "Increases",
+      "Breaks down the transistor"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "A decrease in emitter resistance (R_{E}) will cause the emitter current (I_{E}) to increase. Since the collector current (I_{C}) is approximately equal to the emitter current (I_{C} \approx I_{E}), the collector current will also increase. This leads to a larger voltage drop across the collector resistor, resulting in a lower collector voltage (V_C = V_{CC} - I_{C} \times R_{C}).",
+    "has_latex": true
+  },
+  {
+    "question_text": "If the emitter resistance decreases, the",
+    "options": [
+      "Q point moves up",
+      "Collector current decreases",
+      "Q point stays where it is",
+      "Current gain increases"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "As explained for question 26, a decrease in emitter resistance leads to an increase in collector current. On the load line, an increase in collector current corresponds to the Q point moving \"up\" the load line towards the saturation region.",
+    "has_latex": false
+  },
+  {
+    "question_text": "When operated in cut-off and saturation, the transistor acts like a",
+    "options": [
+      "variable resistor",
+      "variable capacitor",
+      "linear amplifier",
+      "switch"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The cut-off state, where no current flows, represents an open switch. The saturation state, where maximum current flows, represents a closed switch. Alternating between these two states allows the transistor to function as an electronic switch.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A bipolar NPN transistor has a DC current gain value of 180. Calculate the base current required to switch a resistive load of 50 \u03a9 with collector current given as 4 mA.",
+    "options": [
+      "0.0222 mA",
+      "0.57143 mA",
+      "0.53809 mA",
+      "3.8095 \u03bcA"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The DC current gain (\beta_{DC}) is the ratio of collector current (I_{C}) to base current (I_{B}). The formula is I_{B} = I_{C} / \beta_{DC}. Therefore, I_{B} = 4 \text{ mA} / 180 = 0.0222 \text{ mA}.",
+    "has_latex": true
+  },
+  {
+    "question_text": "To saturate a BJT,",
+    "options": [
+      "$V_{CC}$ must be at least 10 V",
+      "$I_B = I_{C(sat)}$",
+      "the emitter must be grounded",
+      "$I_B \ge I_{C(sat)} / \beta_{DC}$"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "To ensure a transistor is in saturation, the base current (I_{B}) must be equal to or greater than the minimum current required for saturation. This minimum current is calculated by dividing the saturation collector current (I_{C(sat)}) by the DC current gain (\beta_{DC}).",
+    "has_latex": true
+  },
+  {
+    "question_text": "A FET has three terminals, namely",
+    "options": [
+      "emitter, base and collector",
+      "gate, drain and source",
+      "cathode, anode and grid",
+      "none of the above"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "A Field-Effect Transistor (FET) is a three-terminal device. These terminals are named the gate, which controls the current flow; the source, where charge carriers enter; and the drain, where they exit.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Find the DC current gain and the emitter current for a transistor where the base current is 50 mA and the collector current is 3.65 mA.",
+    "options": [
+      "0.073 and 53.65 mA",
+      "1.073 and 5.65 mA",
+      "0.77 and 52.65 mA",
+      "7.073 and 35.65 mA"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The DC current gain (\beta_{DC}) is I_C / I_B, which is 3.65 mA / 50 mA = 0.073. The emitter current (I_E) is the sum of the base and collector currents (I_B + I_C), which is 50 mA + 3.65 mA = 53.65 mA.",
+    "has_latex": true
+  },
+  {
+    "question_text": "A certain transistor has $h_{FE}$ of 200. When the base current is 50 \u03bcA, find $I_C$ and $\alpha_{DC}$.",
+    "options": [
+      "10000 \u03bcA and 0.995",
+      "1000 \u03bcA and 1",
+      "100 \u03bcA and 0.95",
+      "1000 \u03bcA and 0.999"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "$h_{FE}$ is the same as $\beta_{DC}$. Collector current $I_C = \beta_{DC} \times I_B = 200 \times 50 \mu\text{A} = 10,000 \mu\text{A}$ (or 10 mA). Emitter current $I_E = I_B + I_C = 0.05 \text{ mA} + 10 \text{ mA} = 10.05 \text{ mA}$. The DC alpha (\alpha_{DC}) = $I_C / I_E = 10 \text{ mA} / 10.05 \text{ mA} \approx 0.995$.",
+    "has_latex": true
+  },
+  {
+    "question_text": "Which of the following parts in a BJT device are heavily, moderately and lightly doped, respectively?",
+    "options": [
+      "Emitter, Base and Collector",
+      "Base, Emitter and Base",
+      "Collector, Emitter and Base",
+      "Emitter, Collector and Base"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "In a Bipolar Junction Transistor (BJT), the emitter is heavily doped to supply a large number of charge carriers. The collector is moderately doped, and the base is very thin and lightly doped to minimize recombination and allow most carriers to pass to the collector.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The minimum device current which must be attained by the device before the gate drive is removed is",
+    "options": [
+      "surge current",
+      "triggering current",
+      "latching current",
+      "holding current"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "Latching current is the minimum anode current required to keep a thyristor, like an SCR, in the ON state immediately after it has been turned on and the gate signal has been removed.",
+    "has_latex": false
+  },
+  {
+    "question_text": "An SCR has ______ terminals.",
+    "options": [
+      "two",
+      "four",
+      "three",
+      "none of the above"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "A Silicon-Controlled Rectifier (SCR) is a three-terminal device. The terminals are the anode, the cathode, and the gate, which is used to trigger the device into conduction.",
+    "has_latex": false
+  },
+  {
+    "question_text": "When a BJT is in the cut-off state, the base current is",
+    "options": [
+      "0.5 mA",
+      "0",
+      "0.2 mA",
+      "0 \u03bcA"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "In the cut-off state, the base-emitter junction is not forward-biased, so ideally, no base current flows. For practical purposes, the base current is considered to be zero.",
+    "has_latex": true
+  },
+  {
+    "question_text": "The most commonly used semiconductor material is:",
+    "options": [
+      "sulphur",
+      "germanium",
+      "silicon",
+      "carbon"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "Silicon is the most widely used semiconductor material due to its abundance, stability at higher temperatures, and well-established manufacturing processes compared to other materials like germanium.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The valence electrons have:",
+    "options": [
+      "very small energy",
+      "maximum energy",
+      "least energy",
+      "none of the above"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "Valence electrons are in the outermost shell of an atom. Electrons in shells farther from the nucleus possess higher energy levels than those in inner shells.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A large number of free electrons exist in",
+    "options": [
+      "semiconductors",
+      "metals",
+      "insulators",
+      "non-metals"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "Metals are excellent conductors because their atomic structure includes a \"sea\" of free electrons that are not tightly bound to any single atom and can move easily to conduct current.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The electrons in the third orbit of an atom have ______ energy than the electrons in the second orbit.",
+    "options": [
+      "more",
+      "less",
+      "the same",
+      "none of the above"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "Electron energy levels increase with the distance of the orbit (shell) from the atom's nucleus. Therefore, an electron in the third orbit has more energy than one in the second orbit.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The electrons in the conduction band are known as",
+    "options": [
+      "bound electrons",
+      "valence electrons",
+      "free electrons",
+      "none of the above"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "When electrons gain enough energy to jump from the valence band to the conduction band, they are no longer bound to their atoms and are free to move throughout the material, hence they are called free electrons.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A hole in a semiconductor is defined as",
+    "options": [
+      "a free electron",
+      "part of an electron pair bond",
+      "a free proton",
+      "a free neutron"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "A hole is the vacancy left in the covalent bond structure of a semiconductor when a valence electron gains enough energy to break free and become a conduction electron.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Which force acts between electrons and protons?",
+    "options": [
+      "Electro-proton forces",
+      "Electrostatic forces",
+      "Gas",
+      "Strong nuclear force"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The force of attraction between the negatively charged electrons and the positively charged protons within an atom is the electrostatic force, also described by Coulomb's law.",
+    "has_latex": false
+  },
+  {
+    "question_text": "An ideal crystal diode is one which behaves as a perfect ______ when forward biased.",
+    "options": [
+      "conductor",
+      "insulator",
+      "resistance material",
+      "none of the above"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "An ideal diode model simplifies its function to that of a perfect switch. When forward-biased, it acts as a closed switch, offering zero resistance and behaving like a perfect conductor.",
+    "has_latex": false
+  },
+  {
+    "question_text": "An LED",
+    "options": [
+      "emits light when reverse-biased",
+      "emits light when forward-biased",
+      "sense light when reverse-biased",
+      "acts as a variable resistance"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "A Light-Emitting Diode (LED) is a special type of diode that releases energy in the form of photons (light) when it is forward-biased and current flows through it.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A diode that has a negative resistance characteristic is the",
+    "options": [
+      "Schottky diode",
+      "laser diode",
+      "tunnel diode",
+      "hot-carrier diode"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The tunnel diode is a unique device that exhibits negative resistance over a specific range of its forward-bias voltage, meaning its current decreases as the voltage increases in that region.",
+    "has_latex": false
+  },
+  {
+    "question_text": "If the base resistor of an NPN transistor is open, what is the collector current?",
+    "options": [
+      "0",
+      "2 mA",
+      "1 mA",
+      "10 mA"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "An open base resistor means there is no path for the base current to flow (I_B = 0). Since the collector current depends on the base current (I_C = \beta_{DC} \times I_B), the collector current will also be zero (ideally), and the transistor is in cut-off.",
+    "has_latex": true
+  },
+  {
+    "question_text": "Most of the majority carriers from the emitter",
+    "options": [
+      "recombine in the base",
+      "recombine in the emitter",
+      "pass through the base region to the collector",
+      "none of the above"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "In a properly biased BJT, the base is very thin and lightly doped. This design ensures that the vast majority of charge carriers injected from the emitter pass through the base and are swept into the collector region, rather than recombining in the base.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A BJT has how many layers?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "A Bipolar Junction Transistor (BJT) is constructed of three doped semiconductor regions, either in an N-P-N or a P-N-P configuration.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A BJT has how many p-n junctions?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "A BJT has two p-n junctions: the base-emitter junction and the base-collector junction.",
+    "has_latex": false
+  },
+  {
+    "question_text": "An alternative name for the Zener diode is the",
+    "options": [
+      "voltage reference transistor",
+      "Zener transistor",
+      "voltage reference diode",
+      "diode transistor"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "Zener diodes are designed to operate in the reverse breakdown region where they maintain a nearly constant voltage across a wide range of currents. This stable voltage characteristic makes them suitable for use as voltage references in circuits.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Ammeter is a device for measuring electrical power.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "An ammeter measures electric current (in Amperes). Electrical power (in Watts) is measured by a wattmeter.",
+    "has_latex": false
+  },
+  {
+    "question_text": "AC signal is of much higher frequency than that of DC signal.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "DC (Direct Current) has a frequency of 0 Hz. AC (Alternating Current) can have a wide range of frequencies (e.g., 50 Hz, 60 Hz, or much higher). While AC has a higher frequency than DC, the statement that it is \"much higher\" is a generalization and not always true in every context, but fundamentally, AC has a non-zero frequency while DC does not.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The most commonly used transistor arrangement is ______ arrangement.",
+    "options": [
+      "common emitter",
+      "common collector",
+      "common base",
+      "none of the above"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The common-emitter configuration is the most widely used because it provides both significant current gain and voltage gain, making it versatile for amplification purposes.",
+    "has_latex": false
+  },
+  {
+    "question_text": "In a transistor, $I_C = 100$ mA and $I_E = 100.5$ mA. The value of $\alpha_{DC}$ is-",
+    "options": [
+      "100",
+      "0.995",
+      "50",
+      "200"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The DC alpha (\alpha_{DC}) is the ratio of collector current to emitter current ($I_C / I_E$). Therefore, $\alpha_{DC} = 100 \text{ mA} / 100.5 \text{ mA} \approx 0.995$.",
+    "has_latex": true
+  },
+  {
+    "question_text": "How many doped regions exist in a diode?",
+    "options": [
+      "1",
+      "4",
+      "2",
+      "3"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "A standard diode is formed by joining two doped semiconductor regions: a p-type region and an n-type region.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Using the BJT for amplification involves 3 states.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "For linear amplification, a BJT is operated in the active region. The other two states, cut-off and saturation, are primarily used for switching applications, not amplification.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The TRIAC and DIAC are all bidirectional devices.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "Both TRIACs and DIACs are types of thyristors that are designed to conduct current in both directions, making them suitable for controlling AC power.",
+    "has_latex": false
+  },
+  {
+    "question_text": "An application of thyristor is in liquid level regulators.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "Thyristors can be used in control circuits, including those for regulating liquid levels, by switching pumps or valves on and off based on sensor inputs.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A silicon controlled switch has the advantage of faster turn-off with pulses on either gate terminal over the silicon controlled rectifier.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "An SCS has both an anode gate and a cathode gate, allowing for more versatile and faster turn-off control compared to an SCR, which can typically only be turned off by reducing its anode current.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The silicon controlled switch is more limited in terms of maximum current and voltage ratings.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "While offering more control, the SCS is generally available in lower power ratings, meaning it cannot handle the same high levels of current and voltage as a standard SCR.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Calculate the value for $I_C$ in the figure.",
+    "options": [
+      "5.38095 mA",
+      "5.71429 mA",
+      "57.14 A",
+      "53.809 A"
+    ],
+    "correct_answer_index": -1,
+    "explanation": "To calculate the collector current ($I_C$), the values of the base resistor ($R_B$) and the base bias voltage ($V_{BB}$) from the circuit diagram are required.",
+    "has_latex": true
+  },
+  {
+    "question_text": "Calculate the value for $I_E$ in the figure.",
+    "options": [
+      "5.7714 mA",
+      "5.4348 mA",
+      "57.7144 A",
+      "54.34709 A"
+    ],
+    "correct_answer_index": -1,
+    "explanation": "The emitter current ($I_E$) is the sum of the base current and collector current. Since the collector current cannot be calculated without the diagram, the emitter current also cannot be determined.",
+    "has_latex": true
+  },
+  {
+    "question_text": "Calculate the value for $\alpha_{DC}$ in the figure.",
+    "options": [
+      "0.97",
+      "0.95",
+      "0.99",
+      "0.98"
+    ],
+    "correct_answer_index": -1,
+    "explanation": "DC alpha (\alpha_{DC}) is the ratio of collector current to emitter current. Both of these values depend on the circuit components shown in the diagram.",
+    "has_latex": true
+  },
+  {
+    "question_text": "Calculate the value for $V_{CE}$ in the figure.",
+    "options": [
+      "0.57142 V",
+      "-107606 V",
+      "1.2381 V",
+      "-114274 V"
+    ],
+    "correct_answer_index": -1,
+    "explanation": "The collector-emitter voltage ($V_{CE}$) depends on the collector supply voltage ($V_{CC}$), the collector resistor ($R_C$), and the collector current ($I_C$), all of which would be provided in the diagram.",
+    "has_latex": true
+  },
+  {
+    "question_text": "Calculate the value for $V_{CB}$ in the figure.",
+    "options": [
+      "0.5381 V",
+      "-0.12858 V",
+      "1.2381 V",
+      "1.9381 V"
+    ],
+    "correct_answer_index": -1,
+    "explanation": "The collector-base voltage ($V_{CB}$) is the difference between the collector-emitter voltage ($V_{CE}$) and the base-emitter voltage ($V_{BE}$). Since $V_{CE}$ cannot be determined, $V_{CB}$ also cannot be calculated.",
+    "has_latex": true
+  },
+  {
+    "question_text": "The electrons in the conduction band are called valence electrons.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "Electrons in the conduction band are called free electrons or conduction electrons. Valence electrons are those located in the outermost shell (valence band) of an atom.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The reason why conductivity increases in conductors is the predominant increase in random variations of the atoms aiding with the flow of electrons at rising temperatures.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "In conductors (metals), increasing temperature increases the random vibrations of atoms, which impedes the flow of electrons and thus *increases* resistance (decreases conductivity).",
+    "has_latex": false
+  },
+  {
+    "question_text": "Internal dynamic resistance of a complete diode is the ratio of the change in forward voltage over change in forward current.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The dynamic or AC resistance of a diode ($r'_d$) is defined by the slope of its V-I characteristic curve, which is the change in voltage (\Delta V_F) divided by the corresponding change in current (\Delta I_F).",
+    "has_latex": true
+  },
+  {
+    "question_text": "In npn transistor action, conventional current flows in the direction of electron current.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "Conventional current is defined as the direction of positive charge flow, which is opposite to the direction of electron flow.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A Zener diode is destroyed if it carries more than rated current stated in the data sheet.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "Like any component, a Zener diode has a maximum power dissipation rating. If the current flowing through it in the breakdown region is excessive, it will overheat and be permanently damaged.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The collector of the transistor is moderately doped.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "In a BJT, the collector region is doped less heavily than the emitter but more heavily than the base. This is referred to as moderate doping.",
+    "has_latex": false
+  },
+  {
+    "question_text": "At the base-emitter junction of a transistor, one finds high resistance.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "For normal operation as an amplifier, the base-emitter junction of a BJT is forward-biased, which results in a very low resistance.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A variation in environmental temperature while using a measuring instrument can result in measurement errors.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "Temperature changes can affect the internal resistance and calibration of measuring instruments, as well as the behavior of the circuit being measured, leading to inaccurate readings. This is a common source of experimental error.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The voltage out of a bridge rectifier is a",
+    "options": [
+      "Half-wave signal",
+      "Full-wave signal",
+      "Bridge-rectified signal",
+      "Sine wave"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "A bridge rectifier inverts the negative half-cycles of an AC input to produce an output that consists of a series of positive-only pulses, which is known as a full-wave rectified signal.",
+    "has_latex": false
+  },
+  {
+    "question_text": "______ is the escaped valence electron.",
+    "options": [
+      "Free proton",
+      "Free electron",
+      "Free neutron",
+      "An isotope"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "When a valence electron gains enough energy to escape from its atom's outer shell, it becomes a free electron, capable of contributing to electrical current.",
+    "has_latex": false
+  },
+  {
+    "question_text": "When an atom acquires energy and leaves the valence shell, it becomes a free electron in the",
+    "options": [
+      "Insulation band",
+      "Ionised band",
+      "Valence band",
+      "Conduction band"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The conduction band is the energy level that free electrons occupy. Electrons must gain enough energy to jump from the valence band to the conduction band to become free.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Free electrons are also called... electrons.",
+    "options": [
+      "Insulation",
+      "Conduction",
+      "Semi conductive",
+      "Conductive"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "Free electrons are the charge carriers that exist in the conduction band, so they are also known as conduction electrons.",
+    "has_latex": false
+  },
+  {
+    "question_text": "______ is the difference in energy between the valence band and the conduction band.",
+    "options": [
+      "Valence gap",
+      "Band gap",
+      "Energy gap",
+      "B and C"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "This energy difference is known as both the energy gap and the band gap. It represents the energy required for a valence electron to become a free electron.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A transistor has how many pn junctions?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "A Bipolar Junction Transistor has two p-n junctions: the base-emitter junction and the base-collector junction.",
+    "has_latex": false
+  },
+  {
+    "question_text": "In an npn transistor, the majority carriers in the emitter are?",
+    "options": [
+      "Free electrons",
+      "Holes",
+      "Neither",
+      "Both"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The emitter of an npn transistor is an n-type material. In n-type material, the majority charge carriers are free electrons.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Intrinsic semiconductors have covalent bonds forming a tetrahedral structure.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "In a pure (intrinsic) silicon or germanium crystal, each atom forms four covalent bonds with its neighbors, creating a stable three-dimensional crystal lattice structure.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The barrier potential across each silicon depletion layer is?",
+    "options": [
+      "0 V",
+      "0.3 V",
+      "0.7 V",
+      "1 V"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The barrier potential is the inherent voltage across the depletion region of a p-n junction. For silicon diodes, this value is approximately 0.7 V at room temperature.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The emitter diode is usually?",
+    "options": [
+      "Forward biased",
+      "Reverse biased",
+      "Nonconducting",
+      "Operating in the breakdown region"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "For a BJT to operate in its active region for amplification, the base-emitter junction (often called the emitter diode) must be forward-biased.",
+    "has_latex": false
+  },
+  {
+    "question_text": "For normal operation of the transistor, the collector diode has to be.....",
+    "options": [
+      "Forward biased",
+      "Reverse biased",
+      "Nonconducting",
+      "Operating in the breakdown region"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "To operate a BJT in the active region for amplification, the base-collector junction (often called the collector diode) must be reverse-biased.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A trivalent impurity increases conductivity of a semiconductor material when added to it.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "Adding a trivalent impurity (like boron) to a semiconductor creates holes, which act as charge carriers. This process, called doping, increases the material's conductivity.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The base of an npn transistor is thin and...",
+    "options": [
+      "Heavily doped",
+      "Lightly doped",
+      "Metallic",
+      "Doped by a pentavalent material"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The base region is made physically thin and is lightly doped to ensure that most electrons from the emitter pass through to the collector without recombining.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Most of the electrons in the base of an npn transistor flow...",
+    "options": [
+      "Out of the base lead",
+      "Into the collector",
+      "Into the emitter",
+      "Into the base supply"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "Due to the thin and lightly doped nature of the base, the vast majority of electrons injected from the emitter are swept across the reverse-biased base-collector junction into the collector.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Biasing is when voltage is used to cause a diode to conduct voltage unidirectionally.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "Biasing a diode involves applying a DC voltage to control its operation. Forward biasing allows current to flow in one direction, while reverse biasing blocks it, achieving unidirectional current flow.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The beta of a transistor is the ratio of the",
+    "options": [
+      "Collector current to emitter current",
+      "Collector current to base current",
+      "Base current to collector current",
+      "Emitter current to collector current"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "Beta (\beta_{DC}), or the DC current gain, is a fundamental parameter of a BJT, defined as the ratio of the collector current (I_C) to the base current (I_B).",
+    "has_latex": true
+  },
+  {
+    "question_text": "______ is a material having a three-dimensional periodic array of atoms.",
+    "options": [
+      "Crystalline solid",
+      "Amorphous Solid",
+      "Polycrystalline solid",
+      "Non-amorphous solid"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "A crystalline solid is characterized by a highly ordered, repeating, three-dimensional arrangement of its atoms, ions, or molecules.",
+    "has_latex": false
+  },
+  {
+    "question_text": "All the following are electronic devices made of semi-conductive materials EXCEPT...",
+    "options": [
+      "Transistors",
+      "Integrated circuits",
+      "Light-emitting diodes (LEDs)",
+      "None of the Above"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "Transistors, integrated circuits, and LEDs are all fundamental electronic components that are manufactured using semiconductor materials.",
+    "has_latex": false
+  },
+  {
+    "question_text": "When reverse-biased, a diode ideally appears as a short circuit.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "An ideally reverse-biased diode allows no current to flow, so it appears as an open circuit, not a short circuit.",
+    "has_latex": false
+  },
+  {
+    "question_text": "______ is a three terminal device for which the current at one terminal controls the electrical behaviour of the other terminals.",
+    "options": [
+      "Field Effect Transistor",
+      "Amorphous Solid",
+      "Bipolar Junction Transistor",
+      "Diode"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "This defines a Bipolar Junction Transistor (BJT), where a small base current controls a much larger collector current. A FET is voltage-controlled.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Which of the following element does not have a neutron?",
+    "options": [
+      "Sodium",
+      "Nitrogen",
+      "Silicon",
+      "Hydrogen"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The most common isotope of hydrogen, protium, consists of only one proton and one electron, with no neutrons in its nucleus.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The reverse current consists of minority-carrier current and avalanche current.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "In a reverse-biased diode, a small leakage current exists due to minority carriers. If the reverse voltage is high enough to reach the breakdown point, a much larger avalanche current also flows.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The energy enough to move a valence electron from the outer shell and atom's influence is",
+    "options": [
+      "Nuclear energy",
+      "Chemical energy",
+      "Potential energy",
+      "Ionization energy"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "Ionization energy is the minimum amount of energy required to remove a valence electron from an isolated, neutral atom.",
+    "has_latex": false
+  },
+  {
+    "question_text": "______ contributes to the electrical properties of a material and its ability to conduct electrical current.",
+    "options": [
+      "Molecules",
+      "Electrons",
+      "Atoms",
+      "Elements"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The atomic structure of a material, specifically the arrangement and energy of its valence electrons, determines its electrical properties and whether it acts as a conductor, insulator, or semiconductor.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Free electrons are also called... electrons.",
+    "options": [
+      "Insulation electrons",
+      "Conduction electrons",
+      "Semi conductive electrons",
+      "Valence Electrons"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "Electrons that have gained enough energy to move into the conduction band are free from their atoms and are called conduction electrons.",
+    "has_latex": false
+  },
+  {
+    "question_text": "How is a pn junction formed?",
+    "options": [
+      "When a conductor and a semiconductor material is joined.",
+      "When two different types of semi-conductive materials are joined.",
+      "When two different types of conductive materials are joined.",
+      "When two different types of insulator materials are joined."
+    ],
+    "correct_answer_index": 1,
+    "explanation": "A p-n junction is the boundary created by joining a p-type semiconductor (with an excess of holes) and an n-type semiconductor (with an excess of free electrons).",
+    "has_latex": false
+  },
+  {
+    "question_text": "Each discrete distance (orbit) from the nucleus corresponds to a certain ______",
+    "options": [
+      "Energy level",
+      "Speed level",
+      "Distance level",
+      "Mass number"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "In atomic models, electrons can only exist in specific orbits or shells, each of which corresponds to a distinct, quantized energy level.",
+    "has_latex": false
+  },
+  {
+    "question_text": "______ Is the process of losing a valence electron?",
+    "options": [
+      "Excitement of an atom",
+      "Doping",
+      "Radiation",
+      "Ionisation"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "Ionization is the process by which an atom gains or loses an electron, resulting in a net electrical charge. Losing an electron creates a positive ion.",
+    "has_latex": false
+  },
+  {
+    "question_text": "Which of these electrons has a higher energy and are less tightly bound to the atom?",
+    "options": [
+      "Electrons in orbit father from the nucleus",
+      "Electrons in orbit close to the nucleus",
+      "Electrons in the middle of the nucleus",
+      "Both electrons in orbit that are father and close to the nucleus"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "Electrons in outer shells are at higher energy levels and experience a weaker electrostatic pull from the nucleus, making them less tightly bound than inner-shell electrons.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The letter n in the formula $N_e = 2n^2$, represents...",
+    "options": [
+      "The number of atoms",
+      "The number of the shell",
+      "The number of protons",
+      "The number of neutrons"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "This formula calculates the maximum number of electrons ($N_e$) that can occupy a specific electron shell, where 'n' is the principal quantum number or shell number.",
+    "has_latex": true
+  },
+  {
+    "question_text": "What are the key building blocks for most types of electronic devices?",
+    "options": [
+      "Conductors and insulators",
+      "Conductors and semiconductors",
+      "n-type and p- type semiconductors",
+      "Insulators and semiconductors"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The ability to create n-type and p-type semiconductor materials and to form p-n junctions between them is the fundamental basis for nearly all modern electronic devices, including diodes and transistors.",
+    "has_latex": false
+  },
+  {
+    "question_text": "When the drain saturation current is less than $I_{DSS}$, a JFET acts like a",
+    "options": [
+      "Bipolar junction transistor",
+      "Current source",
+      "Resistor",
+      "Battery"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "In the ohmic region, which occurs at low drain-to-source voltages before pinch-off, the JFET's drain current is proportional to the drain-to-source voltage, and it behaves like a voltage-controlled resistor.",
+    "has_latex": true
+  },
+  {
+    "question_text": "Most of the electrons in the base of an npn transistor flow",
+    "options": [
+      "Out of the base lead",
+      "Into the collector",
+      "Into the emitter",
+      "Into the base supply"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The base is designed to be very thin and lightly doped, so the majority of electrons injected from the emitter pass through it to the collector rather than flowing out the base lead.",
+    "has_latex": false
+  },
+  {
+    "question_text": "If the base resistor is open, what is the collector current?",
+    "options": [
+      "0",
+      "1 mA",
+      "2 mA",
+      "10 mA"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "An open base resistor prevents base current from flowing. Without base current, the transistor is in its cut-off state, and ideally, no collector current flows.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A transistor has how many p-n junctions?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "A Bipolar Junction Transistor has two p-n junctions: the base-emitter junction and the base-collector junction.",
+    "has_latex": false
+  },
+  {
+    "question_text": "What is the peak load voltage in a full-wave rectifier if the secondary voltage is 20 $V_{rms}$",
+    "options": [
+      "14.1 V",
+      "0.7 V",
+      "0 V",
+      "28.3 V"
+    ],
+    "correct_answer_index": -1,
+    "explanation": "First, convert the RMS voltage to peak voltage: $V_{peak_{secondary}} = 20 V_{rms} \times \sqrt{2} \approx 28.3 V$. For a bridge rectifier, the peak load voltage is $V_{peak_{secondary}} - (2 \times 0.7 V) = 28.3 V - 1.4 V = 26.9 V$. For a center-tapped rectifier, the peak load voltage is ($V_{peak_{secondary}} / 2$) - 0.7 V = 14.15 V - 0.7 V = 13.45 V. None of the options match these correct calculations.",
+    "has_latex": true
+  },
+  {
+    "question_text": "With the same secondary voltage and filter, which has the most ripple?",
+    "options": [
+      "Impossible to say",
+      "Full-wave rectifier",
+      "Bridge rectifier",
+      "Half-wave rectifier"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "A half-wave rectifier only utilizes one half of the AC cycle, creating larger gaps between voltage peaks. This results in a much higher ripple voltage compared to full-wave or bridge rectifiers, which use both half-cycles.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The three terminals of a bipolar junction transistor are called",
+    "options": [
+      "p, n, p",
+      "n, p, n",
+      "base, emitter, collector",
+      "input, output, ground"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "These are the standard names for the three terminals of a BJT, corresponding to the three doped semiconductor layers.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A FET is a",
+    "options": [
+      "Unipolar device",
+      "Current controlled device",
+      "Voltage controlled device",
+      "Both a and c"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "A Field-Effect Transistor (FET) is a unipolar device because it operates using only one type of charge carrier (either electrons or holes). It is also a voltage-controlled device because the voltage at the gate controls the current flow from source to drain.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A JFET always operates with the",
+    "options": [
+      "gate-to-source pn junction reverse-biased",
+      "gate-to-source pn junction forward-biased",
+      "drain connected to ground",
+      "gate connected to the source"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "Proper operation of a JFET requires the gate-source junction to be reverse-biased. This creates a depletion region that controls the width of the channel and thus the drain current.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A certain JFET datasheet gives $V_{GS(off)} = -11$ V. The pinch-off voltage, $V_P$",
+    "options": [
+      "is -11 V",
+      "is unknown",
+      "is +11 V",
+      "depends on the $V_{GS(off)}$"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The pinch-off voltage ($V_P$) and the gate-source cutoff voltage ($V_{GS(off)}$) are always equal in magnitude but opposite in sign.",
+    "has_latex": true
+  },
+  {
+    "question_text": "How many valence electrons does a germanium atom have?",
+    "options": [
+      "0",
+      "1",
+      "2",
+      "4"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "Germanium, like silicon, is in Group IV of the periodic table, which means it is a semiconductor with four valence electrons in its outermost shell.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The first transistor was invented in 1938.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The first working point-contact transistor was invented in 1947 at Bell Labs.",
+    "has_latex": false
+  },
+  {
+    "question_text": "An alternative name for the Zener diode is the voltage reference diode.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "Because a Zener diode maintains a very stable voltage across it when operating in its reverse breakdown region, it is frequently used as a reliable voltage reference in circuits.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The output frequency of a half-wave rectifier is twice the input frequency.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The output frequency of a half-wave rectifier is the same as the input frequency. It is the full-wave rectifier that produces an output frequency that is twice the input frequency.",
+    "has_latex": false
+  },
+  {
+    "question_text": "PIV stands for positive inverse voltage.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "PIV stands for Peak Inverse Voltage. It is the maximum reverse-bias voltage that a diode can withstand without breaking down.",
+    "has_latex": false
+  },
+  {
+    "question_text": "A forward biased Ge diode has an exponential curve representing the current flow.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The relationship between forward voltage and forward current in any semiconductor diode, including germanium (Ge), is non-linear and can be described by an exponential equation (the Shockley diode equation).",
+    "has_latex": false
+  },
+  {
+    "question_text": "Which of these is the best description of a zener diode?",
+    "options": [
+      "It is a rectifier diode.",
+      "It is a constant-voltage device.",
+      "It is a constant-current device.",
+      "It works in the forward region."
+    ],
+    "correct_answer_index": 1,
+    "explanation": "When operated in its reverse breakdown region, a Zener diode maintains a nearly constant voltage across its terminals, making it ideal for voltage regulation.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The capacitance of a varactor diode increases when the reverse voltage across it",
+    "options": [
+      "decreases",
+      "increases",
+      "breaks down",
+      "stores charges"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The capacitance of a varactor is inversely proportional to the width of its depletion layer. Decreasing the reverse voltage narrows the depletion layer, which in turn increases the capacitance.",
+    "has_latex": false
+  },
+  {
+    "question_text": "The device associated with voltage-controlled capacitance is a?",
+    "options": [
+      "Light-emitting diode",
+      "Photodiode",
+      "Varactor diode",
+      "Zener diode"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "A varactor diode is specifically designed to function as a variable capacitor, where its capacitance is controlled by the amount of reverse-bias voltage applied to it.",
+    "has_latex": false
+  },
+  {
+    "question_text": "If the depletion layer width decreases, the capacitance",
+    "options": [
+      "increases",
+      "decreases",
+      "reverses",
+      "remains constant"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The depletion layer acts as the dielectric of a capacitor. As the distance between the capacitor plates (the width of the depletion layer) decreases, the capacitance increases.",
+    "has_latex": false
+  },
+  {
+    "question_text": "If the ambient temperature of a high-intensity LED increases, its luminous flux output",
+    "options": [
+      "increases",
+      "decreases",
+      "reverses",
+      "remains constant"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The efficiency of an LED in converting electricity to light decreases as its temperature rises. This results in a lower light output (luminous flux) at higher temperatures.",
+    "has_latex": false
+  }
+]

@@ -1,0 +1,41 @@
+[
+    {
+        "question_text": "What is the value of the integral $\\int_0^1 x^2 dx$?",
+        "options": [
+            "$\\frac{1}{3}$",
+            "$\\frac{1}{2}$",
+            "1",
+            "0"
+        ],
+        "correct_answer_index": 0,
+        "explanation": "The integral of $x^2$ is $\\frac{x^3}{3}$. Evaluating from 0 to 1 gives $\\frac{1^3}{3} - \\frac{0^3}{3} = \\frac{1}{3}$.",
+        "has_latex": true,
+        "topic": "Calculus"
+    },
+    {
+        "question_text": "Which of these is a logic gate? Note: this_is_a_test.",
+        "options": [
+            "AND",
+            "IF",
+            "WHILE",
+            "FOR"
+        ],
+        "correct_answer_index": 0,
+        "explanation": "AND, OR, and NOT are fundamental logic gates. The underscore in 'this_is_a_test' should be escaped.",
+        "has_latex": true,
+        "topic": "Digital Logic"
+    },
+    {
+        "question_text": "What is the output of the following Python code?\n```python\nx = 5\ny = 10\nprint(f'The sum is {x + y}')\n```",
+        "options": [
+            "The sum is 15",
+            "15",
+            "Error",
+            "None of the above"
+        ],
+        "correct_answer_index": 0,
+        "explanation": "The code uses an f-string to print the sum of `x` and `y`, which is 15.",
+        "has_latex": true,
+        "topic": "Python"
+    }
+]

@@ -1,0 +1,40 @@
+# Telegram Bot Framework
+python-telegram-bot
+
+# Database & Migrations
+SQLAlchemy
+psycopg2-binary
+alembic
+
+# AWS Integration
+boto3
+
+# Image Processing (for pre-processor and fallbacks)
+Pillow
+pdf2image # Added
+
+# LaTeX Rendering (for pre-processor)
+matplotlib
+
+# Environment & Configuration
+python-dotenv
+
+# Scheduling (for orchestrator)
+apscheduler
+
+# HTTP Requests (general utility)
+requests
+
+# FastAPI & Authentication
+fastapi
+uvicorn
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart # Added
+itsdangerous # Added
+
+# Testing
+pytest
+httpx
+
+bcrypt

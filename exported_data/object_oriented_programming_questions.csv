@@ -1,0 +1,340 @@
+id,course_id,question_text,options,correct_answer,explanation,has_latex,difficulty_score,image_url,explanation_image_url
+1231,14,"What is the output of the following code involving a class variable modification?\n```python
+class Test:
+    x = 10
+
+t1 = Test()
+t2 = Test()
+t1.x = 20
+
+print(Test.x, t1.x, t2.x)
+```","{""A"": ""10 20 10"", ""B"": ""20 20 20"", ""C"": ""10 20 20"", ""D"": ""10 10 10""}",10 20 10,"When `t1.x = 20` is executed, it creates a new *instance* attribute `x` for `t1` that shadows the class attribute. `Test.x` remains unchanged, and `t2.x` still accesses the original class attribute. Therefore, the output is the class attribute (10), t1's instance attribute (20), and t2's access to the class attribute (10).",True,3.24,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/b7664751c8c7_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/b7664751c8c7_e.png
+1232,14,"Which special method is implicitly called when using the `in` keyword to check for membership, e.g., `if 'a' in my_object:`?","{""A"": ""`__in__`"", ""B"": ""`__hasitem__`"", ""C"": ""`__contains__`"", ""D"": ""`__member__`""}",`__contains__`,"The `in` operator is overloaded by the `__contains__(self, item)` special method. It should return `True` if `item` is in `self`, and `False` otherwise.",False,1.8,,
+1233,14,What does the `@property` decorator allow you to do?,"{""A"": ""Create a read-only attribute."", ""B"": ""Define a method that can be accessed like an attribute (without parentheses)."", ""C"": ""Make an attribute private."", ""D"": ""Define a method that can only be called from within the class.""}",Define a method that can be accessed like an attribute (without parentheses).,"The `@property` decorator is used to create 'getter' methods. It allows a method to be accessed as if it were a regular attribute, hiding the method call syntax and allowing for computations or logic to be executed on access.",False,2.4,,
+1234,14,"Consider the following code. What is the correct way to change the temperature to 32 degrees Celsius?\n```python
+class Temperature:
+    def __init__(self, celsius):
+        self._celsius = celsius
+
+    @property
+    def fahrenheit(self):
+        return self._celsius * 9/5 + 32
+
+temp = Temperature(30)
+```","{""A"": ""`temp.fahrenheit = 89.6`"", ""B"": ""`temp.celsius = 32`"", ""C"": ""`temp._celsius = 32`"", ""D"": ""It cannot be changed because `fahrenheit` is a read-only property.""}",`temp._celsius = 32`,"The code only defines a 'getter' for the `fahrenheit` property, making it read-only. To change the temperature, you must modify the underlying `_celsius` attribute directly. A more robust solution would involve defining a `@fahrenheit.setter`.",True,3.0,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/5df619db2984_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/5df619db2984_e.png
+1235,14,"If `B` inherits from `A`, and `C` inherits from `B`, and all three classes define a method named `run()`, what will `super().run()` do when called from within `C`'s `run()` method?","{""A"": ""It will call `A.run()`."", ""B"": ""It will call `B.run()`."", ""C"": ""It will cause a `RecursionError`."", ""D"": ""It will cause a `SyntaxError`.""}",It will call `B.run()`.,"`super()` in class `C` will look up the Method Resolution Order (MRO) for `C` and call the `run` method from the next class in the chain, which is its direct parent, `B`.",False,2.16,,
+1236,14,What is the 'diamond problem' in multiple inheritance?,"{""A"": ""When a class inherits from four parent classes."", ""B"": ""When two classes inherit from the same parent, and another class inherits from both of them, creating ambiguity in method resolution."", ""C"": ""A performance issue caused by deep inheritance chains."", ""D"": ""A problem related to inheriting private attributes.""}","When two classes inherit from the same parent, and another class inherits from both of them, creating ambiguity in method resolution.","The diamond problem occurs when a class (D) inherits from two classes (B and C) that both inherit from a single superclass (A). If a method in A is overridden by both B and C, it's ambiguous which version D should inherit. Python's MRO solves this deterministically.",False,3.6,,
+1237,14,True or False: A class that inherits from another class is called a 'base class'.,"{""A"": ""True"", ""B"": ""False""}",False,False. The class that is being inherited from is the 'base class' or 'superclass'. The class that does the inheriting is the 'derived class' or 'subclass'.,False,1.0,,
+1238,14,"What will the following code print?\n```python
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+    def __eq__(self, other):
+        return self.name == other.name
+
+p1 = Person(""Alice"")
+p2 = Person(""Alice"")
+p3 = p1
+
+print(p1 == p2, p1 is p3)
+```","{""A"": ""False True"", ""B"": ""True True"", ""C"": ""True False"", ""D"": ""False False""}",True True,"The `==` operator calls the `__eq__` method, which compares the `name` attributes, so `p1 == p2` is `True`. The `is` operator checks for object identity (if they are the same object in memory). Since `p3` is an alias for `p1`, `p1 is p3` is also `True`.",True,3.24,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/b5529548b5da_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/b5529548b5da_e.png
+1239,14,Which pair of special methods is essential for creating a class that acts as a context manager (used with the `with` statement)?,"{""A"": ""`__init__` and `__del__`"", ""B"": ""`__enter__` and `__exit__`"", ""C"": ""`__start__` and `__stop__`"", ""D"": ""`__open__` and `__close__`""}",`__enter__` and `__exit__`,"The `with` statement protocol is defined by the `__enter__` and `__exit__` methods. `__enter__` is called at the beginning of the `with` block for setup, and `__exit__` is called at the end for cleanup, even if exceptions occur.",False,2.4,,
+1240,14,An abstract method defined in an Abstract Base Class (ABC) can have an implementation.,"{""A"": ""True"", ""B"": ""False""}",True,True. An abstract method can have an implementation. Subclasses can then use `super()` to call this implementation while still being required to provide their own override.,False,3.0,,
+1241,14,What is the purpose of the `__del__` special method (destructor)?,"{""A"": ""To explicitly delete an object from memory."", ""B"": ""To be called by the `del` keyword."", ""C"": ""To perform cleanup actions just before an object is garbage collected."", ""D"": ""To prevent an object from being deleted.""}",To perform cleanup actions just before an object is garbage collected.,"`__del__` is not called by `del obj` (that just decrements the reference count). It is called by Python's garbage collector when an object's reference count reaches zero, allowing for final cleanup like closing files or network connections.",False,3.6,,
+1242,14,What happens if an exception is raised inside a `with` block?,"{""A"": ""The program crashes immediately, and `__exit__` is not called."", ""B"": ""The `__exit__` method is called with details about the exception, and then the exception is re-raised unless `__exit__` returns `True`."", ""C"": ""The `__exit__` method is skipped, and the exception propagates."", ""D"": ""The `__enter__` method is called a second time to handle the error.""}","The `__exit__` method is called with details about the exception, and then the exception is re-raised unless `__exit__` returns `True`.","The `__exit__(self, exc_type, exc_value, traceback)` method is always called. If an exception occurred, its details are passed as arguments. This allows the context manager to clean up resources properly. If `__exit__` returns a truthy value, the exception is suppressed.",False,3.75,,
+1243,14,Which of the following best describes the principle of 'Composition over Inheritance'?,"{""A"": ""It's always better to use inheritance than composition."", ""B"": ""Favor creating complex objects by including instances of other classes (has-a relationship) rather than inheriting from them (is-a relationship)."", ""C"": ""Composition is a type of inheritance."", ""D"": ""Inheritance is more flexible than composition.""}",Favor creating complex objects by including instances of other classes (has-a relationship) rather than inheriting from them (is-a relationship).,This design principle suggests that you should favor flexibility. Composition (where a class contains an instance of another class) often leads to more flexible and decoupled designs than rigid inheritance hierarchies.,False,3.0,,
+1244,14,"What will be the output?\n```python
+class A:
+    def run(self):
+        return ""A""
+class B(A):
+    def run(self):
+        return ""B""
+class C(A):
+    def run(self):
+        return ""C""
+class D(B, C):
+    pass
+
+d = D()
+print(d.run())
+```","{""A"": ""A"", ""B"": ""B"", ""C"": ""C"", ""D"": ""TypeError due to ambiguity""}",B,"This demonstrates the 'diamond problem'. Python's MRO for class D is `(D, B, C, A, object)`. When `d.run()` is called, Python searches this list and finds `run` in class B first, so it executes `B.run()` and stops searching.",True,3.6,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/f7bd3f310899_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/f7bd3f310899_e.png
+1245,14,"To allow assignment to an object's items using square bracket notation (e.g., `obj[key] = value`), which method must be implemented?","{""A"": ""`__getitem__`"", ""B"": ""`__setitem__`"", ""C"": ""`__assign__`"", ""D"": ""`__delitem__`""}",`__setitem__`,"The `__setitem__(self, key, value)` special method is called when you use square bracket assignment. It is the counterpart to `__getitem__`.",False,1.8,,
+1246,14,A class that does not have an `__init__` method...,"{""A"": ""cannot be instantiated."", ""B"": ""will raise a `SyntaxError`."", ""C"": ""implicitly uses the `__init__` method from its parent class if it exists, or a default object constructor if it doesn't."", ""D"": ""must only have static methods.""}","implicitly uses the `__init__` method from its parent class if it exists, or a default object constructor if it doesn't.","If a class does not define its own constructor, Python will look up the inheritance chain for one to use. If no parent has an `__init__`, a default empty constructor from the base `object` class is used, which does nothing.",False,2.16,,
+1247,14,"What is the purpose of `isinstance(obj, ClassName)`?","{""A"": ""To check if `obj` is the same object in memory as `ClassName`."", ""B"": ""To check if `obj` is an instance of `ClassName` or an instance of a subclass of `ClassName`."", ""C"": ""To check if `obj` is an instance of `ClassName` only (and not a subclass)."", ""D"": ""To convert `obj` into an instance of `ClassName`.""}",To check if `obj` is an instance of `ClassName` or an instance of a subclass of `ClassName`.,"`isinstance()` is the recommended way to check an object's type, as it correctly handles inheritance. It returns `True` if the object's type is the specified class or any of its derived classes.",False,1.44,,
+1248,14,"What is the output of this code?\n```python
+class Parent:
+    def __init__(self):
+        self.value = 5
+
+class Child(Parent):
+    def __init__(self):
+        self.value = 10
+
+c = Child()
+print(c.value)
+```","{""A"": ""5"", ""B"": ""10"", ""C"": ""AttributeError"", ""D"": ""The code has an error because `super()` is not called.""}",10,"The `Child` class overrides the `__init__` method completely. It does not call the parent's constructor. Therefore, only `self.value = 10` is executed, and the value 5 is never assigned.",True,1.8,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/d54f82cefaf5_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/d54f82cefaf5_e.png
+1249,14,Which magic method would you implement to make your object support the less than operator `<`?,"{""A"": ""`__le__`"", ""B"": ""`__gt__`"", ""C"": ""`__lt__`"", ""D"": ""`__less__`""}",`__lt__`,"The `__lt__(self, other)` method implements the less-than comparison (`<`). Similarly, `__le__` is for `<=`, `__gt__` is for `>`, and `__ge__` is for `>=`.",False,1.2,,
+1250,14,"What is the output of the following code snippet?\n```python
+class Chain:
+    def __init__(self, value):
+        self.value = value
+        
+    def __getattr__(self, name):
+        return f""No such attribute: {name}""
+
+c = Chain(5)
+print(c.value)
+print(c.non_existent)
+```","{""A"": ""5\\nNo such attribute: non_existent"", ""B"": ""5\\nAttributeError"", ""C"": ""AttributeError"", ""D"": ""5\\nNone""}",5\nNo such attribute: non_existent,"`__getattr__` is a special method that is called only when a requested attribute is not found in the usual places (instance, class, parents). Accessing `c.value` finds the attribute normally. Accessing `c.non_existent` fails, triggering `__getattr__`.",True,3.75,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/55a636f97b72_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/55a636f97b72_e.png
+1251,14,The procedural programming paradigm organizes programs around...,"{""A"": ""objects and data."", ""B"": ""functions or blocks of statements that manipulate data."", ""C"": ""events and event handlers."", ""D"": ""class hierarchies.""}",functions or blocks of statements that manipulate data.,Procedural programming is based on the concept of the procedure call. Programs are structured as a series of procedures (functions or subroutines) that perform computations on data.,False,1.2,,
+1252,14,Which of these is NOT a direct benefit of inheritance?,"{""A"": ""Code Reusability"", ""B"": ""Data Hiding"", ""C"": ""Logical Hierarchy Modeling"", ""D"": ""Extensibility""}",Data Hiding,"Data Hiding is a direct benefit of Encapsulation, not Inheritance. Inheritance is primarily about reusing code, establishing 'is-a' relationships, and extending functionality.",False,1.8,,
+1253,14,"In a `Hybrid Inheritance` scenario, a class `D` inherits from `B` and `C`. Class `B` inherits from `A`. Class `C` has no parent. This is a mix of which two inheritance types?","{""A"": ""Single and Multiple"", ""B"": ""Multilevel and Multiple"", ""C"": ""Hierarchical and Single"", ""D"": ""Multilevel and Hierarchical""}",Multilevel and Multiple,"The chain `A -> B -> D` involves Multilevel inheritance. The fact that `D` inherits from two parents (`B` and `C`) makes it Multiple inheritance. Therefore, it is a hybrid of Multilevel and Multiple inheritance.",False,3.0,,
+1254,14,Which magic method must return an integer?,"{""A"": ""`__str__`"", ""B"": ""`__repr__`"", ""C"": ""`__len__`"", ""D"": ""`__call__`""}",`__len__`,The `__len__` method is expected to return a non-negative integer representing the length or size of the object. Returning another type will result in a `TypeError` when `len()` is called.,False,1.5,,
+1255,14,"What is the output?\n```python
+class Wallet:
+    def __init__(self, amount):
+        self.amount = amount
+
+    def __bool__(self):
+        return self.amount > 0
+
+w1 = Wallet(50)
+w2 = Wallet(0)
+
+if w1:
+    print(""w1 is True"")
+if not w2:
+    print(""w2 is False"")
+```","{""A"": ""w1 is True"", ""B"": ""w2 is False"", ""C"": ""w1 is True\\nw2 is False"", ""D"": ""The code produces an error.""}",w1 is True\nw2 is False,"The `__bool__` method defines the truthiness of an object. For `w1`, `50 > 0` is `True`, so the first `if` block executes. For `w2`, `0 > 0` is `False`, so the `if not w2` condition is met and the second block executes.",True,2.7,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/404e0ed3fc6a_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/404e0ed3fc6a_e.png
+1256,14,"If a class has no `__bool__` method, how does Python determine its truthiness in an `if` statement?","{""A"": ""It always defaults to `True`."", ""B"": ""It always defaults to `False`."", ""C"": ""It checks for a `__len__` method. If it returns 0, the object is `False`, otherwise `True`."", ""D"": ""It raises a `TypeError`.""}","It checks for a `__len__` method. If it returns 0, the object is `False`, otherwise `True`.","If `__bool__` is not defined, Python falls back to checking for `__len__`. If `__len__` is defined and returns zero, the object is considered `False`. If it returns a non-zero number, the object is `True`. If neither method is defined, instances are always considered `True`.",False,3.6,,
+1257,14,You have a `Student` class and a `Course` class. A `Student` can enroll in multiple `Course`s. This relationship is best modeled using:,"{""A"": ""Inheritance, where `Student` inherits from `Course`."", ""B"": ""Inheritance, where `Course` inherits from `Student`."", ""C"": ""Composition, where the `Student` object contains a list of `Course` objects."", ""D"": ""A static method that links them.""}","Composition, where the `Student` object contains a list of `Course` objects.","This is a classic 'has-a' relationship, not an 'is-a' relationship. A Student is not a type of Course. Therefore, composition is the appropriate design pattern. The `Student` class would have an attribute, like `self.courses`, which would be a list of `Course` instances.",False,3.0,,
+1258,14,"What will `issubclass(bool, int)` return?","{""A"": ""True"", ""B"": ""False"", ""C"": ""TypeError"", ""D"": ""None""}",True,"This is a surprising fact of Python's type hierarchy. The `bool` type is actually a subclass of the `int` type, where `False` is equivalent to `0` and `True` is equivalent to `1`.",False,3.75,,
+1259,14,"In Python, methods in a class that are not special methods and do not have a leading underscore are by default...","{""A"": ""public"", ""B"": ""private"", ""C"": ""protected"", ""D"": ""static""}",public,"Unlike languages like Java or C++, Python does not have strict access modifiers. By default, all methods and attributes are public and can be accessed from anywhere.",False,1.0,,
+1260,14,"Consider the code: `my_list = [1, 2, 3]`. In OOP terms, `my_list` is a(n) ________ of the `list` ________.","{""A"": ""class, object"", ""B"": ""object, attribute"", ""C"": ""instance, class"", ""D"": ""method, class""}","instance, class","In Python, everything is an object. `my_list` is a specific object, or instance, created from the `list` class blueprint.",False,1.2,,
+1261,14,"What is the output of the code below?\n```python
+class A:
+   pass
+class B(A):
+   pass
+
+print(issubclass(A, B))
+```","{""A"": ""True"", ""B"": ""False"", ""C"": ""None"", ""D"": ""Error""}",False,"`issubclass(sub, super)` checks if `sub` is a subclass of `super`. Here, `B` is a subclass of `A`, but `A` is not a subclass of `B`. Therefore, it returns `False`.",True,1.44,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/e606d44f2e4b_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/e606d44f2e4b_e.png
+1262,14,Which of the following creates a class `Car` that inherits from a class `Vehicle`?,"{""A"": ""`class Car(inherits=Vehicle):`"", ""B"": ""`class Car extends Vehicle:`"", ""C"": ""`class Car(Vehicle):`"", ""D"": ""`class Car: inherits Vehicle`""}",`class Car(Vehicle):`,The correct syntax for inheritance in Python is to place the name of the parent class (or classes) inside parentheses after the child class name.,False,1.0,,
+1263,14,"If you have an object `emp` of class `Employee`, how would you check if it has an attribute named 'salary' before accessing it to avoid an `AttributeError`?","{""A"": ""`if emp.has('salary'):`"", ""B"": ""`if hasattr(emp, 'salary'):`"", ""C"": ""`if 'salary' in emp:`"", ""D"": ""`if emp.exists('salary'):`""}","`if hasattr(emp, 'salary'):`","The built-in function `hasattr(object, name)` is the standard and safest way to check for the existence of an attribute before trying to access it.",False,1.5,,
+1264,14,What does the `pass` statement do within a class definition?,"{""A"": ""It makes the class abstract."", ""B"": ""It ends the program."", ""C"": ""It acts as a placeholder, allowing for an empty class body without causing a `SyntaxError`."", ""D"": ""It makes all methods in the class private.""}","It acts as a placeholder, allowing for an empty class body without causing a `SyntaxError`.",`pass` is a null operation. It is used when a statement is syntactically required but you do not want any command or code to execute. It's often used for empty classes or functions as a placeholder.,False,1.0,,
+1265,14,"What will happen when this code is executed?\n```python
+class Math:
+    @staticmethod
+    def add(x, y):
+        return self.x + self.y
+
+print(Math.add(2, 3))
+```","{""A"": ""5"", ""B"": ""0"", ""C"": ""An error because `self` is not defined in a static method."", ""D"": ""An error because static methods cannot have parameters.""}",An error because `self` is not defined in a static method.,Static methods do not receive `self` as a parameter. Trying to access `self.x` or `self.y` inside `add` will raise a `NameError` because `self` has not been defined in the method's scope.,True,2.7,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/88fcca665ef1_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/88fcca665ef1_e.png
+1266,14,True or False: An abstract class can be instantiated.,"{""A"": ""True"", ""B"": ""False""}",False,False. The purpose of an abstract class is to serve as a blueprint for other classes. Python raises a `TypeError` if you attempt to create an instance of a class that contains one or more abstract methods that have not been implemented.,False,1.2,,
+1267,14,You want to define a custom object that can be used in a `for` loop. Which special method must you implement?,"{""A"": ""`__next__`"", ""B"": ""`__loop__`"", ""C"": ""`__iter__`"", ""D"": ""`__for__`""}",`__iter__`,"To make an object iterable (usable in a `for` loop), it must implement the `__iter__` method. This method should return an iterator object, which in turn must have a `__next__` method.",False,2.4,,
+1268,14,Which is a key advantage of polymorphism in software design?,"{""A"": ""It guarantees faster execution speed."", ""B"": ""It allows for writing generic, decoupled code that can work with new object types without modification."", ""C"": ""It simplifies debugging by making all objects behave identically."", ""D"": ""It reduces the memory footprint of a program.""}","It allows for writing generic, decoupled code that can work with new object types without modification.","Polymorphism allows functions to be written to handle a general category of objects. As long as a new object type provides the required methods (interface), it can be used by that generic function without needing to rewrite the function itself. This promotes loose coupling and extensibility.",False,2.4,,
+1269,14,Which special method is used to get the number of items in a container?,"{""A"": ""`__size__`"", ""B"": ""`__count__`"", ""C"": ""`__len__`"", ""D"": ""`__length__`""}",`__len__`,The `len()` built-in function works by calling the `__len__` method of the object passed to it. This method should return the size of the container as an integer.,False,1.0,,
+1270,14,What is the primary difference between a class attribute and an instance attribute?,"{""A"": ""Class attributes are defined inside the `__init__` method, while instance attributes are defined outside."", ""B"": ""Class attributes are shared by all instances of a class, while instance attributes are unique to each instance."", ""C"": ""Class attributes can only be of string type, while instance attributes can be any type."", ""D"": ""Class attributes are immutable, while instance attributes are mutable.""}","Class attributes are shared by all instances of a class, while instance attributes are unique to each instance.",A class attribute is defined directly under the class declaration and is shared among all objects of that class. An instance attribute is typically defined inside the constructor (`__init__`) using `self` and is specific to each object.,False,1.8,,
+1271,14,"What will be the output of the following code?\n```python
+class Dog:
+    species = ""Canis familiaris""
+
+dog1 = Dog()
+dog2 = Dog()
+
+Dog.species = ""Canis lupus""
+
+print(dog1.species, dog2.species)
+```","{""A"": ""Canis familiaris Canis familiaris"", ""B"": ""Canis familiaris Canis lupus"", ""C"": ""Canis lupus Canis lupus"", ""D"": ""AttributeError""}",Canis lupus Canis lupus,The `species` attribute is a class attribute. Modifying it through the class (`Dog.species`) changes the value for all instances that haven't overridden it. Both `dog1` and `dog2` still refer to the shared class attribute.,True,2.16,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/c355a0329997_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/c355a0329997_e.png
+1272,14,"In the context of OOP, what does the term 'state' refer to?","{""A"": ""The methods defined within a class."", ""B"": ""The current values of an object's attributes."", ""C"": ""The physical memory location of an object."", ""D"": ""Whether a class is abstract or concrete.""}",The current values of an object's attributes.,"The 'state' of an object is represented by the data it holds at any given moment, which corresponds to the current values of its instance attributes.",False,1.2,,
+1273,14,"Which of the following is the correct way to define a method that can be called on the class itself, rather than on an instance?","{""A"": ""A regular method defined with `def method_name(self):`"", ""B"": ""A method decorated with `@staticmethod`"", ""C"": ""A method decorated with `@classmethod`"", ""D"": ""A global function defined outside the class""}",A method decorated with `@classmethod`,The `@classmethod` decorator is used to define a method that receives the class as its first argument (conventionally named `cls`) instead of the instance.,False,1.8,,
+1274,14,"What will be printed by the following code?\n```python
+class Counter:
+    count = 0
+    def __init__(self):
+        self.count += 1
+
+c1 = Counter()
+c2 = Counter()
+print(c2.count)
+```","{""A"": ""0"", ""B"": ""1"", ""C"": ""2"", ""D"": ""AttributeError""}",1,"Inside `__init__`, `self.count += 1` creates a new *instance* attribute named `count` that shadows the class attribute. It initializes this instance attribute to `0 + 1 = 1`. Each instance will have its own `count` attribute with a value of 1.",True,3.24,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/db753e5d81ed_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/db753e5d81ed_e.png
+1275,14,"What is the purpose of a static method, declared with `@staticmethod`?","{""A"": ""To modify the state of a specific instance."", ""B"": ""To modify the state of the class."", ""C"": ""To provide utility functionality related to the class, but independent of instance or class state."", ""D"": ""To ensure a method can only be called once.""}","To provide utility functionality related to the class, but independent of instance or class state.","A static method does not receive an implicit first argument (`self` or `cls`). It's essentially a regular function namespaced within the class, used for tasks that relate to the class but don't depend on its state.",False,2.4,,
+1276,14,A method should be defined as a `classmethod` if it needs to...,"{""A"": ""access instance-specific data."", ""B"": ""perform a calculation that does not use any class or instance data."", ""C"": ""access or modify class-level attributes, or act as a factory for creating instances."", ""D"": ""be inherited by a subclass.""}","access or modify class-level attributes, or act as a factory for creating instances.","Class methods are primarily used when the method needs to work with the class itself, such as accessing class variables or creating instances of the class using alternative constructors.",False,2.4,,
+1277,14,"What is the output of this code snippet?\n```python
+class MyClass:
+    @staticmethod
+    def add(a, b):
+        return a + b
+
+print(MyClass.add(5, 3))
+```","{""A"": ""An error because `self` is missing"", ""B"": ""An error because the method is called on the class"", ""C"": ""8"", ""D"": ""None""}",8,Static methods can be called directly on the class without creating an instance. They behave like regular functions namespaced within the class.,True,1.8,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/4bf433588c10_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/4bf433588c10_e.png
+1278,14,"True or False: In Python, a subclass can inherit from multiple superclasses.","{""A"": ""True"", ""B"": ""False""}",True,"True. Python supports multiple inheritance, allowing a class to derive attributes and methods from several parent classes by listing them in parentheses: `class Child(Parent1, Parent2):`.",False,1.0,,
+1279,14,What is Method Resolution Order (MRO) in Python?,"{""A"": ""The order in which methods are written in a class."", ""B"": ""A rule that specifies which version of a method to execute in a multiple inheritance scenario."", ""C"": ""A tool for refactoring method names."", ""D"": ""The order in which `__init__` calls other methods.""}",A rule that specifies which version of a method to execute in a multiple inheritance scenario.,MRO is the algorithm Python uses to determine the sequence of classes to search when looking for a method. It is crucial in multiple inheritance to resolve which parent's method should be called.,False,2.4,,
+1280,14,"Consider the following multilevel inheritance. What will be the output?\n```python
+class Grandparent:
+    def speak(self):
+        print(""Grandparent speaking"")
+
+class Parent(Grandparent):
+    def speak(self):
+        print(""Parent speaking"")
+
+class Child(Parent):
+    pass
+
+c = Child()
+c.speak()
+```","{""A"": ""Grandparent speaking"", ""B"": ""Parent speaking"", ""C"": ""An error because `Child` has no `speak` method"", ""D"": ""Nothing is printed""}",Parent speaking,"The `Child` class inherits from `Parent`. When `c.speak()` is called, Python searches `Child` first, finds no `speak` method, then searches its parent, `Parent`. It finds `speak` in the `Parent` class and executes it.",True,2.16,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/d7fa208b3b6a_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/d7fa208b3b6a_e.png
+1281,14,What is the primary purpose of the `super()` function?,"{""A"": ""To create an instance of the superclass."", ""B"": ""To refer to the parent class, allowing access to its methods from a subclass."", ""C"": ""To check if a class is a superclass of another."", ""D"": ""To delete a method from the superclass.""}","To refer to the parent class, allowing access to its methods from a subclass.",`super()` returns a temporary proxy object that allows you to call methods of a superclass. It's commonly used to call the parent's `__init__` or to extend the functionality of an overridden method.,False,1.44,,
+1282,14,A child class defines an `__init__` method but does not call `super().__init__()`. The parent class also has an `__init__` method that sets an attribute `self.name`. What happens when an instance of the child class tries to access `self.name`?,"{""A"": ""It will access the `name` attribute from the parent class without issue."", ""B"": ""It will raise an `AttributeError`."", ""C"": ""It will raise a `TypeError`."", ""D"": ""The child's `__init__` will automatically call the parent's `__init__`.""}",It will raise an `AttributeError`.,"If a child class defines its own `__init__`, it overrides the parent's. If `super().__init__()` is not called, the parent's constructor never runs, and the `self.name` attribute is never created for the child instance, resulting in an `AttributeError`.",False,3.6,,
+1283,14,What is the term for hiding an object's internal data and only allowing access through public methods?,"{""A"": ""Inheritance"", ""B"": ""Polymorphism"", ""C"": ""Abstraction"", ""D"": ""Encapsulation""}",Encapsulation,"Encapsulation is the bundling of data (attributes) and methods that operate on the data into a single unit (a class), and restricting direct access to some of the object's components.",False,1.44,,
+1284,14,How do you conventionally indicate that an attribute is 'protected' in Python?,"{""A"": ""With no prefix (e.g., `my_var`)"", ""B"": ""With a single leading underscore (e.g., `_my_var`)"", ""C"": ""With a double leading underscore (e.g., `__my_var`)"", ""D"": ""With the `protected` keyword.""}","With a single leading underscore (e.g., `_my_var`)",A single leading underscore is a convention to signal to other developers that an attribute or method is intended for internal use and should not be accessed directly from outside the class hierarchy.,False,1.2,,
+1285,14,What mechanism does Python use to enforce 'private' attributes (those with a double underscore prefix)?,"{""A"": ""It raises a `PermissionError` on access."", ""B"": ""It encrypts the attribute's value."", ""C"": ""It performs name mangling."", ""D"": ""It makes the attribute read-only.""}",It performs name mangling.,"Python automatically renames attributes with a double underscore prefix to `_ClassName__attributeName`. This process, called name mangling, makes it harder to accidentally access or override the attribute from outside the class.",False,2.4,,
+1286,14,"What will be the output of this code?\n```python
+class MyClass:
+    def __init__(self):
+        self.__private_var = 42
+
+obj = MyClass()
+try:
+    print(obj.__private_var)
+except AttributeError:
+    print(""Error"")
+```","{""A"": ""42"", ""B"": ""Error"", ""C"": ""None"", ""D"": ""A SyntaxError occurs""}",Error,"Because of name mangling, the attribute `__private_var` is renamed to `_MyClass__private_var`. Attempting to access `obj.__private_var` directly will fail with an `AttributeError`.",True,2.16,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/40312562fae5_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/40312562fae5_e.png
+1287,14,Which OOP concept focuses on hiding complex implementation details and exposing only the essential features of an object?,"{""A"": ""Encapsulation"", ""B"": ""Inheritance"", ""C"": ""Abstraction"", ""D"": ""Composition""}",Abstraction,Abstraction is the principle of simplifying complex systems by modeling classes appropriate to the problem and hiding the intricate implementation details from the user.,False,1.8,,
+1288,14,What happens if you try to create an instance of a class that inherits from `ABC` and has not implemented all of its parent's abstract methods?,"{""A"": ""The program runs, but the unimplemented methods will do nothing."", ""B"": ""A `SyntaxError` is raised."", ""C"": ""A `TypeError` is raised."", ""D"": ""An `AttributeError` is raised.""}",A `TypeError` is raised.,"Python prevents the instantiation of any class that has not provided concrete implementations for all abstract methods inherited from its superclasses, raising a `TypeError`.",False,3.0,,
+1289,14,Which decorator is used to declare a method that must be implemented by subclasses?,"{""A"": ""`@classmethod`"", ""B"": ""`@staticmethod`"", ""C"": ""`@abstractmethod`"", ""D"": ""`@property`""}",`@abstractmethod`,"The `@abstractmethod` decorator, used in a class that inherits from `ABC`, marks a method as abstract, requiring any concrete subclass to provide an implementation for it.",False,1.2,,
+1290,14,"The ability of different objects to respond to the same method call in different, specific ways is known as:","{""A"": ""Inheritance"", ""B"": ""Polymorphism"", ""C"": ""Encapsulation"", ""D"": ""Abstraction""}",Polymorphism,Polymorphism (meaning 'many forms') allows objects of different classes to be treated through a common interface. A single method call can invoke different behaviors depending on the object's type.,False,1.44,,
+1291,14,"What concept is demonstrated by the `len()` function working on strings, lists, and dictionaries?","{""A"": ""Inheritance"", ""B"": ""Encapsulation"", ""C"": ""Operator Overloading"", ""D"": ""Polymorphism (specifically, ad-hoc polymorphism)""}","Polymorphism (specifically, ad-hoc polymorphism)","The `len()` function behaves differently depending on the type of object it is called with. This is a form of polymorphism. Internally, it works by calling the object's `__len__` method.",False,1.8,,
+1292,14,What is the primary difference between the `__str__` and `__repr__` special methods?,"{""A"": ""`__str__` is for developers, `__repr__` is for end-users."", ""B"": ""`__str__` should return a user-friendly, readable representation, while `__repr__` should return an unambiguous, official representation used for debugging."", ""C"": ""`__str__` is called by `print()`, `__repr__` is never called automatically."", ""D"": ""There is no functional difference; they are aliases for each other.""}","`__str__` should return a user-friendly, readable representation, while `__repr__` should return an unambiguous, official representation used for debugging.","The goal of `__repr__` is to be unambiguous and ideally allow object recreation (e.g., `eval(repr(obj)) == obj`). The goal of `__str__` is to be readable. `print()` and `str()` will use `__str__` if available, otherwise they fall back to `__repr__`.",False,3.0,,
+1293,14,"If a class only defines `__repr__` and not `__str__`, what happens when you call `print(obj)`?","{""A"": ""It raises a `TypeError`."", ""B"": ""It prints the object's memory address."", ""C"": ""It calls the `__repr__` method as a fallback."", ""D"": ""It prints a blank line.""}",It calls the `__repr__` method as a fallback.,"When `print()` or `str()` is used on an object, Python first looks for a `__str__` method. If one is not found, it falls back to using the `__repr__` method instead.",False,2.16,,
+1294,14,"To enable the use of the `+` operator on instances of a custom class, which special method must be implemented?","{""A"": ""`__add__`"", ""B"": ""`__plus__`"", ""C"": ""`__sum__`"", ""D"": ""`__concat__`""}",`__add__`,"Implementing the `__add__(self, other)` method allows the `+` operator to be used with instances of your class. This is a form of operator overloading.",False,1.5,,
+1295,14,"What will be the output of the following code?\n```python
+class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):
+        return Vector(self.x + other.x, self.y + other.y)
+
+    def __repr__(self):
+        return f""Vector({self.x}, {self.y})""
+
+v1 = Vector(2, 4)
+v2 = Vector(3, 5)
+print(v1 + v2)
+```","{""A"": ""Vector(5, 9)"", ""B"": ""An error because you cannot add objects"", ""C"": ""(5, 9)"", ""D"": ""The memory address of a new Vector object""}","Vector(5, 9)","The expression `v1 + v2` calls the `v1.__add__(v2)` method. This method creates and returns a new `Vector` instance with coordinates `(2+3, 4+5)`. When this new object is printed, its `__repr__` method is called, producing the output 'Vector(5, 9)'.",True,2.7,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/a30ff201b26c_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/a30ff201b26c_e.png
+1296,14,Which special method allows an object's instances to be called as if they were functions?,"{""A"": ""`__call__`"", ""B"": ""`__invoke__`"", ""C"": ""`__function__`"", ""D"": ""`__run__`""}",`__call__`,"If a class implements the `__call__(self, *args, **kwargs)` method, its instances can be invoked using parentheses, e.g., `my_object()`.",False,1.5,,
+1297,14,Which of these is NOT one of the four core principles of Object-Oriented Programming?,"{""A"": ""Inheritance"", ""B"": ""Encapsulation"", ""C"": ""Recursion"", ""D"": ""Polymorphism""}",Recursion,"The four main pillars of OOP are typically considered to be Inheritance, Encapsulation, Polymorphism, and Abstraction. Recursion is a general programming concept, not specific to OOP.",False,1.2,,
+1298,14,True or False: A class can have multiple `__init__` methods.,"{""A"": ""True"", ""B"": ""False""}",False,"False. Python does not support traditional method overloading. If you define a method with the same name twice in a class, the second definition will simply overwrite the first.",False,1.44,,
+1299,14,How can you simulate method overloading in Python for a constructor?,"{""A"": ""By defining multiple `__init__` methods with different names."", ""B"": ""By using default arguments or `*args` and `**kwargs` in a single `__init__` method."", ""C"": ""By using the `@overload` decorator."", ""D"": ""It is not possible to simulate method overloading in Python.""}",By using default arguments or `*args` and `**kwargs` in a single `__init__` method.,"You can achieve a similar effect to overloading by defining a single method with optional parameters (default arguments) or a variable number of arguments (`*args`, `**kwargs`) and then checking the arguments to determine the behavior.",False,2.4,,
+1300,14,Which of the following is correct with respect to the OOP concept in Python?,"{""A"": ""Objects are real world entities while classes are not real."", ""B"": ""Classes are real world entities while objects are not real."", ""C"": ""Both objects and classes are real world entities."", ""D"": ""Both object and classes are not real.""}",Objects are real world entities while classes are not real.,"An object is an instance of a class that represents a real-world entity, while a class is a blueprint or template from which objects are created.",False,1.2,,
+1301,14,"What will be the output of the following Python code snippet?\n```python
+class A:
+    def __init__(self, count=100):
+        self.count = count
+
+obj1 = A()
+obj2 = A(102)
+
+print(obj1.count)
+print(obj2.count)
+```","{""A"": ""100, 100"", ""B"": ""100, 102"", ""C"": ""102, 102"", ""D"": ""Error""}","100, 102","For `obj1`, the `__init__` method is called without an argument, so the default value of `count` (100) is used. For `obj2`, `102` is passed as an argument, overriding the default value.",True,2.16,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/dbcc76cd9d2c_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/dbcc76cd9d2c_e.png
+1302,14,"Which of the following is correct regarding the memory IDs of the two objects created below?\n```python
+class A:
+    def __init__(self, name):
+        self.name = name
+
+a1 = A(""john"")
+a2 = A(""john"")
+```","{""A"": ""`id(a1)` and `id(a2)` will have the same value."", ""B"": ""`id(a1)` and `id(a2)` will have different values."", ""C"": ""Two objects with the same value of an attribute cannot be created."", ""D"": ""None of the above""}",`id(a1)` and `id(a2)` will have different values.,"Creating two separate instances of a class (`a1` and `a2`) results in two distinct objects in memory, even if their attributes have the same value. The `id()` function returns the unique identity of an object, which will be different for each instance.",True,1.73,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/0428a886a6b2_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/0428a886a6b2_e.png
+1303,14,"What will be the output of the following code?\n```python
+class Book:
+    def __init__(self, author):
+        self.author = author
+
+book1 = Book(""V.M.Shah"")
+book2 = book1
+
+print(id(book1) == id(book2))
+```","{""A"": ""True"", ""B"": ""False"", ""C"": ""It will throw an error as multiple references to the same object are not possible."", ""D"": ""None of the above""}",True,"The line `book2 = book1` does not create a new object. Instead, it makes the `book2` variable a reference to the same object that `book1` refers to. Therefore, both variables point to the same object in memory, and their IDs will be identical.",True,1.8,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/f37cef4d1d85_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/f37cef4d1d85_e.png
+1304,14,"In Python, what is a method inside a class?","{""A"": ""attribute"", ""B"": ""object"", ""C"": ""argument"", ""D"": ""function""}",function,A method is a function that belongs to a class and is defined within it. It describes the behavior of objects created from that class.,False,1.0,,
+1305,14,"What will be the output of the below Python code?\n```python
+class A:
+    num = 3
+    def __init__(self, num):
+        self.num = num
+
+    def change(self):
+        self.num = 7
+
+a = A(5)
+print(a.num)
+a.change()
+print(a.num)
+```","{""A"": ""5, 7"", ""B"": ""5, 5"", ""C"": ""3, 3"", ""D"": ""3, 7""}","5, 7","When `a = A(5)` is executed, the `__init__` method sets the instance variable `self.num` to `5`, which shadows the class variable `num`. The first print then outputs `5`. When `a.change()` is called, it reassigns the instance variable `self.num` to `7`. The second print then outputs `7`.",True,2.59,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/13cd3e530be9_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/13cd3e530be9_e.png
+1306,14,"All classes have a function called _______, which is always executed when the class is being initiated.","{""A"": ""`init`"", ""B"": ""`_init_()`"", ""C"": ""`__init__`"", ""D"": ""`init()`""}",`__init__`,"The `__init__` method is the constructor in Python. It's automatically called when a new object of the class is created. While not mandatory to define explicitly, every class has an `__init__` method.",False,1.2,,
+1307,14,You can delete properties on objects by using the ________ keyword.,"{""A"": ""`delete`"", ""B"": ""`dedl`"", ""C"": ""`del`"", ""D"": ""`drop`""}",`del`,"The `del` keyword in Python is used to delete objects, including properties of a class instance.",False,1.0,,
+1308,14,A variable that is defined inside a method and belongs only to the current instance of a class is known as an:,"{""A"": ""Inheritance"", ""B"": ""Instance variable"", ""C"": ""Function overloading"", ""D"": ""Instantiation""}",Instance variable,An instance variable is a variable defined within a class method using the `self` keyword. Each instance of the class has its own copy of the instance variables.,False,1.2,,
+1309,14,What is `setattr()` used for?,"{""A"": ""To set the value of an attribute."", ""B"": ""To access the attribute of the object."", ""C"": ""To check if an attribute exists or not."", ""D"": ""To delete an attribute.""}",To set the value of an attribute.,"The `setattr()` built-in function is used to set the value of an attribute of an object. Its syntax is `setattr(object, name, value)`.",False,1.0,,
+1310,14,"What will be the output for the following code?\n```python
+class test:
+    def __init__(self, a):
+        self.a = a
+    def display(self):
+        print(self.a)
+
+obj = test()
+obj.display()
+```","{""A"": ""Runs normally, doesn't display anything"", ""B"": ""Displays 0, which is the automatic default value"", ""C"": ""Error as one argument is required while creating the object"", ""D"": ""Error as display function requires an additional argument""}",Error as one argument is required while creating the object,"The `__init__` method is defined to accept one positional argument (`a`) in addition to `self`. When the object `obj = test()` is created, no argument is passed, which results in a `TypeError`.",True,2.16,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/85096e4e7c87_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/85096e4e7c87_e.png
+1311,14,A class's documentation string (docstring) can be accessed via:,"{""A"": ""`ClassName`"", ""B"": ""`ClassName_doc_`"", ""C"": ""`_doc_`"", ""D"": ""`ClassName.__doc__`""}",`ClassName.__doc__`,The documentation string (docstring) for a class can be accessed using the special attribute `__doc__`. The correct way to access it is by using the class name followed by `.__doc__`.,False,1.0,,
+1312,14,"When a child class inherits from only one parent class, it is called:","{""A"": ""Single inheritance"", ""B"": ""Singular inheritance"", ""C"": ""Multiple inheritance"", ""D"": ""Multilevel inheritance""}",Single inheritance,Single inheritance is a type of inheritance where a class inherits from a single parent class.,False,1.0,,
+1313,14,"A parent class is the class being inherited from, also called a:","{""A"": ""derived class"", ""B"": ""child class"", ""C"": ""hybrid class"", ""D"": ""base class""}",base class,"In inheritance, the parent class is also known as the base class or superclass. The child class is also known as the derived class or subclass.",False,1.2,,
+1314,14,True or False: The child's `__init__()` function overrides the inheritance of the parent's `__init__()` function.,"{""A"": ""True"", ""B"": ""False""}",True,"When a child class defines its own `__init__` method, it overrides the parent class's `__init__` method. The parent's constructor is no longer automatically called unless explicitly invoked with `super()`.",False,1.8,,
+1315,14,What is the name of the function that allows a child class to inherit all the methods and properties from its parent?,"{""A"": ""`self`"", ""B"": ""`__init__()`"", ""C"": ""`super()`"", ""D"": ""`pass`""}",`super()`,The `super()` function allows you to call a method from the parent class. Using `super().__init__()` in the child class's constructor ensures that the parent's `__init__` method is executed.,False,1.2,,
+1316,14,"Suppose B is a subclass of A. To invoke the `__init__` method in A from B, which line of code should you write?","{""A"": ""`A.__init__(self)`"", ""B"": ""`B.__init__(self)`"", ""C"": ""`A.__init__(B)`"", ""D"": ""`B.__init__(A)`""}",`A.__init__(self)`,"To explicitly call the parent class's `__init__` method from the child class, you can use the syntax `ParentClass.__init__(self, arguments)`. Another common way is `super().__init__(arguments)`.",False,1.44,,
+1317,14,Which of the following statements is false?,"{""A"": ""A non-private method in a superclass can be overridden."", ""B"": ""A derived class is a specialized version of a superclass."", ""C"": ""The value of a private variable in a superclass cannot be directly changed in the subclass."", ""D"": ""When a subclass defines its own constructor, the constructor of the superclass is automatically invoked first.""}","When a subclass defines its own constructor, the constructor of the superclass is automatically invoked first.","This statement is false. If a subclass defines its own constructor (`__init__`), it overrides the superclass's constructor. To call the superclass's constructor, you must explicitly do so using `super().__init__()`.",False,2.25,,
+1318,14,"What will be the output of the following code?\n```python
+class A:
+    def __init__(self, x=1):
+        self.x = x
+
+class der(A):
+    def __init__(self, y=2):
+        super().__init__()
+        self.y = y
+
+obj = der()
+print(obj.x, obj.y)
+```","{""A"": ""Error, the syntax of the invoking method is wrong"", ""B"": ""The program runs fine but nothing is printed"", ""C"": ""1 0"", ""D"": ""1 2""}",1 2,"When `obj = der()` is called, the `der` class's `__init__` is invoked. It calls `super().__init__()`, which runs the `A` class's `__init__`, setting `self.x` to its default value of 1. Then, the `der` class's `__init__` sets `self.y` to its default value of 2. Finally, it prints `1 2`.",True,2.59,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/c77370941965_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/c77370941965_e.png
+1319,14,What are methods that begin and end with two underscore characters called?,"{""A"": ""Special methods"", ""B"": ""In-built methods"", ""C"": ""User-defined methods"", ""D"": ""Private methods""}",Special methods,"Methods that have double underscores at the beginning and end, such as `__init__` or `__str__`, are known as special methods or 'dunder' methods.",False,1.0,,
+1320,14,Which statement is wrong about inheritance?,"{""A"": ""Protected members of a class can be inherited."", ""B"": ""The inheriting class is called a subclass."", ""C"": ""Private members of a class can be inherited and directly accessed."", ""D"": ""Inheritance is one of the features of OOP.""}",Private members of a class can be inherited and directly accessed.,Private members (those with two leading underscores) are name-mangled and cannot be directly accessed by subclasses. They are not designed to be inherited in a straightforward way.,False,1.8,,
+1321,14,What is Instantiation in OOP terminology?,"{""A"": ""Deleting an instance of a class."", ""B"": ""Modifying an instance of a class."", ""C"": ""Copying an instance of a class."", ""D"": ""Creating an instance of a class.""}",Creating an instance of a class.,Instantiation is the process of creating a new object (an instance) from a class blueprint.,False,1.0,,
+1322,14,"What will be the output of the following Python code?\n```python
+class test:
+    def __init__(self, a=""Hello World""):
+        self.a = a
+    def display(self):
+        print(self.a)
+
+obj = test()
+obj.display()
+```","{""A"": ""The program has an error because constructors can't have default arguments."", ""B"": ""Nothing is displayed."", ""C"": ""\""Hello World\"" is displayed."", ""D"": ""The program has an error because the display function doesn't have parameters.""}","""Hello World"" is displayed.","The `__init__` method has a default argument `a=""Hello World""`. When `obj=test()` is called without an argument, the default value is used. The `display()` method then prints the value of `self.a`.",True,2.16,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/732e24651781_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/732e24651781_e.png
+1323,14,"What type of inheritance is illustrated in the following Python code?\n```python
+class A:
+    pass
+class B(A):
+    pass
+class C(B):
+    pass
+```","{""A"": ""Multi-level inheritance"", ""B"": ""Multiple inheritance"", ""C"": ""Hierarchical inheritance"", ""D"": ""Single inheritance""}",Multi-level inheritance,"This is an example of multi-level inheritance, where a class (B) inherits from a parent class (A), and another class (C) inherits from that child class (B), forming a chain.",True,1.44,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/1ff3643bbdc0_q.png,https://adaptive-bot-assets-2021523152025.s3.eu-north-1.amazonaws.com/rendered-cache/1ff3643bbdc0_e.png
+1324,14,What is the biggest reason for the use of polymorphism?,"{""A"": ""It allows the programmer to think at a more abstract level."", ""B"": ""There is less program code to write."", ""C"": ""The program will have a more elegant design and will be easier to maintain and update."", ""D"": ""Program code takes up less space.""}",The program will have a more elegant design and will be easier to maintain and update.,"Polymorphism allows for flexible and decoupled code. A single function can handle objects of many different classes, which makes the overall design cleaner and easier to extend without modifying existing code.",False,1.8,,
+1325,14,What's the difference between class attributes and instance attributes?,"{""A"": ""Class attributes are always strings, but instance attributes can be any data type."", ""B"": ""Class attributes have the same value for all class instances, but instance attributes can have different values for each instance."", ""C"": ""There is no difference."", ""D"": ""Class attributes are defined with `cls` and instance attributes with `self`.""}","Class attributes have the same value for all class instances, but instance attributes can have different values for each instance.","Class attributes are shared by all instances of a class, meaning a change to the attribute on the class reflects in all instances. Instance attributes are unique to each object and are defined within the `__init__` method using `self`.",False,1.8,,
+1326,14,Which of the following is true about `_protected` class members?,"{""A"": ""They begin with two underscores."", ""B"": ""They cannot be accessed by subclasses."", ""C"": ""They can be accessed by a name mangling method."", ""D"": ""They are a convention to discourage external use but can still be accessed.""}",They are a convention to discourage external use but can still be accessed.,"Protected members, prefixed with a single underscore, are a convention in Python to indicate they are for internal use. They are not enforced by the interpreter and can still be accessed from outside the class, unlike private members.",False,1.8,,
+1327,14,The method that makes an object behave like an iterator is `__iter__` and it must return an iterator.,"{""A"": ""True"", ""B"": ""False""}",True,"To make a class's objects iterable, you must implement the `__iter__` special method, which should return an iterator object (an object that has a `__next__` method).",False,1.5,,
+1328,14,"If a subclass provides a specific implementation of a method that is already defined in the base class, it is called method overriding.","{""A"": ""True"", ""B"": ""False""}",True,Method overriding is a key feature of inheritance where a child class can provide its own implementation for a method that it inherited from its parent class.,False,1.2,,
+1329,14,What is the purpose of the `__repr__` method in a class?,"{""A"": ""It provides an official string representation of an object, mainly for developers."", ""B"": ""It provides an informal, human-readable string representation for end-users."", ""C"": ""It is used to compare two objects for equality."", ""D"": ""It is used to get the length of an object.""}","It provides an official string representation of an object, mainly for developers.","The `__repr__` method's goal is to be unambiguous and provide a string that, if passed to `eval()`, would ideally recreate the object. It's primarily used for debugging and development.",False,1.44,,
+1330,14,What is the purpose of the `__getitem__` method in a class?,"{""A"": ""To get a value from a dictionary."", ""B"": ""To make a class iterable."", ""C"": ""To allow objects to use indexing and slicing, like `obj[key]`."", ""D"": ""To get an item from a list.""}","To allow objects to use indexing and slicing, like `obj[key]`.","The `__getitem__` method is part of Python's container protocol. Implementing it allows an object to be accessed using square bracket notation, similar to lists and dictionaries.",False,1.5,,

@@ -1,0 +1,1263 @@
+[
+  {
+    "question_text": "Madame Oppong achète des jouets pour _ enfant.",
+    "options": [
+      "son",
+      "ses",
+      "sa",
+      "s'"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The noun 'enfant' (child) is singular and begins with a vowel. To avoid a vowel clash (liaison), the masculine possessive adjective 'son' is used instead of 'sa', regardless of the child's gender. [12, 13, 23]",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Tu dois dire au revoir à _ parents avant de partir.",
+    "options": [
+      "son",
+      "tes",
+      "votre",
+      "leur"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The subject pronoun is 'Tu' (you, informal), and the noun 'parents' is plural. Therefore, the possessive adjective must be the corresponding second-person singular form for a plural noun, which is 'tes' (your).",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Quelle heure est-_?",
+    "options": [
+      "il",
+      "elle",
+      "ils",
+      "tu"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The correct expression for asking for the time is 'Quelle heure est-il?'. The impersonal pronoun 'il' is used in this fixed expression.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Elles vont _ des cahiers chez le libraire.",
+    "options": [
+      "acheter",
+      "achètes",
+      "achète",
+      "achètent"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The verb 'aller' (to go) in the present tense is followed by the infinitive form of the main verb to create the 'futur proche' (near future) tense. Thus, 'acheter' is the correct form. [5, 9]",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "_ robe est chère. Je n'ai pas assez d'argent pour l'acheter.",
+    "options": [
+      "Ces",
+      "Ce",
+      "Cet",
+      "Cette"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The noun 'robe' (dress) is a singular, feminine noun. The correct demonstrative adjective is 'cette', which is used before singular feminine nouns. [10, 21]",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Kodjo a une voix _. il chante bien.",
+    "options": [
+      "doux",
+      "douse",
+      "douce",
+      "sèche"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The noun 'voix' (voice) is a feminine noun. The adjective must agree in gender, so the feminine form 'douce' (soft/sweet) is the correct choice. 'Doux' is the masculine form.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Vous parlez de _ vocation?",
+    "options": [
+      "quelle",
+      "quelles",
+      "quel",
+      "quels"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The noun 'vocation' (vocation/calling) is a singular, feminine noun. The interrogative adjective must agree, making 'quelle' the correct option.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Rose est très _.",
+    "options": [
+      "beau",
+      "beaux",
+      "belle",
+      "belles"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The subject 'Rose' is a feminine name. The adjective must agree in gender, so the feminine form 'belle' is the correct choice. [2, 3]",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Les géologues _ aux États-Unis l'année prochaine pour un séminaire.",
+    "options": [
+      "ira",
+      "iras",
+      "iront",
+      "irons"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The subject is 'Les géologues' (the geologists), which is a third-person plural subject. The verb 'aller' (to go) in the simple future tense conjugates to 'iront' for this subject.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Où se trouve _ grand arbre dont tu parles ?",
+    "options": [
+      "cet",
+      "ce",
+      "ces",
+      "ces"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The noun 'arbre' (tree) is a masculine singular noun that begins with a vowel. Therefore, the correct demonstrative adjective is 'cet'. [10, 22, 25]",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "Le chef cuisinier est très _.",
+    "options": [
+      "compétent",
+      "compétentes",
+      "compétents",
+      "compétente"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The subject is 'Le chef cuisinier' (the male chef), which is a singular, masculine noun. The adjective 'compétent' (competent) must agree in gender and number, so the masculine singular form is correct. [4]",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Les filles ont bien _ pendant la fête.",
+    "options": [
+      "mangé",
+      "mangées",
+      "mangée",
+      "mangés"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "When the auxiliary verb is 'avoir' in the passé composé, the past participle 'mangé' (ate) does not agree with the subject. There is no direct object preceding the verb, so no agreement is needed.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "_ sont les dossiers ?",
+    "options": [
+      "Qui",
+      "Où",
+      "Quand",
+      "Que"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The question asks about the location of the 'dossiers' (files), so the interrogative adverb 'Où' (where) is the correct choice.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "_ travaille avec vous ?",
+    "options": [
+      "Où",
+      "Quand",
+      "Que",
+      "Qui"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The verb 'travaille' (works) implies a person is the subject. The interrogative pronoun 'Qui' (who) is used to ask about a person.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Les miniers _ le contrat le mois prochain.",
+    "options": [
+      "finir",
+      "finissent",
+      "finira",
+      "finiront"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The subject is 'Les miniers' (the miners), which is a plural subject. The phrase 'le mois prochain' (next month) indicates the simple future tense. The correct conjugation of the verb 'finir' (to finish) in the future tense is 'finiront'.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Quand tu trouveras cette lettre, je _ loin.",
+    "options": [
+      "serai",
+      "seras",
+      "sera",
+      "serez"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The subject pronoun is 'je' (I). The verb 'être' (to be) in the simple future tense conjugates to 'serai' for the first person singular.",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "Les enseignants vont _ au Japon.",
+    "options": [
+      "enseigne",
+      "enseignent",
+      "enseigner",
+      "enseigneront"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The verb 'aller' (to go) in the present tense is followed by the infinitive form of the main verb to create the 'futur proche' (near future) tense. Thus, 'enseigner' is the correct form. [18, 20]",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "-Vous parlez à John et Racheal? - Oui, je _ parle.",
+    "options": [
+      "leur",
+      "lui",
+      "eux",
+      "les"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "John and Racheal are the indirect objects of the verb 'parler' (parler à quelqu'un). They are plural. The indirect object pronoun for a plural third-person object is 'leur'.",
+    "has_latex": false,
+    "difficulty_score": 2.4
+  },
+  {
+    "question_text": "Elles _ quand le train est arrivé.",
+    "options": [
+      "dormait",
+      "dormais",
+      "dormaient",
+      "dormions"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The subject pronoun is 'Elles' (they, feminine plural). The verb is in the 'imparfait' (imperfect past tense), as it describes a continuous action in the past interrupted by another action ('quand le train est arrivé'). The correct conjugation of 'dormir' (to sleep) is 'dormaient'.",
+    "has_latex": false,
+    "difficulty_score": 2.4
+  },
+  {
+    "question_text": "- Ils se sont (coucher) tôt ? - Non, ils _ tôt.",
+    "options": [
+      "ne se sont pas couchées",
+      "ne se sont pas couchés",
+      "ne se sont pas couché",
+      "ne se sont pas couchée"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The subject is 'Ils' (they, masculine plural). 'Se coucher' is a reflexive verb, so it uses 'être' as the auxiliary in the passé composé, and the past participle agrees with the subject. The correct form is 'couchés'. When negated, 'ne' comes before the reflexive pronoun and 'pas' comes after the auxiliary verb.",
+    "has_latex": false,
+    "difficulty_score": 2.88
+  },
+  {
+    "question_text": "C'est _ une rose.",
+    "options": [
+      "belle",
+      "beau",
+      "belles",
+      "beaux"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The noun 'rose' (rose) is a feminine noun. The adjective 'belle' (beautiful) must agree in gender. The expression 'c'est' is followed by an adjective that agrees with the noun it describes.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Céline est médecin et travaille _ Rio, _ Brésil.",
+    "options": [
+      "à / au",
+      "en / au",
+      "au / en",
+      "à / en"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The preposition 'à' is used before the name of a city (Rio). The preposition 'au' is used before the name of a masculine country that starts with a consonant (le Brésil). [6, 19, 24]",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "John est ingénieur _ Renault, _ Chine.",
+    "options": [
+      "en / au",
+      "à / en",
+      "chez / en",
+      "pour / en"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The preposition 'chez' is used to mean 'at' or 'for' a company (Renault). The preposition 'en' is used before the name of a feminine country (la Chine). [24]",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Elizabeth travaille _ New York, _ une entreprise suédoise.",
+    "options": [
+      "à / pour",
+      "en / à",
+      "chez / à",
+      "pour / à"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The preposition 'à' is used for a city (New York). The preposition 'pour' is used to indicate working for a company (une entreprise suédoise).",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Les étudiants de UMaT vont _ Pays-Bas pour un colloque.",
+    "options": [
+      "au",
+      "en",
+      "aux",
+      "à"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "'Pays-Bas' (Netherlands) is a plural country name (les Pays-Bas). The preposition 'aux' is used for plural countries. [6, 11]",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "Les géologues d'Ashanti Gold vont _ Iran.",
+    "options": [
+      "au",
+      "à",
+      "en",
+      "aux"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "Iran is a masculine country that begins with a vowel sound. The preposition 'en' is used for countries that start with a vowel, regardless of gender. [11, 16]",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "Les professeurs assisteront à un colloque _ Caire pour préparer une réunion _ Mexique l'année prochaine.",
+    "options": [
+      "au / au",
+      "en / en",
+      "à / au",
+      "au / en"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "'Le Caire' (Cairo) is a masculine city that requires the article, so the preposition becomes 'au' (à + le). 'Mexique' (Mexico) is a masculine country, so the preposition 'au' is used. [6]",
+    "has_latex": false,
+    "difficulty_score": 2.16
+  },
+  {
+    "question_text": "Vous _ la nouvelle collègue? (connaître)",
+    "options": [
+      "connais",
+      "connaissez",
+      "connaît",
+      "connaissons"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The subject pronoun is 'Vous' (you, plural or formal singular). The present tense conjugation of 'connaître' (to know) for 'vous' is 'connaissez'.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Le directeur _ négocier les contrats. (savoir)",
+    "options": [
+      "sais",
+      "sait",
+      "savent",
+      "savez"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The subject 'Le directeur' (the director) is a third-person singular (il). The present tense conjugation of 'savoir' (to know how to) for 'il' is 'sait'.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Les étudiants de UMAT _ travailleurs. (être)",
+    "options": [
+      "sont",
+      "est",
+      "êtes",
+      "sommes"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The subject is 'Les étudiants' (the students), which is third-person plural (ils). The present tense conjugation of 'être' (to be) for 'ils' is 'sont'.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Akua et Emmanuella _ bien la leçon du jour. (comprendre)",
+    "options": [
+      "comprends",
+      "comprend",
+      "comprenons",
+      "comprennent"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The subject 'Akua et Emmanuella' is third-person plural (elles). The present tense conjugation of 'comprendre' (to understand) for 'elles' is 'comprennent'.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Tu _ du couscous? (manger)",
+    "options": [
+      "mange",
+      "manges",
+      "mangent",
+      "mangez"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The subject pronoun is 'Tu' (you, informal singular). The present tense conjugation of 'manger' (to eat) for 'tu' is 'manges'.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Je _ au marché. (aller)",
+    "options": [
+      "vais",
+      "va",
+      "vont",
+      "vas"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The subject pronoun is 'je' (I). The present tense conjugation of the irregular verb 'aller' (to go) for the first-person singular is 'vais'.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Nous _ français et anglais. (parler)",
+    "options": [
+      "parle",
+      "parles",
+      "parlons",
+      "parlent"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The subject pronoun is 'nous' (we). The present tense conjugation of the verb 'parler' (to speak) for the first-person plural is 'parlons'.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Les étudiants _ leurs devoirs. (finir)",
+    "options": [
+      "finis",
+      "finit",
+      "finissons",
+      "finissent"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The subject 'Les étudiants' (the students) is a third-person plural (ils). The present tense conjugation of the verb 'finir' (to finish) for the third-person plural is 'finissent'.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "M. Mensah _ une grosse maison. (avoir)",
+    "options": [
+      "as",
+      "a",
+      "avons",
+      "avez"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The subject 'M. Mensah' is a third-person singular (il). The present tense conjugation of the verb 'avoir' (to have) for the third-person singular is 'a'.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Madame Mahama _ Informaticienne. (être)",
+    "options": [
+      "est",
+      "sont",
+      "êtes",
+      "suis"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The subject 'Madame Mahama' is a third-person singular (elle). The present tense conjugation of the verb 'être' (to be) for the third-person singular is 'est'.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Je te _ pour ton _.",
+    "options": [
+      "remercie / message",
+      "appelle / message",
+      "désolée / message",
+      "peux / message"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The phrase 'Je te remercie' means 'I thank you.' The context of the sentence, '... for your message', makes thanking the most logical action.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Je suis _ mais M. Dumenyah est _ pour le _.",
+    "options": [
+      "désolée / absent / moment",
+      "absent / désolée / moment",
+      "désolée / absent / réunion",
+      "absent / absent / moment"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "This sentence forms a coherent message: 'Je suis désolée' (I am sorry), 'mais M. Dumenyah est absent' (but Mr. Dumenyah is absent), 'pour le moment' (for the moment).",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Le boulanger _ du pain.",
+    "options": [
+      "transporte",
+      "fabrique",
+      "vend",
+      "coupe"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "A baker's ('boulanger') primary role is to make ('fabrique') bread. While they also sell it, 'fabrique' describes the creation process.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Les ingénieurs utilisent _ pour creuser.",
+    "options": [
+      "une scie",
+      "un couteau",
+      "un excavateur",
+      "une boisson"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "Engineers ('Les ingénieurs') use an 'excavateur' (excavator) for digging ('pour creuser'). The other options are illogical.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Le stylo sert à _.",
+    "options": [
+      "transporter",
+      "couper",
+      "écrire",
+      "creuser"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "A pen ('le stylo') is used to write ('écrire').",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "_ voit avec un seul œil.",
+    "options": [
+      "Le boulanger",
+      "Le borgne",
+      "Le plat",
+      "L'excavateur"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "'Le borgne' is the specific vocabulary word for a one-eyed person, who 'sees with only one eye' ('voit avec un seul œil').",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Les médecins soignent les malades _.",
+    "options": [
+      "à la banque",
+      "à l'hôpital",
+      "au marché",
+      "chez le boulanger"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "Doctors ('Les médecins') treat sick people ('soignent les malades') at the hospital ('à l'hôpital').",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Le chef du département dit : « Il est vingt-trois heures quarante-cinq. » Cela veut dire qu'il est _.",
+    "options": [
+      "minuit moins le quart",
+      "midi moins le quart",
+      "midi et 45 minutes",
+      "midi et 15 minutes"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "In French, 'vingt-trois heures quarante-cinq' is the 24-hour format for 23:45, which is 11:45 PM. This is expressed colloquially as 15 minutes before midnight, or 'minuit moins le quart'.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Qu'est-ce que tu ________ quand le professeur est entré dans la classe ?",
+    "options": [
+      "faisait",
+      "faisais",
+      "tu as fait",
+      "fais"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The verb 'faire' is used here in the 'imparfait' tense to describe an ongoing action in the past ('What were you doing...') that was interrupted. 'Faisais' is the correct conjugation for the subject pronoun 'tu'.",
+    "has_latex": false,
+    "difficulty_score": 2.4
+  },
+  {
+    "question_text": "Ces étudiantes sont souvent fatiguées. Elles viennent au cours ________-pied.",
+    "options": [
+      "en",
+      "par",
+      "à",
+      "dans"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The correct preposition to use for the fixed expression 'to walk' or 'on foot' is 'à pied'.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Hier soir, Precious Cobbinah ________ avec son petit ami.",
+    "options": [
+      "a sorti",
+      "a sortie",
+      "est sortie",
+      "sortait"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The verb 'sortir' is conjugated with the auxiliary verb 'être' in the passé composé when it means 'to go out'. The past participle 'sortie' must agree in gender and number with the subject, 'Precious Cobbinah' (feminine singular). [14, 30]",
+    "has_latex": false,
+    "difficulty_score": 3.6
+  },
+  {
+    "question_text": "Je vole dans le ciel comme les oiseaux et je transporte des marchandises et des personnes. Qui suis-je ?",
+    "options": [
+      "La voiture",
+      "L'avion",
+      "Le camion",
+      "Le train"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The description 'I fly in the sky like birds and I transport goods and people' refers to a plane ('l'avion').",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Semiratu a raté le train. Elle doit aller au travail en ________ aujourd'hui.",
+    "options": [
+      "cheval",
+      "trotinette",
+      "taxi",
+      "vélo"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "Since Semiratu missed her train, a taxi is a common and logical alternative mode of transportation to get to work.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Allez-vous nettoyer la cour? Non, ________.",
+    "options": [
+      "nous allons la nettoyer",
+      "nous allons pas la nettoyer",
+      "nous ne pas allons la nettoyer",
+      "nous n'allons pas la nettoyer"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "This is a negative response. The correct structure for negation is 'ne...pas' surrounding the conjugated verb. For 'nous allons', the 'ne' becomes 'n'' before the vowel, resulting in 'nous n'allons pas'.",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "La directrice dit : « Je me couche souvent à vingt-deux heures cinquante-cinq. » Cela veut dire qu'elle se couche à...",
+    "options": [
+      "10h45 du soir",
+      "10h55 du soir",
+      "9h35 du soir",
+      "8h55 du soir"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "'Vingt-deux heures cinquante-cinq' translates to 22:55 in the 24-hour format, which is 10:55 PM ('10h55 du soir').",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "Ces ouvriers sont toujours ________ l'heure au travail.",
+    "options": [
+      "par",
+      "sur",
+      "à",
+      "en"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The correct fixed expression for 'on time' is 'à l'heure'.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Il est dix-sept heures et demie selon ma montre. Autrement dit, il est ________.",
+    "options": [
+      "7h45 du soir",
+      "5h30 du soir",
+      "7h30 du matin",
+      "5h30 du matin"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "'Dix-sept heures et demie' is 17:30 in the 24-hour format, which corresponds to 5:30 PM ('5h30 du soir').",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "Félicitations! Vous ________ l'examen.",
+    "options": [
+      "êtes passé",
+      "avez passé",
+      "êtes passés",
+      "passiez"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "When the verb 'passer' means 'to take' or 'to pass' an exam (i.e., it has a direct object), it is conjugated with the auxiliary verb 'avoir'. The correct form for 'vous' is 'avez passé'. [14]",
+    "has_latex": false,
+    "difficulty_score": 3.0
+  },
+  {
+    "question_text": "La nourriture ________ de Mademoiselle Abonkra est le fufu.",
+    "options": [
+      "favorie",
+      "favorite",
+      "favori",
+      "favorites"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "'Nourriture' is a feminine singular noun. Therefore, the adjective must also be in the feminine singular form, which is 'favorite'. [7]",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Les professeurs de français se rencontrent à 11h45 au bureau du chef de département.",
+    "options": [
+      "onze heures quarante-quatre",
+      "onze heures trente-cinq",
+      "dix heures quarante-cinq",
+      "midi moins quinze"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "11:45 is colloquially expressed as 15 minutes before 12:00 (noon), which is 'midi moins quinze'.",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "Quand nous ________ enfants, nous allions à l'école deux fois par jour.",
+    "options": [
+      "étaient",
+      "sommes",
+      "avons été",
+      "étions"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The sentence describes a habitual state in the past ('when we were children...'). This requires the 'imparfait' tense. The correct conjugation of the verb 'être' for the subject 'nous' is 'étions'.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Vous ________ voir le Tour Eiffel en France ?",
+    "options": [
+      "irai",
+      "irons",
+      "irez",
+      "iront"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The verb 'aller' (to go) is conjugated in the future tense ('futur simple'). 'Irez' is the correct form for the subject 'vous'.",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "Hier, Daniella Asiedu (ne pas se dépêcher) ________ pour prendre le bus.",
+    "options": [
+      "ne s'est pas dépêché",
+      "ne s'est pas dépêchés",
+      "ne s'est pas dépêchée",
+      "ne s'est pas dépêchées"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The verb is the reflexive 'se dépêcher' in the passé composé and negated. It uses the auxiliary 'être', so the past participle must agree with the subject 'Daniella Asiedu' (feminine singular), making 'dépêchée' correct. The negation 'ne...pas' surrounds the reflexive pronoun and auxiliary verb.",
+    "has_latex": false,
+    "difficulty_score": 2.88
+  },
+  {
+    "question_text": "Emmanuel Azule (arriver) ________ ce soir par le train de 19 heures.",
+    "options": [
+      "vont arriver",
+      "va arriver",
+      "vas arriver",
+      "allons arriver"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "This sentence uses the 'futur proche' (near future), formed with the present tense of 'aller' + the infinitive. 'Emmanuel Azule' is a singular male subject (il), so the correct form is 'va arriver'. [27]",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Lawrence Ankomah ________ sorti un stylo de son sac.",
+    "options": [
+      "es",
+      "a",
+      "est",
+      "as"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The verb 'sortir' (to take out) is used with the auxiliary 'avoir' in the passé composé when it is followed by a direct object ('un stylo'). The correct conjugation for the third-person singular subject 'Lawrence Ankomah' is 'a'. [14, 29]",
+    "has_latex": false,
+    "difficulty_score": 3.0
+  },
+  {
+    "question_text": "Les étudiants (se coucher) ________ à 21 heures.",
+    "options": [
+      "se sont couché",
+      "se sont couchée",
+      "se sont couchées",
+      "se sont couchés"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The verb is the reflexive 'se coucher' in the passé composé. It uses the auxiliary 'être', and the past participle 'couché' must agree with the subject 'les étudiants' (masculine plural). The correct form is 'couchés'.",
+    "has_latex": false,
+    "difficulty_score": 2.16
+  },
+  {
+    "question_text": "Ces étudiants en génie mécanique ont une ________ voix.",
+    "options": [
+      "beau",
+      "belle",
+      "bel",
+      "beaux"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "'Voix' is a feminine singular noun. The correct feminine singular adjective for 'beautiful' is 'belle'.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Fatima et Rabiatu sont aussi ________ que moi.",
+    "options": [
+      "sportive",
+      "sportif",
+      "sportifs",
+      "sportives"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The subjects are 'Fatima et Rabiatu', which is a feminine plural subject. The adjective 'sportives' (feminine plural) must agree with the subjects.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "La vie est un voyage ________ parachute.",
+    "options": [
+      "en",
+      "à",
+      "chez",
+      "avec"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The correct preposition for transportation where you are 'inside' the mode is generally 'en'. The fixed expression is 'en parachute'.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Les étudiants (savoir) ________ quand les examens vont commencer.",
+    "options": [
+      "saurai",
+      "saurons",
+      "sauras",
+      "sauront"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The verb 'savoir' (to know) is conjugated in the future tense ('futur simple'). The correct form for the subject 'les étudiants' (ils) is 'sauront'.",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "Mesdemoiselles Tetteh et Quayson sont très ________.",
+    "options": [
+      "souriants",
+      "souriante",
+      "souriant",
+      "souriantes"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The subjects 'Mesdemoiselles Tetteh et Quayson' are two females, which is a feminine plural subject. The adjective 'souriantes' (feminine plural) must agree with the subjects.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Pour aller au marché à Tarkwa, on prend ________.",
+    "options": [
+      "un avion",
+      "une montgolfière",
+      "un taxi",
+      "un train"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "Among the options, a taxi is the most common and logical mode of transportation for going to a local market in a city like Tarkwa.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Le chef du département des langues a eu une discussion ________ avec les professeurs.",
+    "options": [
+      "longue",
+      "long",
+      "longs",
+      "longues"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "'Discussion' is a feminine singular noun. The correct feminine singular adjective is 'longue'. [7]",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Il n'y ________ pas cours demain. C'est un jour férié.",
+    "options": [
+      "aurai",
+      "auras",
+      "aurons",
+      "aura"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The phrase 'il y a' (there is/are) in the future tense is 'il y aura'. The negative form is 'il n'y aura pas'. The verb is the third-person singular future of 'avoir'.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Elle (passer) ________ son permis de conduire.",
+    "options": [
+      "a passée",
+      "a passé",
+      "est passée",
+      "est passé"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "When the verb 'passer' is used with a direct object ('son permis de conduire'), it is conjugated with the auxiliary verb 'avoir' in the passé composé. The past participle does not agree with the subject. [31]",
+    "has_latex": false,
+    "difficulty_score": 3.0
+  },
+  {
+    "question_text": "Les belles demoiselles (sortir) ________ de la classe sans rien dire au professeur.",
+    "options": [
+      "sont sortis",
+      "sont sorties",
+      "sont sorti",
+      "sont sortie"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The verb 'sortir' is conjugated with the auxiliary verb 'être' when it means 'to go out'. The past participle must agree with the subject 'les belles demoiselles' (feminine plural), so 'sorties' is the correct form. [30]",
+    "has_latex": false,
+    "difficulty_score": 2.16
+  },
+  {
+    "question_text": "Les journalistes chinoises sont ________ avec le directeur général.",
+    "options": [
+      "arrivés",
+      "arrivée",
+      "arrivé",
+      "arrivées"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The verb 'arriver' is conjugated with the auxiliary verb 'être'. The past participle must agree with the subject 'les journalistes chinoises' (feminine plural), so 'arrivées' is the correct form.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Mon amie ________ se marier avec un beau jeune homme.",
+    "options": [
+      "voulais",
+      "voulait",
+      "a voulu",
+      "a voulue"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The verb 'vouloir' (to want) is conjugated with the auxiliary verb 'avoir' in the passé composé. The past participle 'voulu' does not agree with the subject 'mon amie'.",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "Si je ne me lève pas tôt, je ________ en retard au travail.",
+    "options": [
+      "serai",
+      "sera",
+      "seras",
+      "serez"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "This is a first conditional sentence (si + present, ... future). The consequence is in the future tense, and 'serai' is the correct conjugation of the verb 'être' for the subject 'je'.",
+    "has_latex": false,
+    "difficulty_score": 2.16
+  },
+  {
+    "question_text": "Il ________ beau hier quand nous sommes rentrés.",
+    "options": [
+      "a fait",
+      "faisait",
+      "faisaient",
+      "fasiez"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "To describe the weather as a completed event in the past, the verb 'faire' is used with the impersonal pronoun 'il' in the passé composé: 'Il a fait beau' means 'The weather was nice'.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "À quoi sert ce bouchon d'oreille ? Il sert à protéger ________.",
+    "options": [
+      "la main",
+      "le nez",
+      "l'oreille",
+      "l'oeil"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "'Un bouchon d'oreille' literally translates to 'an earplug', so its purpose is to protect the ear ('l'oreille').",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Patricia et Evans, vous vous êtes levés tôt hier ? - Non, ________ tôt hier.",
+    "options": [
+      "nous ne nous sommes pas levées",
+      "nous ne nous sommes levés pas",
+      "nous ne nous sommes pas levés",
+      "nous nous ne sommes pas levé"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "This is a negative response using a reflexive verb in the passé composé. The correct structure is 'nous ne nous sommes pas levés'. The past participle 'levés' agrees with the mixed-gender plural subject ('nous' referring to Patricia and Evans).",
+    "has_latex": false,
+    "difficulty_score": 2.88
+  },
+  {
+    "question_text": "Jerry porte une chemise ________.",
+    "options": [
+      "violet",
+      "vert",
+      "noir",
+      "blanche"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "'Chemise' is a feminine singular noun. The adjective 'blanche' (white) is the correct feminine form to agree with the noun.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "________ garçon est paresseux, alors il n'aime pas travailler.",
+    "options": [
+      "Cette",
+      "Ce",
+      "Cet",
+      "Ces"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "'Garçon' is a masculine singular noun that starts with a consonant. The correct demonstrative adjective is 'ce'.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Nous (avoir) peur de regarder les lézards.",
+    "options": [
+      "ont eu",
+      "avons eu",
+      "avons eus",
+      "ont eues"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The verb 'avoir' (to have) in the passé composé with the subject pronoun 'nous' (we) is 'avons eu'. [28]",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Les vendeuses (rentrer) tôt.",
+    "options": [
+      "sont rentrée",
+      "sont rentrés",
+      "sont rentré",
+      "sont rentrées"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The verb 'rentrer' is conjugated with 'être' in the passé composé. The subject 'Les vendeuses' (the female vendors) is feminine and plural, so the past participle must agree and take the '-es' ending.",
+    "has_latex": false,
+    "difficulty_score": 2.16
+  },
+  {
+    "question_text": "Le technicien ne (manger) pas à la maison.",
+    "options": [
+      "n'a mangé pas",
+      "n'a pas mangée",
+      "n'as mangé pas",
+      "n'a pas mangé"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The correct negation for the passé composé with 'avoir' is 'ne' + auxiliary verb + 'pas' + past participle. The correct form is 'n'a pas mangé'.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "La vendeuse (vendre) des tomates.",
+    "options": [
+      "vends",
+      "vend",
+      "vendons",
+      "vendent"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The subject 'La vendeuse' (the female vendor) is a third-person singular pronoun (elle), which corresponds to the form 'vend' in the present tense.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Il est onze heures et quart.",
+    "options": [
+      "11h15",
+      "11h25",
+      "11h20",
+      "11h45"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "'Et quart' means 'and a quarter', which corresponds to 15 minutes past the hour.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Benedicta (célébrer) son anniversaire très bientôt.",
+    "options": [
+      "vais célébrer",
+      "allons célébrer",
+      "vas célébrer",
+      "va célébrer"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "This is an example of the 'futur proche' (near future). The subject 'Benedicta' is a third-person singular pronoun (elle), which is conjugated with 'va' and the infinitive verb.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Hier matin, j' ________ rencontré Stella au marché.",
+    "options": [
+      "suis",
+      "es",
+      "as",
+      "ai"
+    ],
+    "correct_answer_index": 3,
+    "explanation": "The verb 'rencontrer' is conjugated with 'avoir' in the passé composé. With the subject 'j'' (je), the correct form of the auxiliary is 'ai'.",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "Il est onze heures vingt-neuf.",
+    "options": [
+      "12h29",
+      "11h29",
+      "11h20",
+      "10h39"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "'Onze' means eleven and 'vingt-neuf' means twenty-nine, so the time is 11:29.",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "La fille (finir) son travail la semaine prochaine.",
+    "options": [
+      "finiront",
+      "finira",
+      "finirez",
+      "finirai"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "This sentence uses the 'futur simple' (simple future). The subject 'La fille' (the girl) is a third-person singular pronoun (elle), which takes the ending '-a' in the simple future.",
+    "has_latex": false,
+    "difficulty_score": 1.5
+  },
+  {
+    "question_text": "Il est trois heures et demie.",
+    "options": [
+      "03h30",
+      "03h15",
+      "13h30",
+      "13h45"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "'Et demie' means 'and a half', which corresponds to 30 minutes past the hour.",
+    "has_latex": false,
+    "difficulty_score": 1.2
+  },
+  {
+    "question_text": "Tes parents sont arrivés à Tarkwa ? - Non, mes parents... Tarkwa.",
+    "options": [
+      "pas ne sont arrivés",
+      "ne sont arrivés pas",
+      "ne sont pas arrivés",
+      "ne pas sont arrivés"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The correct form for negation in the passé composé with the auxiliary verb 'être' is 'ne' + auxiliary verb + 'pas' + past participle. The correct form is 'ne sont pas arrivés'.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Mon ami ... trop de vin rouge.",
+    "options": [
+      "est bu",
+      "a bu",
+      "es bu",
+      "as bu"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The verb 'boire' (to drink) in the passé composé uses the auxiliary verb 'avoir'. The subject 'Mon ami' (my friend) is a third-person singular pronoun (il), which takes 'a'. The past participle of 'boire' is 'bu'.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Valerie et Sylvie ... leur petit déjeuner.",
+    "options": [
+      "ont prise",
+      "ont prie",
+      "ont pris",
+      "ont prises"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The verb 'prendre' (to take/have) uses 'avoir' in the passé composé. The past participle of 'prendre' is 'pris' and it does not agree with the subject when conjugated with 'avoir'.",
+    "has_latex": false,
+    "difficulty_score": 1.8
+  },
+  {
+    "question_text": "Quand j'étais étudiante, je ... 'Belle Fleur.'",
+    "options": [
+      "me suis appelée",
+      "m'a appelé",
+      "m'appelais",
+      "m'appelle"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "This sentence uses the 'imparfait' tense. The phrase 'Quand j'étais étudiante' (When I was a student) indicates a past habit or continuous state. The correct conjugation for 's'appeler' (to be called) with the subject 'je' is 'm'appelais'.",
+    "has_latex": false,
+    "difficulty_score": 2.4
+  },
+  {
+    "question_text": "Les ghanéens sont ils travailleurs? Oui,.....",
+    "options": [
+      "ils ne sont plus travailleurs",
+      "ils ne sont pas travailleurs",
+      "ils sont travailleurs",
+      "ils ne sont jamais travailleurs"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The question is an affirmative question asking if Ghanaians are hardworking. The correct affirmative response is 'Oui, ils sont travailleurs' (Yes, they are hardworking).",
+    "has_latex": false,
+    "difficulty_score": 1.0
+  },
+  {
+    "question_text": "Nous ... ensemble quand la bombe a explosé.",
+    "options": [
+      "étions",
+      "sommes",
+      "serons",
+      "avons été"
+    ],
+    "correct_answer_index": 0,
+    "explanation": "The 'imparfait' tense is used to describe a continuous action or state in the past ('We were together') that was interrupted by a specific event ('when the bomb exploded'). The correct conjugation of 'être' (to be) with 'nous' (we) in the imparfait is 'étions'.",
+    "has_latex": false,
+    "difficulty_score": 2.4
+  }
+]

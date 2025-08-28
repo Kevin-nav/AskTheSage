@@ -1,0 +1,172 @@
+1. User Interface and Navigation
+This feature is about creating a clean, guided user experience.
+
+Logic: The bot will not use long lists of commands. Instead, it will use Telegram's inline keyboards to present options. This is a crucial design choice for usability. The conversation is not linear; it's a state machine.
+
+Implementation: We'll use the python-telegram-bot library's ConversationHandler. This powerful tool will manage the bot's state for each user.
+
+State 1 (CHOOSE_PROGRAM): When a user types /quiz, the bot's handler function will send a message with an inline keyboard showing program options (e.g., Computer Science, Electrical Engineering).
+
+State 2 (CHOOSE_LEVEL): When a user taps a program button, a CallbackQueryHandler in our ConversationHandler will catch the callback and transition the user to the CHOOSE_LEVEL state, presenting a new keyboard with level options (Level 100, Level 200).
+
+State 3 (CHOOSE_COURSE): This process repeats, leading the user to select a specific course, at which point the quiz session begins.
+
+2. Smart Question Selection Algorithm
+This is the core of the bot's intelligence, ensuring a personalized and effective learning experience.
+
+Logic: The algorithm is a hybrid that uses a weighted scoring system to prioritize questions. It runs at the start of each quiz session to select the questions in a single, efficient database query.
+
+Implementation:
+
+Data Retrieval: The bot will query the RDS database for all questions in the user's selected course. It will also retrieve the user's past quiz history for that specific course from the user_questions table.
+
+Scoring: For each question in the course, the bot's logic will calculate a score:
+
+Weakness Priority: If the user has answered the question incorrectly, its score is heavily weighted (e.g., score = number_of_incorrect_answers * 100).
+
+Coverage Priority: For unseen questions, they get a baseline score to ensure they are presented to the user at some point. The algorithm will have a check to ensure it pulls at least one question from each topic the user has not seen yet.
+
+Spaced Repetition: Questions not seen in a long time get a score boost (score = days_since_last_asked * 10).
+
+Final Selection: The bot will then sort all questions by their final score and select the top 10, 20, or 50 (based on user choice) for the quiz session. This list is saved to the user's context.user_data for the duration of the quiz, preventing redundant database calls.
+
+3. On-Demand Image Rendering
+This feature ensures equations are displayed correctly while being highly performant.
+
+Logic: The bot will only render an image from LaTeX if it hasn't already done so. This caching strategy prevents redundant, CPU-intensive rendering tasks.
+
+Implementation:
+
+Caching: We will use in-memory caching for the bot's current session and file-based caching on the EC2 instance's storage for more persistent caching. When a user requests a question with a LaTeX equation, the bot will first check if an image for that exact LaTeX string already exists in the cache.
+
+Rendering: If the image is not in the cache, the bot will use a Python library like Matplotlib to render the LaTeX into a PNG image.
+
+Storage: The rendered image is temporarily saved to the local file-based cache and immediately sent to Telegram via the sendPhoto method.
+
+4. Load Balancing and Performance Optimization
+This is arguably the most critical part of the bot's architecture for handling concurrent users.
+
+Logic: We will use a smart load balancing algorithm to distribute the workload dynamically, rather than just a simple on/off switch. This ensures both EC2 instances are being used efficiently when needed.
+
+Implementation (Nginx):
+
+Load Balancing: Nginx will be configured to use the least_conn (least connections) algorithm. Instead of using a simple round-robin approach, which can send a request to a busy server, least_conn directs a new request to the EC2 instance with the fewest active connections. This ensures both instances are actively sharing the load as it increases, leading to a much more efficient distribution.
+
+Failover: Nginx will also perform constant health checks on both instances. If an instance fails, Nginx will automatically stop sending traffic to it and redirect all incoming requests to the healthy instance. This configuration is handled within the Nginx upstream block.
+
+Performance Optimization (EC2 Instances):
+
+Swap Space: To prevent the bot's process from being killed by the Linux kernel when it runs out of memory (Out of Memory Killer), we will create and activate a swap file on each EC2 instance's internal storage. This swap space acts as a spillover for physical RAM, allowing the system to offload less-active data to disk when needed, ensuring the bot's processes remain stable during memory-intensive tasks like rendering.
+
+Database Efficiency: By retrieving a batch of questions at the start of each quiz session and using an in-memory queue, we minimize the number of queries to the RDS database. This significantly reduces the network latency and computational load on both the EC2 instances and the database.
+
+
+
+Bot Conceptual Overview and Architecture
+The Telegram bot is designed as a highly available, scalable, and intelligent quiz platform. It operates using a multi-layered, distributed architecture to handle concurrent users efficiently while providing a personalized and engaging experience. The core of the bot's intelligence lies in its ability to select questions dynamically, render complex equations, and manage a structured conversation flow.
+
+⚙️ Architecture & Hosting
+The bot's operation is built on a robust, fault-tolerant infrastructure using Amazon Web Services (AWS) to ensure continuous service and scalability.
+
+Hosting: The bot’s backend will be hosted on two AWS EC2 instances within the free-tier. This dual-instance setup is a critical component of the bot’s high-availability strategy.
+
+Load Balancing & Reverse Proxy: A reverse proxy, such as Nginx, will be implemented in front of the two EC2 instances. This component will serve two main purposes:
+
+Workload Distribution: It will act as a load balancer, distributing incoming Telegram webhook requests across the two instances using a "least connections" algorithm to prevent any single server from becoming overwhelmed.
+
+Failover: It will monitor the health of both EC2 instances. In the event one instance becomes unresponsive or fails, the reverse proxy will automatically redirect all traffic to the other healthy instance, ensuring zero downtime for users.
+
+Resource Management: To optimize performance and handle larger-than-expected computational tasks, the EC2 instances will be configured with a swap space. This virtual memory will supplement the physical RAM, preventing the bot from crashing when processing large quiz sets or rendering multiple images simultaneously.
+
+💾 Database & Data Management
+A decoupled database approach ensures that data is secure, persistent, and accessible independently of the application instances.
+
+Relational Database (Amazon RDS): All mission-critical data will be stored in a managed relational database service like Amazon RDS, specifically using PostgreSQL. This ensures high performance, automatic backups, and seamless scalability. The database will store:
+
+User Data: A table will be dedicated to each user, tracking their Telegram ID, quiz history, quiz preferences (program, level, course), and performance metrics (e.g., correct/incorrect answers per topic).
+
+Quiz Data: A separate table will store all the quiz questions. Questions will be saved as raw text, while mathematical equations will be encoded using LaTeX. This allows for consistent and accurate rendering of complex formulas.
+
+Error Logs: The database will also log any issues reported by users, along with a timestamp and the specific question ID, enabling quick debugging and bot improvement.
+
+Object Storage (Amazon S3): Images are stored separately from the database in an Amazon S3 (Simple Storage Service) bucket. Instead of embedding the images directly in the database, the bot will simply store the unique URL link to the image. This approach is highly scalable and cost-effective, as S3 is designed for large-scale object storage, and it keeps the database tables lean and fast.
+
+🧠 Core Functionality & Logic
+The bot’s logic is designed to create a seamless and intelligent user experience from the first interaction to the final quiz question.
+
+On-Demand Image Rendering: When a question containing a LaTeX equation is selected, the bot will not send the raw code. Instead, it will use a library like Matplotlib to dynamically render the LaTeX into a high-quality image. This image is then sent to the user via Telegram, ensuring perfect display of all equations without requiring the user to have a LaTeX viewer. This "on-demand" rendering saves significant storage space and improves efficiency by only generating images when they are needed.
+
+Hybrid Question Selection Algorithm: The bot employs a sophisticated, three-pronged algorithm to select the next question for a user. This is a key "smart" feature:
+
+Weakest Topics First: The algorithm analyzes a user's past performance to identify the topics or concepts where they have the most incorrect answers. It prioritizes questions from these weak areas to maximize learning.
+
+Full Exam Coverage: It ensures that questions from all topics within a chosen course are presented, preventing the user from only seeing questions on a limited set of subjects.
+
+Spaced Repetition: It incorporates a spaced repetition system, which schedules questions that were answered correctly but are at risk of being forgotten. This reinforces memory and helps with long-term retention.
+
+Conversation Management (python-telegram-bot): The bot's conversational flow is managed by the library's ConversationHandler. This feature is essential for a multi-step quiz:
+
+It defines a state machine that guides the user through the menu system (CHOOSE_PROGRAM, CHOOSE_LEVEL, CHOOSE_COURSE) and into the quiz session (QUIZ_SESSION).
+
+It uses a temporary dictionary, context.user_data, to store session-specific data like the user's current score, the list of questions for the quiz, and the index of the question they are currently on. This data is only available for the duration of the conversation, keeping memory usage low.
+
+🧑‍💻 User Experience & Interaction
+The bot is built to be intuitive and responsive, providing a clean interface and helpful feedback.
+
+Menu Navigation: The user will navigate the bot's features using a tiered system of inline keyboards:
+
+First, they select their program.
+
+Next, they select their level.
+
+Finally, they select the course they wish to be quizzed on.
+
+Quiz Interface: The quiz itself is a simple but effective combination of a question image and a poll.
+
+The bot sends a single image containing the question text, multiple-choice options, and any associated equations.
+
+It then follows up with a Telegram poll, providing an easy, single-tap way for the user to submit their answer.
+
+Feedback & Reporting: Users have a dedicated button to report a question with an issue (e.g., incorrect answer, typo, poor formatting). This feedback is logged in the database, and the system can automatically prevent the question from being used again until it is reviewed by an administrator.
+
+
+
+
+
+
+Bot Architecture & Hosting
+Hosting: The bot will be hosted on two free-tier AWS EC2 instances.
+
+Load Balancing: A reverse proxy like Nginx will distribute the workload between the two EC2 instances using a smart algorithm like "least connections."
+
+Failover: The system will be configured to automatically switch to a backup instance if the primary one fails, ensuring high availability.
+
+Resource Management: We will use swap space on the EC2 instances to augment RAM for efficient operation.
+
+Database & Data Management
+Database: A managed relational database service like Amazon RDS (PostgreSQL) will be used for reliable and scalable data storage, separate from the EC2 instances.
+
+Question Storage: Questions will be stored as text, and any equations will be saved as LaTeX code within the database.
+
+Image Storage: Images associated with questions will be stored in an Amazon S3 bucket, with only the URL saved in the database.
+
+User Data: The database will track user IDs, quiz history, correct/incorrect answers, and other metrics to personalize the experience.
+
+Core Functionality & Logic
+Quizzing System: Questions will be sent as a single image (text and equations combined), followed by a Telegram poll for the answer.
+
+On-Demand Rendering: The bot will render LaTeX equations into images on-site using a library like Matplotlib only when needed to save compute power.
+
+Smart Question Selection: The bot will use a hybrid algorithm to select questions based on factors like a user's weakest topics, full exam coverage, and spaced repetition.
+
+Issue Reporting: Users can report issues with a button, and the bot will log the problem in the database, with a system to prevent repeat errors.
+
+UI/UX: The user experience will be guided by a tiered menu for program, level, and course selection using inline keyboards.
+
+Conversation Flow: The bot will use the python-telegram-bot library's ConversationHandler to manage the multi-step quiz flow efficiently.
+
+
+
+
+
+

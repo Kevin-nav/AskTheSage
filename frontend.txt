@@ -1,0 +1,122 @@
+Excellent. This is a fantastic and necessary next step for managing and understanding the bot's ecosystem. I
+  understand perfectly: my role is to be the architect, not the builder. I will provide you with a
+  comprehensive blueprint for the analytics website, detailing what needs to be done based on a thorough
+  analysis of our entire codebase and database schema.
+
+  Here is the complete breakdown for building your analytics website.
+
+  ---
+
+  Analytics Website Blueprint
+
+  1. Core Concept & Architecture
+
+  The best approach is to build a separate web application that is completely decoupled from your live
+  Telegram bot.
+
+   * Technology Stack Recommendation:
+       * Backend (API): FastAPI or Flask. Since your bot is written in Python, using one of these frameworks
+         is ideal. They can directly import your existing SQLAlchemy models (src/models/models.py) and
+         database connection logic (src/database.py), which will save a massive amount of time.
+       * Frontend: React, Vue.js, or even simple server-side rendered templates using Jinja2 (which integrates
+         easily with Flask/FastAPI). A modern JavaScript framework will provide the best experience for
+         interactive charts and tables.
+       * Database: The website will connect to the same PostgreSQL database as your bot, but likely with a
+         read-only user for most operations to ensure safety.
+
+   * Why this architecture?
+       * Performance: Complex analytics queries will not slow down the Telegram bot's responsiveness.
+       * Security: The website can have its own authentication and security layer, separate from the bot.
+       * Scalability: The bot and the website can be scaled independently.
+
+  2. Required API Endpoints
+
+  The heart of the project is a RESTful API that the frontend will use to get data. Here are the essential
+  endpoints you'll need to create in your new Flask/FastAPI backend.
+
+  Dashboard Endpoints
+   * GET /api/v1/analytics/overview
+       * Purpose: To populate a main dashboard with key performance indicators (KPIs).
+       * Data to Return:
+           * total_users: Count of all users in the users table.
+           * total_quizzes_taken: Count of all sessions in quiz_sessions where is_completed = true.
+           * total_questions_answered: Sum of all answered questions from quiz_session_questions.
+           * overall_average_score: Average of final_score from quiz_sessions.
+           * new_users_today/this_week/this_month: Count of users from users table based on a creation
+             timestamp (Note: our users table doesn't have one, this would be a small but useful addition).
+
+  User Analytics Endpoints
+   * GET /api/v1/users
+       * Purpose: To get a paginated, searchable list of all users.
+       * Data to Return (for each user): user_id, telegram_id, quiz_count, average_score.
+   * GET /api/v1/users/<user_id>
+       * Purpose: To get a detailed profile for a single user.
+       * Data to Return:
+           * User's telegram_id.
+           * A list of all their quiz_sessions with scores and dates.
+           * Performance breakdown per course (accuracy, number of quizzes).
+           * A list of their top 5 "weakest" questions (from user_answers).
+
+  Content & Course Analytics Endpoints
+   * GET /api/v1/faculties
+       * Purpose: To list all faculties and see their usage.
+       * Data to Return (for each faculty): faculty_id, name, program_count, student_count (distinct users who
+         have taken a quiz in that faculty).
+   * GET /api/v1/courses
+       * Purpose: To get a paginated, searchable list of all courses.
+       * Data to Return (for each course): course_id, name, level, program, total_quizzes_taken,
+         average_score, question_count.
+   * GET /api/v1/courses/<course_id>/performance
+       * Purpose: To get a detailed performance breakdown for a single course.
+       * Data to Return:
+           * List of all questions in the course.
+           * For each question: question_text, total_attempts, total_incorrect, global_incorrect_rate. This
+             re-uses the logic from our analyze_question_performance.py script.
+           * Identification of the top 5 "most problematic" questions.
+
+  Reporting Endpoints (For Your Future Feature)
+   * POST /api/v1/questions/report
+       * Purpose: An endpoint for the Telegram bot to call when a user reports a question.
+       * Request Body: { "question_id": <int>, "user_id": <int>, "report_reason": "<string>" }
+       * Action: Creates a new entry in a new question_reports table.
+   * GET /api/v1/questions/reports
+       * Purpose: For the analytics dashboard to display a list of reported questions for admin review.
+       * Data to Return: A list of all reports, including question text, who reported it, and the reason.
+
+  3. Required Database Schema Additions
+
+  Our current schema is excellent, but for a full-featured dashboard, you'll need to add:
+
+   1. A `question_reports` Table:
+
+   1     CREATE TABLE question_reports (
+   2         id SERIAL PRIMARY KEY,
+   3         question_id INTEGER NOT NULL REFERENCES questions(id),
+   4         user_id INTEGER NOT NULL REFERENCES users(id),
+   5         reason TEXT,
+   6         status VARCHAR(20) DEFAULT 'open', -- e.g., 'open', 'resolved', 'ignored'
+   7         reported_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+   8     );
+   2. A `created_at` Column on the `users` Table:
+   1     ALTER TABLE users ADD COLUMN created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
+      This is needed for tracking new user growth over time.
+
+  4. Frontend Dashboard - Key Pages
+
+  The website should be structured with the following pages:
+
+   1. Login Page: To secure the dashboard.
+   2. Main Dashboard: Displays the high-level KPIs from the /analytics/overview endpoint using charts and
+      graphs.
+   3. Users Page: A searchable table of all users. Clicking a user takes you to their detail page.
+   4. User Detail Page: Shows a user's full quiz history, their performance in each course, and their personal
+      "problem questions."
+   5. Courses Page: A searchable table of all courses, allowing you to drill down into a specific course's
+      performance.
+   6. Course Detail Page: The most important page for content managers. It should clearly list all questions
+      and their global success rates, highlighting the most difficult ones.
+   7. Question Reports Page: A simple queue showing all user-submitted reports, with options for an admin to
+      mark them as "resolved" or "ignored."
+
+  This blueprint provides a complete roadmap. The next step would be for a developer to choose a web
+  framework and start building the API endpoints based on this plan.

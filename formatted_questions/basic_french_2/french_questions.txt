@@ -1,0 +1,1056 @@
+1.  Madame Oppong achète des jouets pour **_** enfant.
+    A. son
+    B. ses
+    C. sa
+    D. s'
+    **Answer:** C. sa
+    **Explanation:** The noun **enfant** (child) is a person, and the sentence indicates possession by a single person (**Madame Oppong**). The correct possessive adjective for a singular feminine noun is **sa**.
+
+2.  Tu dois dire au revoir à **_** parents avant de partir.
+    A. son
+    B. tes
+    C. votre
+    D. leur
+    **Answer:** B. tes
+    **Explanation:** The subject pronoun is **Tu** (you, informal), so the possessive adjective must be the corresponding second person singular form, which is **tes** (your).
+
+3.  Quelle heure est-**_**?
+    A. il
+    B. elle
+    C. ils
+    D. tu
+    **Answer:** A. il
+    **Explanation:** The correct expression for asking for the time is **"Quelle heure est-il?"** The impersonal pronoun **il** is used in this context.
+
+4.  Elles vont **_** des cahiers chez le libraire.
+    A. acheter
+    B. achètes
+    C. achète
+    D. achètent
+    **Answer:** A. acheter
+    **Explanation:** The verb **aller** (to go) in the present tense is followed by the infinitive form of the main verb to create the **futur proche** (near future) tense. Thus, **acheter** is the correct form.
+
+5.  **_** robe est chère. Je n'ai pas assez d'argent pour l'acheter.
+    A. Ces
+    B. Ce
+    C. Cet
+    D. Cette
+    **Answer:** D. Cette
+    **Explanation:** The noun **robe** (dress) is a singular, feminine noun. The correct demonstrative adjective is **cette**, which is used before singular feminine nouns.
+
+6.  Kodjo a une voix **_**. il chante bien.
+    A. doux
+    B. douse
+    C. douce
+    D. sèche
+    **Answer:** C. douce
+    **Explanation:** The noun **voix** (voice) is a feminine noun. The adjective must agree in gender, so the feminine form **douce** (soft/sweet) is the correct choice. **Doux** is the masculine form.
+
+7.  Vous parlez de **_** vocation?
+    A. quelle
+    B. quelles
+    C. quel
+    D. quels
+    **Answer:** A. quelle
+    **Explanation:** The noun **vocation** (vocation/calling) is a singular, feminine noun. The interrogative adjective must agree, making **quelle** the correct option.
+
+8.  Rose est très **_**.
+    A. beau
+    B. beaux
+    C. belle
+    D. belles
+    **Answer:** C. belle
+    **Explanation:** The subject **Rose** is a feminine name. The adjective must agree in gender, so the feminine form **belle** is the correct choice.
+
+9.  Les géologues **_** aux États-Unis l'année prochaine pour un séminaire.
+    A. ira
+    B. iras
+    C. iront
+    D. irons
+    **Answer:** C. iront
+    **Explanation:** The subject is **Les géologues** (the geologists), which is a third person plural subject. The verb **aller** (to go) in the simple future tense conjugates to **iront** for this subject.
+
+10. Où se trouve **_** grand arbre dont tu parles ?
+    A. cet
+    B. ce
+    C. ces
+    D. ces
+    **Answer:** B. ce
+    **Explanation:** The noun **arbre** (tree) is a masculine, singular noun. The demonstrative adjective is **ce**. However, since **arbre** begins with a vowel sound, the correct form should be **cet**, but based on the provided answer key, **ce** is listed as correct, which is likely a typo in the source material.
+
+11. Le chef cuisinier est très **_**.
+    A. compétent
+    B. compétentes
+    C. compétents
+    D. compétente
+    **Answer:** A. compétent
+    **Explanation:** The subject is **Le chef cuisinier** (the male chef), which is a singular, masculine noun. The adjective **compétent** (competent) must agree in gender and number, so the masculine singular form is correct.
+
+12. Les filles ont bien **_** pendant la fête.
+    A. mangé
+    B. mangées
+    C. mangée
+    D. mangés
+    **Answer:** A. mangé
+    **Explanation:** When the auxiliary verb is **avoir** in the passé composé, the past participle **mangé** (ate) does not agree with the subject. There is no direct object preceding the verb, so no agreement is needed.
+
+13. **_** sont les dossiers ?
+    A. Qui
+    B. Où
+    C. Quand
+    D. Que
+    **Answer:** B. Où
+    **Explanation:** The word **dossiers** (files) is a place, so the interrogative adverb **Où** (where) is the correct choice to ask about their location.
+
+14. **_** travaille avec vous ?
+    A. Où
+    B. Quand
+    C. Que
+    D. Qui
+    **Answer:** D. Qui
+    **Explanation:** The verb **travaille** (works) refers to a person. The interrogative pronoun **Qui** (who) is used to ask about a person.
+
+15. Les miniers **_** le contrat le mois prochain.
+    A. finir
+    B. finissent
+    C. finira
+    D. finiront
+    **Answer:** D. finiront
+    **Explanation:** The subject is **Les miniers** (the miners), which is a plural subject. The phrase **le mois prochain** (next month) indicates the simple future tense. The correct conjugation of the verb **finir** (to finish) in the future tense is **finiront**.
+
+16. Quand tu trouveras cette lettre, je **_** loin.
+    A. serai
+    B. seras
+    C. sera
+    D. serez
+    **Answer:** A. serai
+    **Explanation:** The subject pronoun is **je** (I). The verb **être** (to be) in the simple future tense conjugates to **serai** for the first person singular.
+
+17. Les enseignants vont **_** au Japon.
+    A. enseigne
+    B. enseignent
+    C. enseigner
+    D. enseigneront
+    **Answer:** C. enseigner
+    **Explanation:** The verb **aller** (to go) in the present tense is followed by the infinitive form of the main verb to create the **futur proche** (near future) tense. Thus, **enseigner** is the correct form.
+
+18. -Vous parlez à John et Racheal? - Oui, je **_** parle.
+    A. leur
+    B. lui
+    C. eux
+    D. les
+    **Answer:** A. leur
+    **Explanation:** John and Racheal are indirect objects. They are people. They are plural. The indirect object pronoun for a plural object is **leur**.
+
+19. Elles **_** quand le train est arrivé.
+    A. dormait
+    B. dormais
+    C. dormaient
+    D. dormions
+    **Answer:** C. dormaient
+    **Explanation:** The subject pronoun is **Elles** (they, feminine plural). The verb is in the **imparfait** (imperfect past tense), as indicated by the action being a continuous one interrupted by a second action (**quand le train est arrivé**). The correct conjugation of the verb **dormir** (to sleep) is **dormaient**.
+
+20. - Ils se sont (coucher) tôt ? - Non, ils **_** tôt.
+    A. ne se sont pas couchées
+    B. ne se sont pas couchés
+    C. ne se sont pas couché
+    D. ne se sont pas couchée
+    **Answer:** B. ne se sont pas couchés
+    **Explanation:** The subject is **Ils** (they, masculine plural). **Coucher** is a reflexive verb, so the past participle agrees with the subject. The past participle is **couchés** to agree with the masculine plural subject **ils**. When negated, the **ne** comes before the reflexive pronoun **se** and the **pas** comes after the auxiliary verb **sont**.
+
+21. C'est **_** une rose.
+    A. belle
+    B. beau
+    C. belles
+    D. beaux
+    **Answer:** A. belle
+    **Explanation:** The noun **rose** (rose) is a feminine noun. The adjective **belle** (beautiful) must agree in gender. The expression **c'est** is often used with a feminine adjective to describe a feminine noun.
+
+22. Céline est médecin et travaille **_** Rio, **_** Brésil.
+    A. à / au
+    B. en / au
+    C. au / en
+    D. à / en
+    **Answer:** A. à / au
+    **Explanation:** **À** is used before the name of a city (**Rio**). **Au** is used before the name of a masculine country (**Brésil**) that starts with a consonant.
+
+23. John est ingénieur **_** Renault, **_** Chine.
+    A. en / au
+    B. à / en
+    C. chez / en
+    D. pour / en
+    **Answer:** C. chez / en
+    **Explanation:** **Chez** is used to mean "at/for" a company or business (**Renault**). **En** is used before the name of a feminine country (**Chine**) that starts with a consonant.
+
+24. Elizabeth travaille **_** New York, **_** une entreprise suédoise.
+    A. à / pour
+    B. en / à
+    C. chez / à
+    D. pour / à
+    **Answer:** A. à / pour
+    **Explanation:** **À** is used for a city (**New York**). **Pour** is used to indicate a purpose or the company for which someone works (**une entreprise suédoise**).
+
+25. Les étudiants de UMaT vont **_** Pays-Bas pour un colloque.
+    A. au
+    B. en
+    C. aux
+    D. à
+    **Answer:** C. aux
+    **Explanation:** **Pays-Bas** (Netherlands) is a masculine, plural country name. The preposition **aux** is used for plural countries.
+
+26. Les géologues d'Ashanti Gold vont **_** Iran.
+    A. au
+    B. à
+    C. en
+    D. aux
+    **Answer:** C. en
+    **Explanation:** **Iran** is a masculine country that begins with a vowel sound. The preposition **en** is used for countries that start with a vowel, regardless of gender.
+
+27. Les professeurs assisteront à un colloque **_** Caire pour préparer une réunion **_** Mexique l'année prochaine.
+    A. au / au
+    B. en / en
+    C. à / au
+    D. au / en
+    **Answer:** A. au / au
+    **Explanation:** **Le Caire** (Cairo) is one of the few masculine cities that requires an article. The preposition for masculine cities is **au**. **Mexique** (Mexico) is a masculine country. The preposition **au** is used for masculine countries.
+
+28. Vous **_** la nouvelle collègue? (connaître)
+    A. connais
+    B. connaissez
+    C. connaît
+    D. connaissons
+    **Answer:** B. connaissez
+    **Explanation:** The subject pronoun is **Vous** (you, plural or formal singular). The present tense conjugation of **connaître** (to know) is **connaissez**.
+
+29. Le directeur **_** négocier les contrats. (savoir)
+    A. sais
+    B. sait
+    C. savent
+    D. savez
+    **Answer:** B. sait
+    **Explanation:** The subject **Le directeur** (the director) is a third person singular. The present tense conjugation of **savoir** (to know how to) is **sait**.
+
+30. Les étudiants de UMAT **_** travailleurs. (être)
+    A. sont
+    B. est
+    C. êtes
+    D. sommes
+    **Answer:** A. sont
+    **Explanation:** The subject is **Les étudiants** (the students), which is third person plural. The present tense conjugation of **être** (to be) is **sont**.
+
+31. Akua et Emmanuella **_** bien la leçon du jour. (comprendre)
+    A. comprends
+    B. comprend
+    C. comprenons
+    D. comprennent
+    **Answer:** D. comprennent
+    **Explanation:** The subject **Akua et Emmanuella** is third person plural (they). The present tense conjugation of **comprendre** (to understand) is **comprennent**.
+
+32. Tu **_** du couscous? (manger)
+    A. mange
+    B. manges
+    C. mangent
+    D. mangez
+    **Answer:** B. manges
+    **Explanation:** The subject pronoun is **Tu** (you, informal singular). The present tense conjugation of **manger** (to eat) is **manges**.
+
+33. Je **_** au marché. (aller)
+    A. vais
+    B. va
+    C. vont
+    D. vas
+    **Answer:** A. vais
+    **Explanation:** The subject pronoun is **je** (I). The present tense conjugation of the verb **aller** (to go) for the first person singular is **vais**.
+
+34. Nous **_** français et anglais. (parler)
+    A. parle
+    B. parles
+    C. parlons
+    D. parlent
+    **Answer:** C. parlons
+    **Explanation:** The subject pronoun is **nous** (we). The present tense conjugation of the verb **parler** (to speak) for the first person plural is **parlons**.
+
+35. Les étudiants **_** leurs devoirs. (finir)
+    A. finis
+    B. finit
+    C. finissons
+    D. finissent
+    **Answer:** D. finissent
+    **Explanation:** The subject **Les étudiants** (the students) is a third person plural. The present tense conjugation of the verb **finir** (to finish) for the third person plural is **finissent**.
+
+36. M. Mensah **_** une grosse maison. (avoir)
+    A. as
+    B. a
+    C. avons
+    D. avez
+    **Answer:** B. a
+    **Explanation:** The subject **M. Mensah** is a third person singular. The present tense conjugation of the verb **avoir** (to have) for the third person singular is **a**.
+
+37. Madame Mahama **_** Informaticienne. (être)
+    A. est
+    B. sont
+    C. êtes
+    D. suis
+    **Answer:** A. est
+    **Explanation:** The subject **Madame Mahama** is a third person singular. The present tense conjugation of the verb **être** (to be) for the third person singular is **est**.
+
+38. The question "Je te **_** pour ton **_**" from the original document has been rephrased. The sentence would have two blanks, but in a multiple choice format, it is a single question with options.
+    A. remercie / message
+    B. appelle / message
+    C. désolée / message
+    D. peux / message
+    **Answer:** A. remercie / message
+    **Explanation:** The phrase **"Je te remercie"** means "I thank you." The sentence's context, "for your," suggests thanking someone for a message they sent.
+
+39. The question "Je suis **_** mais M. Dumenyah est **_** pour le **_**" from the original document has been rephrased.
+    A. désolée / absent / moment
+    B. absent / désolée / moment
+    C. désolée / absent / réunion
+    D. absent / absent / moment
+    **Answer:** A. désolée / absent / moment
+    **Explanation:** This is part of a message where the writer is apologizing, saying **"Je suis désolée"** (I'm sorry) and explaining that someone is **"absent"** for the **"moment"**.
+
+40. Le boulanger **_** du pain.
+    A. transporte
+    B. fabrique
+    C. vend
+    D. coupe
+    **Answer:** B. fabrique
+    **Explanation:** A baker's main job is to make or **fabrique** bread, which in the context of the document is a suitable answer.
+
+41. Les ingénieurs utilisent **_** pour creuser.
+    A. une scie
+    B. un couteau
+    C. un excavateur
+    D. une boisson
+    **Answer:** C. un excavateur
+    **Explanation:** Engineers (**Les ingénieurs**) use an **excavateur** (excavator) to dig (**pour creuser**).
+
+42. Le stylo sert à **_**.
+    A. transporter
+    B. couper
+    C. écrire
+    D. creuser
+    **Answer:** C. écrire
+    **Explanation:** A pen (**le stylo**) is used to **écrire** (write).
+
+43. **_** voit avec un seul œil.
+    A. Le boulanger
+    B. Le borgne
+    C. Le plat
+    D. L'excavateur
+    **Answer:** B. Le borgne
+    **Explanation:** **Le borgne** (the one-eyed man) is a person who sees with only one eye (**voit avec un seul œil**).
+
+44. Les médecins soignent les malades **_**.
+    A. à la banque
+    B. à l'hôpital
+    C. au marché
+    D. chez le boulanger
+    **Answer:** B. à l'hôpital
+    **Explanation:** Doctors (**Les médecins**) treat the sick (**soignent les malades**) at the hospital (**à l'hôpital**).
+
+
+
+
+
+
+
+    1. Le chef du département dit : « Il est vingt-trois heures quarante-cinq. » Cela veut dire qu'il est
+    * a. minuit moins le quart
+    * b. midi moins le quart
+    * c. midi et 45 minutes
+    * d. midi et 15 minutes
+    * **Correct Answer:** a. minuit moins le quart.
+    * **Explanation:** In French, "vingt-trois heures quarante-cinq" translates to 23:45, which is 11:45 PM. [cite_start]This is 15 minutes before midnight, or "minuit moins le quart." [cite: 59, 61]
+    
+2. Qu'est-ce que tu ________ quand le professeur est entré dans la lasse ?
+    * a. faisait
+    * b. faisais
+    * c. tu as fait
+    * d. fais
+    * **Correct Answer:** b. faisais.
+    * **Explanation:** The verb "faire" is used here in the imparfait tense, which describes an ongoing action in the past. "Faisais" is the correct conjugation for the subject pronoun "tu." [cite_start]The structure "Qu'est-ce que tu faisais..." means "What were you doing..." [cite: 63, 65]
+    
+3. Ces étudiantes sont souvent fatiguées. Elles viennent au cours ________-pied.
+    * a. en
+    * b. par
+    * c. à
+    * d. dans
+    * **Correct Answer:** c. à.
+    * [cite_start]**Explanation:** The correct preposition to use for walking is "à pied." [cite: 71, 73]
+    
+4. Hier soir, Precious Cobbinah ________ avec son petit ami.
+    * a. a sorti
+    * b. a sortie
+    * c. est sortie
+    * d. sortait
+    * **Correct Answer:** c. est sortie.
+    * **Explanation:** The verb "sortir" is conjugated with the auxiliary verb "être" in the passé composé when used to mean "to go out." [cite_start]The past participle "sortie" agrees in gender and number with the subject, "Precious Cobbinah," who is female and singular. [cite: 76, 79]
+    
+5. Je vole dans le ciel comme les oiseaux et je transporte des marchandises et des personnes. Qui suis-je ?
+    * a. La voiture
+    * b. L'avion
+    * c. Le camion
+    * d. Le train
+    * **Correct Answer:** b. L'avion.
+    * [cite_start]**Explanation:** The description "I fly in the sky like birds and I transport goods and people" refers to a plane ("l'avion"). [cite: 82, 85]
+    
+6. Semiratu a raté le train. Elle doit aller au travail en ________ aujourd'hui.
+    * a. cheval
+    * b. trotinette
+    * c. taxi
+    * d. vélo
+    * **Correct Answer:** c. taxi.
+    * **Explanation:** All the options are means of transportation. [cite_start]Since Semiratu missed her train, she must take another form of transportation, and a taxi is a common alternative. [cite: 86, 95]
+    
+7. Allez-vous nettoyer la cour? Non, ________.
+    * a. nous allons la nettoyer
+    * b. nous allons pas la nettoyer
+    * c. nous ne pas allons la nettoyer
+    * d. nous n'allons pas la nettoyer
+    * **Correct Answer:** d. nous n'allons pas la nettoyer.
+    * **Explanation:** This is a negative response to the question. The correct structure for negation in French is "ne... pas," which sandwiches the verb. For "nous allons," the negation becomes "nous n'allons pas." [cite_start]The "e" in "ne" is dropped and replaced with an apostrophe because the following word "allons" begins with a vowel. [cite: 89, 99]
+    
+8. La directrice dit : « Je me couche souvent à vingt-deux heures cinquante-cinq. » Cela veut dire qu'elle se couche à...
+    * a. 10h45 du soir
+    * b. 10h55 du soir
+    * c. 9h35 du soir
+    * d. 8h55 du soir
+    * **Correct Answer:** b. 10h55 du soir.
+    * [cite_start]**Explanation:** "Vingt-deux heures cinquante-cinq" translates to 22:55, which is 10:55 PM. [cite: 100, 105]
+    
+9. Ces ouvriers sont toujours ________ l'heure au travail.
+    * a. par
+    * b. sur
+    * c. à
+    * d. en
+    * **Correct Answer:** c. à.
+    * [cite_start]**Explanation:** The correct phrase for "on time" is "à l'heure." [cite: 107, 110]
+    
+10. Il est dix-sept heures et demie selon ma montre. Autrement dit, il est ________.
+    * a. 7h45 du soir
+    * b. 5h30 du soir
+    * c. 7h30 du matin
+    * d. 5h30 du matin
+    * **Correct Answer:** b. 5h30 du soir.
+    * [cite_start]**Explanation:** "Dix-sept heures et demie" is 17:30, which corresponds to 5:30 PM. [cite: 113, 115]
+    
+11. Félicitations! Vous ________ l'examen.
+    * a. êtes passé
+    * b. avez passé
+    * c. êtes passé
+    * d. passiez
+    * **Correct Answer:** b. avez passé.
+    * **Explanation:** When "passer" means "to take" or "to pass" an exam, it is conjugated with the auxiliary verb "avoir." [cite_start]The correct form for "vous" is "avez passé." [cite: 116, 121]
+    
+12. La nourriture ________ de Mademoiselle Abonkra est le fufu avec la soupe de noix de palme à la viande.
+    * a. favorie
+    * b. favorite
+    * c. favori
+    * d. favorites
+    * **Correct Answer:** b. favorite.
+    * **Explanation:** "Nourriture" is a feminine singular noun. [cite_start]Therefore, the adjective "favorite" (feminine singular) is the correct choice. [cite: 124, 128]
+    
+13. Les professeurs de français se rencontrent à 11h45 au bureau du chef de département.
+    * a. onze heures quarante-quatre
+    * b. onze heures trente-cinq
+    * c. dix heures quarante-cinq
+    * d. midi moins quinze
+    * **Correct Answer:** d. midi moins quinze.
+    * [cite_start]**Explanation:** 11:45 is 15 minutes before 12:00 (noon), which is "midi moins quinze." [cite: 134, 137]
+    
+14. Quand nous ________ enfants, nous allions à l'école deux fois par jour.
+    * a. étaient
+    * b. sommes
+    * c. avons été
+    * d. étions
+    * **Correct Answer:** d. étions.
+    * **Explanation:** The sentence describes a habitual action in the past ("we used to go to school..."). [cite_start]The verb "être" in the imparfait tense is the correct form for the subject "nous." [cite: 140, 143]
+    
+15. Vous ________ voir le Tour Eiffel en France ?
+    * a. irai
+    * b. irons
+    * c. irez
+    * d. irons
+    * **Correct Answer:** c. irez.
+    * **Explanation:** The verb "aller" (to go) is conjugated in the future tense. [cite_start]"Irez" is the correct form for the subject "vous." [cite: 145, 148]
+    
+16. Hier, Daniella Asiedu (ne pas se dépêcher) ________ pour prendre le bus.
+    * a. ne s'est pas dépêché
+    * b. ne s'est pas dépêchés
+    * c. ne s'est pas dépêchée
+    * d. Ne s'est pas dépêchées
+    * **Correct Answer:** c. ne s'est pas dépêchée.
+    * **Explanation:** The verb is in the passé composé and is a reflexive verb ("se dépêcher"). It uses the auxiliary "être," so the past participle must agree with the subject. [cite_start]"Daniella Asiedu" is a feminine singular subject, so "dépêchée" is the correct form. [cite: 151, 166]
+    
+17. Emmanuel Azule (arriver) ________ ce soir par le train de 19 heures.
+    * a. vont arriver
+    * b. va arriver
+    * c. vas arriver
+    * d. allons arriver
+    * **Correct Answer:** b. va arriver.
+    * **Explanation:** This is an example of the futur proche (near future), formed with the present tense of "aller" + the infinitive. [cite_start]"Emmanuel Azule" is a singular male subject, equivalent to "il," so the correct form is "va arriver." [cite: 154, 156]
+    
+18. Lawrence Ankomah ________ sorti un stylo de son sac.
+    * a. es
+    * b. a
+    * c. est
+    * d. as
+    * **Correct Answer:** b. a.
+    * **Explanation:** The verb "sortir" (to take out/pull out) is used with the auxiliary "avoir" in the passé composé when followed by a direct object ("un stylo"). [cite_start]The correct conjugation for the third-person singular subject "Lawrence Ankomah" is "a." [cite: 157, 159]
+    
+19. Les étudiants (se coucher) ________ à 21 heures.
+    * a. se sont couché
+    * b. se sont couché
+    * c. se sont couchées
+    * d. se sont couchés
+    * **Correct Answer:** d. se sont couchés.
+    * **Explanation:** The verb is in the passé composé and is a reflexive verb ("se coucher"). It uses the auxiliary "être," and the past participle "couché" must agree with the subject "les étudiants" (masculine plural). [cite_start]The correct form is "couchés." [cite: 160, 184]
+    
+20. Ces étudiants en génie mécanique ont un(e) ________ voix.
+    * a. beau
+    * b. belle
+    * c. bel
+    * d. beaux
+    * **Correct Answer:** b. belle.
+    * **Explanation:** "Voix" is a feminine singular noun. [cite_start]The correct feminine singular adjective for "beautiful" is "belle." [cite: 172, 174]
+    
+21. Fatima et Rabiatu sont aussi ________ que moi.
+    * a. sportive
+    * b. sportif
+    * c. sportifs
+    * d. sportives
+    * **Correct Answer:** d. sportives.
+    * **Explanation:** The subjects are two females, "Fatima et Rabiatu," which is a feminine plural. [cite_start]The adjective "sportives" (feminine plural) must agree with the subjects. [cite: 175, 190]
+    
+22. La vie est un voyage ________ parachute.
+    * a. en
+    * b. à
+    * c. chez
+    * d. avec
+    * **Correct Answer:** a. en.
+    * [cite_start]**Explanation:** The correct preposition for "by parachute" is "en parachute." [cite: 178, 192]
+    
+23. Les étudiants (savoir) ________ quand les examens vont commencer à la fin du mois de juillet.
+    * a. saurai
+    * b. saurons
+    * c. sauras
+    * d. sauront
+    * **Correct Answer:** d. sauront.
+    * **Explanation:** The verb "savoir" (to know) is conjugated in the future tense. [cite_start]The correct form for the subject "les étudiants" (masculine plural, equivalent to "ils") is "sauront." [cite: 194, 208]
+    
+24. Mesdemoiselles Tetteh et Quayson sont très ________.
+    * a. souriants
+    * b. souriante
+    * c. souriant
+    * d. souriantes
+    * **Correct Answer:** d. souriantes.
+    * **Explanation:** The subjects "Mesdemoiselles Tetteh et Quayson" are two females, which is a feminine plural. [cite_start]The adjective "souriantes" (feminine plural) must agree with the subjects. [cite: 197, 210]
+    
+25. Pour aller au marché à Tarkwa, on prend ________.
+    * a. un avion
+    * b. une montgolfière
+    * c. un taxi
+    * d. un train
+    * **Correct Answer:** c. un taxi.
+    * [cite_start]**Explanation:** Among the options, a taxi is the most common and appropriate mode of transportation for going to the market in a city like Tarkwa. [cite: 200, 211]
+    
+26. Le chef du département des langues a eu une discussion ________ avec les professeurs.
+    * a. longue
+    * b. long
+    * c. longs
+    * d. longues
+    * **Correct Answer:** a. longue.
+    * **Explanation:** "Discussion" is a feminine singular noun. [cite_start]The correct feminine singular adjective is "longue." [cite: 206, 214]
+    
+27. Il n'y ________ pas cours demain. C'est un jour férié.
+    * a. aurai
+    * b. auras
+    * c. aurons
+    * d. aura
+    * **Correct Answer:** d. aura.
+    * **Explanation:** The phrase "il n'y a pas de" means "there is no/there are no." In the future tense, this becomes "il n'y aura pas de," using the future tense of the verb "avoir" (to have). [cite_start]The correct form is "aura" for the impersonal subject "il." [cite: 218, 224]
+    
+28. Elle (passer) ________ son permis de conduire.
+    * a. a passée
+    * b. a passé
+    * c. est passée
+    * d. est passé
+    * **Correct Answer:** b. a passé.
+    * [cite_start]**Explanation:** When the verb "passer" is used with a direct object ("son permis de conduire"), it is conjugated with the auxiliary verb "avoir" in the passé composé. [cite: 225, 227]
+    
+29. Les belles demoiselles (sortir) ________ de la classe sans rien dire au professeur.
+    * a. sont sortis
+    * b. sont sorties
+    * c. sont sorti
+    * d. sont sortie
+    * **Correct Answer:** b. sont sorties.
+    * **Explanation:** The verb "sortir" is conjugated with the auxiliary verb "être." [cite_start]The past participle must agree with the subject "les belles demoiselles," which is feminine plural, so "sorties" is the correct form. [cite: 228, 230]
+    
+30. Les journalistes chinoises sont ________ avec le directeur général.
+    * a. arrivés
+    * b. arrivée
+    * c. arrivé
+    * d. arrivées
+    * **Correct Answer:** d. arrivées.
+    * **Explanation:** The verb "arriver" is conjugated with the auxiliary verb "être." [cite_start]The past participle must agree with the subject "les journalistes chinoises," which is feminine plural, so "arrivées" is the correct form. [cite: 231, 248]
+    
+31. Mon amie ________ se marier avec un beau jeune homme.
+    * a. voulais
+    * b. voulait
+    * c. a voulu
+    * d. a voulue
+    * **Correct Answer:** c. a voulu.
+    * **Explanation:** The verb "vouloir" (to want) is conjugated with the auxiliary verb "avoir" in the passé composé. [cite_start]The past participle "voulu" does not agree with the subject. [cite: 234, 250]
+    
+32. Si je ne me lève pas tôt, je ________ en retard au travail.
+    * a. serai
+    * b. sera
+    * c. seras
+    * d. serez
+    * **Correct Answer:** a. serai.
+    * **Explanation:** This is a conditional sentence. [cite_start]The consequence is in the future tense, and "serai" is the correct conjugation of the verb "être" for the subject "je." [cite: 237, 238]
+    
+33. Il ________ beau hier quand nous sommes rentrés.
+    * a. a fait
+    * b. fasait
+    * c. fasaient
+    * d. fasiez
+    * **Correct Answer:** a. a fait.
+    * [cite_start]**Explanation:** To describe the weather in the past, the verb "faire" is used with "il" in the passé composé: "Il a fait beau" means "It was nice out." [cite: 256, 258]
+    
+34. À quoi sert ce bouchon d'oreille ? Il sert à protéger ________.
+    * a. la main
+    * b. le nez
+    * c. l'oreille
+    * d. l'oeil
+    * **Correct Answer:** c. l'oreille.
+    * [cite_start]**Explanation:** "Un bouchon d'oreille" literally means "an earplug," so its purpose is to protect the ear. [cite: 260, 264]
+    
+35. Patricia et Evans, vous vous êtes levés tôt hier ? - Non, ________ tôt hier.
+    * a. nous ne nous sommes pas levées
+    * b. nous ne nous sommes levés pas
+    * c. nous ne nous sommes pas levés
+    * d. nous nous ne sommes pas levé
+    * **Correct Answer:** c. nous ne nous sommes pas levés.
+    * **Explanation:** This is a negative response to a reflexive verb question in the passé composé. The correct structure is "nous ne nous sommes pas levés." The past participle "levés" agrees with the male and female subjects "Patricia et Evans." [cite_start]The "ne" and "pas" surround the reflexive pronoun and the auxiliary verb. [cite: 265, 269]
+    
+36. Madame Oppong achète des jouets pour ________ enfant.
+    * A. son
+    * B. ses
+    * C. sa
+    * D. s'
+    * **Correct Answer:** A. son.
+    * **Explanation:** The noun "enfant" is singular. [cite_start]The possessive adjective for a singular noun belonging to "Madame Oppong" (elle) is "son," which is used before a singular noun regardless of gender if the noun begins with a vowel. [cite: 294, 296]
+    
+37. Quelle heure est-________?
+    * A. il
+    * B. elle
+    * C. ils
+    * D. tu
+    * **Correct Answer:** A. il.
+    * [cite_start]**Explanation:** The correct impersonal phrase for "What time is it?" is "Quelle heure est-il?" [cite: 300, 302]
+    
+38. Elles vont ________ des cahiers chez le libraire.
+    * A. acheter
+    * B. achètes
+    * C. achète
+    * D. achètent
+    * **Correct Answer:** A. acheter.
+    * **Explanation:** When two verbs follow each other, the second verb is in the infinitive form. [cite_start]"Vont" is the conjugated verb, so "acheter" must be the infinitive. [cite: 306, 308]
+    
+39. ________ robe est chère. Je n'ai pas assez d'argent pour l'acheter.
+    * A. Ces
+    * B. Ce
+    * C. Cet
+    * D. Cette
+    * **Correct Answer:** D. Cette.
+    * [cite_start]**Explanation:** "Robe" is a feminine singular noun, so the demonstrative adjective "cette" is the correct choice. [cite: 312, 317]
+    
+40. Kodjo a une voix ________, il chante bien.
+    * A. doux
+    * B. douse
+    * C. douce
+    * D. sèche
+    * **Correct Answer:** C. douce.
+    * **Explanation:** "Voix" is a feminine noun. [cite_start]The adjective "douce" (soft/sweet) is the correct feminine form to agree with the noun. [cite: 318, 322]
+    
+41. Vous parlez de ________ vocation?
+    * A. quelle
+    * B. quelles
+    * C. quel
+    * D. quels
+    * **Correct Answer:** A. quelle.
+    * **Explanation:** "Vocation" is a feminine singular noun. [cite_start]The interrogative adjective "quelle" is the correct form to agree with the noun. [cite: 324, 326]
+    
+42. Rose est très ________.
+    * A. beau
+    * B. beaux
+    * C. belle
+    * D. belles
+    * **Correct Answer:** C. belle.
+    * **Explanation:** "Rose" is a feminine singular subject. [cite_start]The adjective "belle" (beautiful) is the correct form to agree with the subject. [cite: 330, 333]
+    
+43. Les géologues ________ aux États-Unis l'année prochaine pour un séminaire.
+    * A. ira
+    * B. iras
+    * C. iront
+    * D. irons
+    * **Correct Answer:** C. iront.
+    * **Explanation:** The sentence is in the future tense ("l'année prochaine"). [cite_start]The verb "aller" (to go) is conjugated to "iront" for the subject "Les géologues" (ils). [cite: 335, 339]
+    
+44. Où se trouve ________ grand arbre dont tu parles ?
+    * A. cet
+    * B. ce
+    * C. ces
+    * D. ces
+    * **Correct Answer:** B. ce.
+    * **Explanation:** "Arbre" is a masculine singular noun. [cite_start]The demonstrative adjective "ce" is the correct choice. [cite: 341, 344]
+    
+45. Le chef cuisinier est très ________.
+    * A. compétent
+    * B. compétentes
+    * C. compétents
+    * D. compétente
+    * **Correct Answer:** A. compétent.
+    * **Explanation:** "Le chef cuisinier" is a masculine singular subject. [cite_start]The adjective "compétent" is the correct form to agree with the subject. [cite: 347, 348]
+    
+46. Vous ________ le discours du professeur.
+    * A. écoute
+    * B. écoutez
+    * C. écouter
+    * D. écoutes
+    * **Correct Answer:** B. écoutez.
+    * [cite_start]**Explanation:** The verb "écouter" (to listen to) is conjugated to "écoutez" for the subject "vous" in the present tense. [cite: 352, 355]
+    
+47. ________ sont les dossiers ?
+    * A. Qui
+    * B. Où
+    * C. Quand
+    * D. Que
+    * **Correct Answer:** B. Où.
+    * **Explanation:** The question is asking for the location of the files ("dossiers"). [cite_start]The interrogative adverb "Où" means "Where." [cite: 358, 361]
+    
+48. Les miniers ________ le contrat le mois prochain.
+    * A. finir
+    * B. finissent
+    * C. finira
+    * D. finiront
+    * **Correct Answer:** D. finiront.
+    * **Explanation:** The phrase "le mois prochain" indicates the future tense. [cite_start]"Finiront" is the correct future tense conjugation of the verb "finir" for the subject "les miniers" (ils). [cite: 364]
+    
+49. Quand tu trouveras cette lettre, je ________ loin.
+    * A. serai
+    * B. serez
+    * C. sera
+    * D. seras
+    * **Correct Answer:** A. serai.
+    * **Explanation:** The sentence uses the future tense. [cite_start]"Serai" is the correct future tense conjugation of the verb "être" for the subject "je." [cite: 364]
+    
+50. Les enseignants ________ en France.
+    * A. enseigne
+    * B. enseigneront
+    * C. enseigner
+    * D. enseignant
+    * **Correct Answer:** B. enseigneront.
+    * **Explanation:** "En France" suggests a future action. [cite_start]The verb "enseigner" (to teach) is conjugated to "enseigneront" for the subject "Les enseignants" (ils) in the future tense. [cite: 364]
+    
+51. ________ enseignant écrit au tableau.
+    * A. Les
+    * B. Le
+    * C. La
+    * D. L'
+    * **Correct Answer:** D. L'.
+    * **Explanation:** "Enseignant" is a masculine singular noun that starts with a vowel. [cite_start]The definite article "le" becomes "l'." [cite: 364]
+    
+52. Ma mère prépare le dîner dans ________.
+    * A. la cuisine
+    * B. le bureau
+    * C. le garage
+    * D. la salle de bain
+    * **Correct Answer:** A. la cuisine.
+    * [cite_start]**Explanation:** "Dîner" (dinner) is prepared in the kitchen, which is "la cuisine" in French. [cite: 364]
+    
+53. Ils se sont (coucher) tôt ? - Non, ils ________ tôt.
+    * A. ne se sont pas couchées
+    * B. ne se sont pas couchés
+    * C. ne se sont pas couché
+    * D. ne se sont pas couchée
+    * **Correct Answer:** B. ne se sont pas couchés.
+    * **Explanation:** The verb is a reflexive verb in the passé composé. The negative form is "ne se sont pas couchés." [cite_start]The past participle "couché" agrees with the masculine plural subject "ils," so an "s" is added. [cite: 364]
+    
+54. Je vous présente ma cousine, ________ s'appelle Edith.
+    * A. il
+    * B. elles
+    * C. elle
+    * D. ils
+    * **Correct Answer:** C. elle.
+    * [cite_start]**Explanation:** The subject is "ma cousine" (my female cousin), so the pronoun "elle" is used to refer to her. [cite: 364]
+    
+55. Emmanuel met le mouchoir dans ________.
+    * A. son pantalon
+    * B. sa poche
+    * C. sa chemise
+    * D. sa cravate
+    * **Correct Answer:** B. sa poche.
+    * **Explanation:** A handkerchief ("mouchoir") is most likely put in a pocket ("poche"). [cite_start]"Poche" is a feminine noun, so the possessive adjective "sa" is used. [cite: 364]
+    
+56. Gabriel boite parce qu'il a mal ________.
+    * A. au nez
+    * B. à la poitrine
+    * C. à la jambe
+    * D. au ventre
+    * **Correct Answer:** C. à la jambe.
+    * **Explanation:** "Boiter" means "to limp," which is caused by a problem with the leg ("jambe"). [cite_start]"Jambe" is a feminine noun, so the preposition "à" becomes "à la." [cite: 364]
+    
+57. ________ histoire est vraiment drôle.
+    * A. Cette
+    * B. Ce
+    * C. Cet
+    * D. Ces
+    * **Correct Answer:** A. Cette.
+    * **Explanation:** "Histoire" is a feminine singular noun that starts with a silent "h." [cite_start]The demonstrative adjective "cette" is the correct form. [cite: 364]
+    
+58. Jerry porte une chemise ________.
+    * A. violet
+    * B. vert
+    * C. noir
+    * D. blanche
+    * **Correct Answer:** D. blanche.
+    * **Explanation:** "Chemise" is a feminine singular noun. The adjective "blanche" (white) is the correct feminine form to agree with the noun.
+    
+59. ________ garçon est paresseux, alors il n'aime pas travailler.
+    * A. Cette
+    * B. Ce
+    * C. Cet
+    * D. Ces
+    * **Correct Answer:** B. Ce.
+    * **Explanation:** "Garçon" is a masculine singular noun. The demonstrative adjective "ce" is the correct choice.
+
+
+
+
+    I've analyzed the French language files you uploaded and have extracted the multiple-choice questions along with their correct answers and explanations where available.
+
+---
+
+### Multiple-Choice Questions from the Exams and Quizzes
+
+**1. Nous (avoir) peur de regarder les lézards.**
+* a. ont eu
+* [cite_start]b. avons eu [cite: 826]
+* c. avons eus
+* d. ont eues
+
+[cite_start]**Correct Answer:** B. avons eu [cite: 826]
+* **Explanation:** The verb "avoir" (to have) in the passé composé with the subject pronoun "nous" (we) is "avons eu."
+
+---
+
+**2. Les vendeuses (rentrer) tôt.**
+* a. sont rentrée
+* b. sont rentrés
+* c. sont rentré
+* [cite_start]d. sont rentrées [cite: 834]
+
+[cite_start]**Correct Answer:** D. sont rentrées [cite: 834]
+* **Explanation:** The verb "rentrer" is conjugated with "être" in the passé composé. The subject "Les vendeuses" (the female vendors) is feminine and plural, so the past participle must agree and take the "-es" ending.
+
+---
+
+**3. Les étudiants (se coucher) à 21 heures.**
+* [cite_start]a. se sont couchés [cite: 837]
+* b. se sont couchées
+* c. se sont couché
+* d. se sont couchée
+
+[cite_start]**Correct Answer:** A. se sont couchés [cite: 837]
+* **Explanation:** The verb "se coucher" is a reflexive verb and is conjugated with "être" in the passé composé. The subject "Les étudiants" (the students) is masculine and plural, so the past participle "couché" must agree and take the "-s" ending.
+
+---
+
+**4. Elle (passer) son permis de conduire.**
+* a. est passée
+* b. a passée
+* [cite_start]c. a passé [cite: 845]
+* d. est passé
+
+[cite_start]**Correct Answer:** C. a passé [cite: 845]
+* **Explanation:** The verb "passer" takes the auxiliary verb "avoir" when it is followed by a direct object, such as "son permis de conduire" (her driver's license).
+
+---
+
+**5. Le technicien ne (manger) pas à la maison.**
+* a. n'a mangé pas
+* b. n'a pas mangée
+* c. n'as mangé pas
+* [cite_start]d. n'a pas mangé [cite: 849, 852, 807]
+
+[cite_start]**Correct Answer:** D. n'a pas mangé [cite: 852]
+* **Explanation:** The correct negation for the passé composé with "avoir" is "ne + avoir + pas + past participle."
+
+---
+
+**6. Hier, elle (se dépêcher) pour prendre le train.**
+* [cite_start]a. ne s'est pas dépêchée [cite: 808]
+* b. ne s'est pas dépêché
+* c. ne s'est dépêchée pas
+* d. ne s'est dépêché pas
+
+[cite_start]**Correct Answer:** A. ne s'est pas dépêchée [cite: 808]
+* **Explanation:** The verb "se dépêcher" is a reflexive verb and is conjugated with "être." The subject "elle" (she) is feminine, so the past participle "dépêché" must agree and take the "-e" ending. The negation surrounds the auxiliary verb "s'est" and the "pas" comes after.
+
+---
+
+**7. La vendeuse (vendre) des tomates.**
+* a. vends
+* [cite_start]b. vend [cite: 539, 808, 809]
+* c. vendons
+* d. vendent
+
+[cite_start]**Correct Answer:** B. vend [cite: 808, 809]
+* **Explanation:** The subject "La vendeuse" (the female vendor) is a third-person singular pronoun ("elle"), which corresponds to the form "vend" in the present tense.
+
+---
+
+**8. Il est onze heures et quart.**
+* a. [cite_start]11h15 [cite: 479]
+* b. 11h25
+* c. 11h20
+* d. 11h45
+
+[cite_start]**Correct Answer:** A. 11h15 [cite: 479]
+* **Explanation:** "Et quart" means "and a quarter," which corresponds to 15 minutes.
+
+---
+
+**9. Benedicta (célébrer) son anniversaire très bientôt.**
+* a. vais célébrer
+* b. allons célébrer
+* c. vas célébrer
+* [cite_start]d. va célébrer [cite: 503]
+
+[cite_start]**Correct Answer:** D. va célébrer [cite: 503]
+* **Explanation:** This is an example of the futur proche (near future). The subject "Benedicta" is a third-person singular pronoun ("elle"), which is conjugated with "va" and the infinitive verb.
+
+---
+
+**10. Hier matin, j'/je ... rencontré Stella au marché.**
+* a. suis
+* b. es
+* c. as
+* [cite_start]d. ai [cite: 526]
+
+[cite_start]**Correct Answer:** D. ai [cite: 526]
+* **Explanation:** The verb "rencontrer" is conjugated with "avoir" in the passé composé. With the subject "je," the correct form is "ai."
+
+---
+
+**11. Il est onze heures vingt-neuf.**
+* a. 12h29
+* b. [cite_start]11h29 [cite: 558]
+* c. 11h20
+* d. 10h39
+
+[cite_start]**Correct Answer:** B. 11h29 [cite: 558]
+* **Explanation:** "Vingt-neuf" means 29.
+
+---
+
+**12. La fille (finir) son travail la semaine prochaine.**
+* a. finiront
+* [cite_start]b. finira [cite: 576]
+* c. finirez
+* d. finirai
+
+[cite_start]**Correct Answer:** B. finira [cite: 576]
+* **Explanation:** This sentence uses the futur simple (simple future) to talk about a future event. The subject "La fille" (the girl) is a third-person singular pronoun ("elle"), which takes the ending "-a" in the simple future.
+
+---
+
+**13. Il est trois heures et demie.**
+* a. [cite_start]03h30 [cite: 592]
+* b. 03h15
+* c. 13h30
+* d. 13h45
+
+[cite_start]**Correct Answer:** A. 03h30 [cite: 592]
+* **Explanation:** "Et demie" means "and a half," which corresponds to 30 minutes.
+
+---
+
+**14. Tes parents sont arrivés à Tarkwa ? - Non, mes parents... Tarkwa.**
+* a. pas ne sont arrivés
+* b. ne sont arrivés pas
+* [cite_start]c. ne sont pas arrivés [cite: 616]
+* d. ne pas sont arrivés
+
+[cite_start]**Correct Answer:** C. ne sont pas arrivés [cite: 616]
+* **Explanation:** The correct form for negation in the passé composé with the auxiliary verb "être" is "ne + être + pas + past participle."
+
+---
+
+**15. Les étudiants (savoir) quand les examens vont commencer à la fin du mois.**
+* a. saurai
+* b. saurez
+* [cite_start]c. sauront [cite: 633]
+* d. saura
+
+[cite_start]**Correct Answer:** C. sauront [cite: 633]
+* **Explanation:** The subject "Les étudiants" (the students) is a third-person plural pronoun ("ils"), which takes the ending "-ont" in the simple future.
+
+---
+
+**16. Mon ami ... trop de vin rouge.**
+* a. est bu
+* [cite_start]b. a bu [cite: 774]
+* c. es bu
+* d. as bu
+
+[cite_start]**Correct Answer:** B. a bu [cite: 774]
+* **Explanation:** The verb "boire" (to drink) in the passé composé uses the auxiliary verb "avoir." The subject "Mon ami" (my friend) is a third-person singular pronoun ("il"), which takes "a." The past participle of "boire" is "bu."
+
+---
+
+**17. Valerie et Sylvie ... leur petit déjeuner.**
+* a. ont prise
+* b. ont prie
+* [cite_start]c. ont pris [cite: 748]
+* d. ont prises
+
+[cite_start]**Correct Answer:** C. ont pris [cite: 748]
+* **Explanation:** The verb "prendre" (to take/have) uses "avoir" in the passé composé. The past participle of "prendre" is "pris" and does not agree with the subject when conjugated with "avoir."
+
+---
+
+**18. Quand j'étais étudiante, je ... "Belle Fleur."**
+* a. me suis
+* b. m'a appelé
+* [cite_start]c. m'appelais [cite: 713]
+* d. m'appelle
+
+[cite_start]**Correct Answer:** C. m'appelais [cite: 713]
+* **Explanation:** This sentence uses the imparfait tense (imperfect). The phrase "Quand j'étais étudiante" (When I was a student) indicates a past habit or continuous action. The correct conjugation for "s'appeler" (to be called) with the subject "je" is "m'appelais."
+
+---
+
+**19. Les ghanéens sont ils travailleurs? Oui,.....**
+* a. ils ne sont plus travailleurs
+* b. ils ne sont pas travailleurs
+* [cite_start]c. ils sont travailleurs [cite: 765]
+* d. Ils ne sont jamais travilleurs
+
+[cite_start]**Correct Answer:** C. ils sont travailleurs [cite: 765]
+* **Explanation:** The question is asking if Ghanaians are hardworking. The correct affirmative response is "Oui, ils sont travailleurs" (Yes, they are hardworking).
+
+---
+
+**20. Nous ... ensemble quand la bombe a explosé.**
+* a. [cite_start]étions [cite: 756]
+* b. sommes
+* c. serons
+* d. avons été
+
+[cite_start]**Correct Answer:** A. étions [cite: 756]
+* **Explanation:** The imparfait tense is used to describe a continuous action in the past ("We were together") that was interrupted by a specific event ("when the bomb exploded"). The correct conjugation of "être" (to be) with "nous" (we) in the imparfait is "étions."
