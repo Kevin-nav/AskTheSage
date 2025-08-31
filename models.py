@@ -185,8 +185,6 @@ class Feedback(Base):
     user = relationship("User", back_populates="feedback")
     question = relationship("Question") # Added relationship
 
-
-
 class QuestionReport(Base):
     __tablename__ = 'question_reports'
     id = Column(Integer, primary_key=True, autoincrement=True)

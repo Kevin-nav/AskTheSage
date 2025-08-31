@@ -1,0 +1,1315 @@
+[
+	{
+		"question_text": "Using the substitution method, what is $\\int x \\cos(2x^2) dx$?",
+		"options": [
+			"$\\sin(2x^2) + C$",
+			"$4\\sin(2x^2) + C$",
+			"$(\\frac{1}{4})\\sin(2x^2) + C$",
+			"$ - (\\frac{1}{4})\\sin(2x^2) + C$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "Let u = 2x². Then, du = 4x dx, which means x dx = du/4. Substitute u and du/4 into the integral: ∫ cos(u) * (du/4). This simplifies to (1/4) ∫ cos(u) du. The integral of cos(u) is sin(u). So, the result is (1/4)sin(u) + C. Substitute back u = 2x² to get the final answer: (1/4)sin(2x²) + C.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "What is the derivative of $y = (x^3 - \\cos(x))^5$?",
+		"options": [
+			"$5(x^3 - \\cos(x))^4$",
+			"$5(3x^2 + \\sin(x))^4$",
+			"$5(x^3 - \\cos(x))^4(3x^2 - \\sin(x))$",
+			"$5(x^3 - \\cos(x))^4(3x^2 + \\sin(x))$"
+		],
+		"correct_answer_index": 3,
+		"explanation": "This requires the chain rule. Let the outer function be u⁵ and the inner function be g(x) = x³ - cosx. The derivative of the outer function is 5u⁴. The derivative of the inner function is 3x² - (-sinx) = 3x² + sinx. According to the chain rule, the derivative is the product of the derivative of the outer function (with the inner function plugged back in) and the derivative of the inner function. So, y' = 5(x³ - cosx)⁴ * (3x² + sinx).",
+		"has_latex": true,
+		"difficulty_score": 2.925
+	},
+	{
+		"question_text": "If $f(x) = \\sqrt{x^2 - 4}$ and $g(x) = 3x - 2$, what is the derivative of $f(g(x))$ at $x = 3$?",
+		"options": [
+			"$7/\\sqrt{5}$",
+			"$14/\\sqrt{5}$",
+			"$18/\\sqrt{5}$",
+			"$15/\\sqrt{21}$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "The derivative of the composite function f(g(x)) is f'(g(x)) * g'(x). Here, f'(u) = u / √(u² - 4), where u = g(x) = 3x - 2, and g'(x) = 3. At x = 3, g(3) = 7, so f'(7) = 7 / √(49 - 4) = 7 / √45 = 7 / (3√5). Multiplying by g'(3) = 3 gives [7 / (3√5)] * 3 = 7 / √5.",
+		"has_latex": true,
+		"difficulty_score": 3.51
+	},
+	{
+		"question_text": "A particle is at rest when its velocity is zero. If the position of a particle is given by $x(t) = (t-a)(t-b)$, for which of the following values of t is the particle at rest?",
+		"options": [
+			"$t = ab$",
+			"$t = (a+b)/2$",
+			"$t = 2(a+b)$",
+			"$t = a+b$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "The velocity is the derivative of the position. First, expand the position function: x(t) = t² - (a+b)t + ab. Find the derivative (velocity): v(t) = x'(t) = 2t - (a+b). Set the velocity to zero to find when the particle is at rest: 2t - (a+b) = 0. Solve for t: 2t = a+b, so t = (a+b)/2.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Determine the limit: $\\lim_{h \\to 0} \\frac{\\ln(4+h) - \\ln(4)}{h}$",
+		"options": [
+			"0",
+			"1/4",
+			"1",
+			"e"
+		],
+		"correct_answer_index": 1,
+		"explanation": "This limit is the definition of the derivative of f(x) = ln(x) at the point x = 4. The derivative of ln(x) is 1/x. Evaluating the derivative at x = 4 gives 1/4.",
+		"has_latex": true,
+		"difficulty_score": 2.4
+	},
+	{
+		"question_text": "Find the exact value of the limit: $\\lim_{x \\to 0} \\frac{\\sqrt{x+3} - \\sqrt{3}}{x}$",
+		"options": [
+			"$1/(2\\sqrt{3})$",
+			"1/3",
+			"$\\sqrt{3}$",
+			"0"
+		],
+		"correct_answer_index": 0,
+		"explanation": "This is an indeterminate form (0/0), so we can multiply by the conjugate. Multiply the numerator and denominator by (√(x+3) + √3). The numerator becomes (x+3) - 3 = x. The expression becomes x / [x(√(x+3) + √3)]. Cancel the x terms: 1 / (√(x+3) + √3). Now, substitute x=0: 1 / (√3 + √3) = 1 / (2√3).",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "What is the integral of $\\sin(5x)\\cos(3x)$ if the lower limit is zero and the upper limit is $\\pi/2$?",
+		"options": [
+			"0.5",
+			"None",
+			"-0.5",
+			"0.0203"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Use the product-to-sum identity: sin(A)cos(B) = (1/2)[sin(A+B) + sin(A-B)]. So, sin(5x)cos(3x) = (1/2)[sin(8x) + sin(2x)]. Integrate from 0 to π/2: (1/2) ∫[sin(8x) + sin(2x)] dx. The integral of sin(8x) is -cos(8x)/8. The integral of sin(2x) is -cos(2x)/2. Evaluate the definite integral: (1/2) [-cos(8x)/8 - cos(2x)/2] from 0 to π/2. At x=π/2: (1/2) [-cos(4π)/8 - cos(π)/2] = (1/2) [-1/8 - (-1)/2] = (1/2) [-1/8 + 4/8] = (1/2)(3/8) = 3/16. At x=0: (1/2) [-cos(0)/8 - cos(0)/2] = (1/2) [-1/8 - 1/2] = (1/2) [-1/8 - 4/8] = (1/2)(-5/8) = -5/16. The result is (3/16) - (-5/16) = 8/16 = 1/2 = 0.5.",
+		"has_latex": true,
+		"difficulty_score": 3.51
+	},
+	{
+		"question_text": "Determine the turning point of the curve $y = x^2 + 5x + 6$.",
+		"options": [
+			"(-2.5, -0.25)",
+			"None",
+			"(-2.5, -12)",
+			"(-2.5, -9)"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Find the derivative of the function: y' = 2x + 5. Set the derivative to zero to find the x-coordinate of the turning point: 2x + 5 = 0, so x = -2.5. Substitute this x-value back into the original equation to find the y-coordinate: y = (-2.5)² + 5(-2.5) + 6 = 6.25 - 12.5 + 6 = -0.25. The turning point is at (-2.5, -0.25).",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "What is the maximum number of turning points in a graph of the form $y = 2x^6 + 3x^5 + 7x^4 - 3x^3 + 5x^2 - 4x + 8$?",
+		"options": [
+			"4",
+			"6",
+			"5",
+			"3"
+		],
+		"correct_answer_index": 2,
+		"explanation": "The maximum number of turning points for a polynomial is one less than its degree. The degree of this polynomial is 6. Therefore, the maximum number of turning points is 6 - 1 = 5.",
+		"has_latex": true,
+		"difficulty_score": 1.8
+	},
+	{
+		"question_text": "Evaluate $y=\\int_{0}^{\\infty} x\\theta e^{-\\theta x} dx$",
+		"options": [
+			"$y = 1/\\theta$",
+			"$y = \\theta$",
+			"$y = 0$",
+			"$y = -1/\\theta$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "This is an improper integral that requires integration by parts. Let u = x and dv = θe^(-θx) dx. Then du = dx and v = -e^(-θx). The integral of xθe^(-θx) is -xe^(-θx) - ∫-e^(-θx) dx = -xe^(-θx) - (1/θ)e^(-θx). Now evaluate from 0 to ∞. As x approaches ∞, both terms approach 0. At x = 0, the expression is -0*e⁰ - (1/θ)e⁰ = -1/θ. The result is 0 - (-1/θ) = 1/θ.",
+		"has_latex": true,
+		"difficulty_score": 3.51
+	},
+	{
+		"question_text": "Find the derivative of $y = \\frac{\\tan(z)}{2z-3}$.",
+		"options": [
+			"$\\frac{(2z-3)\\sec(z)\\tan(z) - 2\\tan(z)}{(2z-3)^2}$",
+			"$\\frac{(2z-3)\\sec^2(z) - 2\\tan(z)}{(2z-3)^2}$",
+			"$\\frac{\\sec^2(z) - 2\\tan(z)}{(2z-3)^2}$",
+			"None"
+		],
+		"correct_answer_index": 1,
+		"explanation": "Use the quotient rule: (u'v - uv') / v². Let u = tan(z) and v = 2z - 3. Then u' = sec²(z) and v' = 2. Applying the quotient rule gives: [sec²(z)(2z-3) - tan(z)(2)] / (2z-3)². This simplifies to [(2z-3)sec²(z) - 2tan(z)] / (2z-3)².",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Find the stationary point of the function $y = -6x^2$.",
+		"options": [
+			"(4, -273)-minimum",
+			"None",
+			"(4, 111)-minimum",
+			"(0, 0)-maximum"
+		],
+		"correct_answer_index": 3,
+		"explanation": "Find the first derivative: y' = -12x. Set it to zero to find the stationary point: -12x = 0, so x = 0. Find the corresponding y-value: y = -6(0)² = 0. The stationary point is (0,0). Find the second derivative to determine the nature of the point: y'' = -12. Since the second derivative is negative, the stationary point is a maximum.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "The solution to $\\int x \\cos(2x^2) dx$ is:",
+		"options": [
+			"None",
+			"$\\cos(2x^2) + c$",
+			"$\\sin(2x^2) + c$",
+			"$(\\frac{1}{4})\\sin(2x^2) + c$"
+		],
+		"correct_answer_index": 3,
+		"explanation": "Use u-substitution. Let u = 2x². Then du = 4x dx, so x dx = du/4. The integral becomes ∫ cos(u) (du/4) = (1/4)∫cos(u)du. Integrating gives (1/4)sin(u) + c. Substituting back for u gives (1/4)sin(2x²) + c.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Evaluate $\\int \\frac{\\cos(x) \\ln(\\sin(x))}{\\sin(x)} dx$.",
+		"options": [
+			"$(\\frac{1}{2})(\\ln(\\sin(x)))^2 + c$",
+			"None",
+			"$\\ln(\\sin(x))^2 + c$",
+			"$\\frac{(\\ln(\\sin(x)))^2}{2} + c$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Use u-substitution. Let u = ln(sin(x)). Then du = (1/sin(x)) * cos(x) dx = cot(x) dx. The integral becomes ∫ u du. The integral of u is u²/2 + c. Substituting back gives (ln(sin(x)))²/2 + c.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "For what value(s) of x does the graph of $f(x) = \\frac{1}{3}x^3 - x^2 + 3$ have a horizontal tangent?",
+		"options": [
+			"0 and 3",
+			"2",
+			"0 and 2",
+			"0"
+		],
+		"correct_answer_index": 2,
+		"explanation": "A horizontal tangent occurs where the derivative is zero. Find the derivative of f(x): f'(x) = x² - 2x. Set the derivative to zero and solve for x: x² - 2x = 0, so x(x-2) = 0. The solutions are x=0 and x=2.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "The parametric equations of a function are given by $y = 3\\cos(2t)$ and $x = 2\\sin(t)$. Evaluate $\\frac{d^2y}{dx^2}$.",
+		"options": [
+			"$-6\\sin(t)$",
+			"$(\\frac{1}{2})\\sec(t)$",
+			"$2\\sin(t)$",
+			"-3"
+		],
+		"correct_answer_index": 3,
+		"explanation": "First, find dy/dt and dx/dt. dy/dt = -6sin(2t); dx/dt = 2cos(t). Then, find dy/dx = (dy/dt) / (dx/dt) = -6sin(2t) / (2cos(t)) = -3sin(2t)/cos(t). Using the identity sin(2t) = 2sin(t)cos(t), we get dy/dx = -3(2sin(t)cos(t))/cos(t) = -6sin(t). Now, find the second derivative, d²y/dx² = d/dx(-6sin(t)). Use the chain rule: d/dt(-6sin(t)) * (dt/dx). d/dt(-6sin(t)) = -6cos(t). dt/dx = 1 / (dx/dt) = 1 / (2cos(t)). So, d²y/dx² = -6cos(t) * (1 / (2cos(t))) = -3.",
+		"has_latex": true,
+		"difficulty_score": 3.51
+	},
+	{
+		"question_text": "If $y=x^x$, find $\\frac{d^2y}{dx^2}$.",
+		"options": [
+			"$(\\frac{1}{y})(\\frac{dy}{dx})^2 + \\frac{y}{x}$",
+			"$y(\\frac{dy}{dx})^2 + \\frac{y}{x}$",
+			"$-(\\frac{1}{y})(\\frac{dy}{dx})^2 + \\frac{y}{x}$",
+			"None"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Use logarithmic differentiation to find the first derivative. ln(y) = x*ln(x). Differentiating both sides: (1/y)(dy/dx) = ln(x) + x(1/x) = ln(x) + 1. So, dy/dx = y(ln(x)+1) = xˣ(ln(x)+1). To find the second derivative, differentiate dy/dx using the product rule. d²y/dx² = (dy/dx)(ln(x)+1) + y(1/x). Substitute dy/dx: d²y/dx² = y(ln(x)+1)(ln(x)+1) + y/x = y(ln(x)+1)² + y/x. From step 2, ln(x)+1 = (1/y)(dy/dx). Substitute this into the expression for the second derivative. d²y/dx² = y * [(1/y)(dy/dx)]² + y/x = y*(1/y²)(dy/dx)² + y/x = (1/y)(dy/dx)² + y/x.",
+		"has_latex": true,
+		"difficulty_score": 3.9
+	},
+	{
+		"question_text": "Given that $y = (t^2+2)^2$ and $t=\\sqrt{x}$, determine $\\frac{dy}{dx}$.",
+		"options": [
+			"2/3",
+			"$x^{5/2} + x^{1/2}$",
+			"$2(x+2)$",
+			"$(2x^2+2x)/3$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "Substitute t=√x into the equation for y: y = ((√x)²+2)² = (x+2)². Now, differentiate y with respect to x: dy/dx = 2(x+2) * 1 = 2(x+2).",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "The solution to $\\int \\cos(\\sqrt{x}) dx$ is:",
+		"options": [
+			"$\\sqrt{x} \\sin(\\sqrt{x}) + c$",
+			"None",
+			"$2\\sqrt{x} \\sin(\\sqrt{x}) + 2\\cos(\\sqrt{x}) + c$",
+			"$(\\frac{1}{\\sqrt{x}})\\sin(\\sqrt{x}) + c$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "Use substitution. Let u = √x, so x = u² and dx = 2u du. The integral becomes ∫ cos(u) * 2u du = 2∫u*cos(u) du. Use integration by parts. Let f=u and g'=cos(u). Then f'=1 and g=sin(u). The integral is 2[usin(u) - ∫sin(u)du] = 2[usin(u) - (-cos(u))] + c = 2u*sin(u) + 2cos(u) + c. Substitute back u=√x: 2√x sin(√x) + 2cos(√x) + c.",
+		"has_latex": true,
+		"difficulty_score": 3.51
+	},
+	{
+		"question_text": "Evaluate $\\lim_{x \\to 1} (2-x)^{\\tan(\\pi x/2)}$",
+		"options": [
+			"1",
+			"$e^{2/\\pi}$",
+			"$\\pi/2$",
+			"0"
+		],
+		"correct_answer_index": 1,
+		"explanation": "This is an indeterminate form of 1^∞. Let y = (2-x)^tan(πx/2). Take the natural log of both sides: ln(y) = tan(πx/2) * ln(2-x). Rewrite as ln(2-x) / cot(πx/2). This is now in the 0/0 form. Apply L'Hopital's Rule. The derivative of the numerator is -1/(2-x). The derivative of the denominator is -csc²(πx/2) * (π/2). The limit becomes lim (x→1) [(-1/(2-x)) / (-csc²(πx/2) * π/2)]. Substitute x=1: [(-1/1) / (-csc²(π/2) * π/2)] = [-1 / (-(1)² * π/2)] = 1 / (π/2) = 2/π. Since we found the limit of ln(y), the limit of y is e^(2/π).",
+		"has_latex": true,
+		"difficulty_score": 3.9
+	},
+	{
+		"question_text": "Find the slope of the tangent to the curve $y = 7\\cos(x)$ at $x = \\pi/4$.",
+		"options": [
+			"$7\\sqrt{3}/2$",
+			"$-7\\sqrt{2}/2$",
+			"$-7/2$",
+			"$7\\sqrt{2}/2$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "The slope of the tangent is given by the derivative of the function. Find the derivative: y' = -7sin(x). Evaluate the derivative at x = π/4: y'(π/4) = -7sin(π/4). sin(π/4) = √2/2. So, the slope is -7(√2/2) = -7√2/2.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Find the integral of $\\frac{e^{\\arctan(x)}}{1+x^2}$ with respect to x.",
+		"options": [
+			"None",
+			"$e^{\\sec(x)} + c$",
+			"$e^{\\arctan(x)} + c$",
+			"$e^{\\tan(x)} + c$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "Use u-substitution. Let u = arctan(x). Then du = 1/(1+x²) dx. The integral becomes ∫ e^u du. The integral of e^u is e^u + c. Substituting back for u gives e^(arctan(x)) + c.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Determine $\\int [f(x)]^n f'(x) dx$ given that $n \\neq -1$.",
+		"options": [
+			"$n[f(x)]^{n-1} + c$",
+			"$\\frac{[f(x)]^{n+1}}{n+1} + c$",
+			"$\\frac{[f(x)]^{n-1}}{n} + c$",
+			"$[f(x)]^{n+1} + c$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "This is a direct application of the power rule for integration with the chain rule (u-substitution). Let u = f(x), then du = f'(x) dx. The integral becomes ∫uⁿ du. Using the power rule for integration, this is uⁿ⁺¹ / (n+1) + c. Substituting back for u gives [f(x)]ⁿ⁺¹ / (n+1) + c.",
+		"has_latex": true,
+		"difficulty_score": 2.4
+	},
+	{
+		"question_text": "If f is continuous on $[2, 5]$, and if F is an antiderivative of f on $[2, 5]$, where $F(2) = 3/2$ and $F(5) = -4/3$, then $\\int_{2}^{5} f(x) dx$ is equal to:",
+		"options": [
+			"5/7",
+			"-17/6",
+			"-13/6",
+			"2/3"
+		],
+		"correct_answer_index": 1,
+		"explanation": "By the Fundamental Theorem of Calculus, ∫₂⁵ f(x) dx = F(5) - F(2) = -4/3 - 3/2. Using a common denominator of 6: -8/6 - 9/6 = -17/6.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "If $f(x) = \\sin^2(x)\\cos(x)$, then the integral of f(x) with respect to x is given by:",
+		"options": [
+			"$(\\frac{1}{2})\\sin^2(x) + c$",
+			"$(\\frac{1}{3})\\sin^3(x) + c$",
+			"None",
+			"$(\\frac{1}{2})\\cos^2(x) + c$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "Use u-substitution. Let u = sin(x). Then du = cos(x) dx. The integral becomes ∫u² du. The integral of u² is u³/3 + c. Substituting back for u gives (1/3)sin³(x) + c.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Differentiate $y = \\sec(x^2+2)$.",
+		"options": [
+			"None",
+			"$\\cos(x^2+2)\\tan(x^2+2)$",
+			"$-cos(x^2+2)\\cot(x^2+2)$",
+			"$2x \\sec(x^2+2)\\tan(x^2+2)$"
+		],
+		"correct_answer_index": 3,
+		"explanation": "Use the chain rule. The derivative of sec(u) is sec(u)tan(u). Let u = x²+2. The derivative of u is 2x. Applying the chain rule, the derivative is sec(x²+2)tan(x²+2) * (2x). This can be written as 2x sec(x²+2)tan(x²+2).",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Given that $\\int_{\\pi/2}^{a} \\sin(x) dx = 1/2$, find the value of a.",
+		"options": [
+			"$-\\pi/3$",
+			"1",
+			"$\\pi$",
+			"None"
+		],
+		"correct_answer_index": 3,
+		"explanation": "The antiderivative of sin(x) is -cos(x). Evaluating from π/2 to a: -cos(a) - (-cos(π/2)) = -cos(a). Set equal to 1/2: -cos(a) = 1/2, so cos(a) = -1/2. Solutions include a = 2π/3, 4π/3, etc., but none of the options match these values.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Given that $f(x) = 4x^3 - 48x$, find the stationary points of f(x).",
+		"options": [
+			"(2, 64) and (-2, -64)",
+			"(2, -64) and (-2, 64)",
+			"(2, -64)",
+			"(-2.3, 61.9) and (-2, -64)"
+		],
+		"correct_answer_index": 1,
+		"explanation": "Find the first derivative: f'(x) = 12x² - 48. Set the derivative to zero to find the x-coordinates of the stationary points: 12x² - 48 = 0, so x² = 4. This gives x = 2 and x = -2. Find the corresponding y-values: f(2) = 4(2)³ - 48(2) = 32 - 96 = -64. f(-2) = 4(-2)³ - 48(-2) = -32 + 96 = 64. The stationary points are (2, -64) and (-2, 64).",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Find the stationary point of the function $y = -6x^2 + 48x + 15$ and determine whether it is a maximum, minimum, or point of inflection.",
+		"options": [
+			"(4, 111)-maximum",
+			"(4, 111)-minimum",
+			"(4, -273)-maximum",
+			"None"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Find the first derivative: y' = -12x + 48. Set it to zero to find the stationary point: -12x + 48 = 0, so x = 4. Find the corresponding y-value: y = -6(4)² + 48(4) + 15 = -96 + 192 + 15 = 111. The stationary point is (4, 111). Find the second derivative: y'' = -12. Since the second derivative is negative, the stationary point is a maximum.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Given that $f(x) = \\begin{cases} 2x - 1 & \\text{if } x < 1 \\\\ 5x - 2 & \\text{if } x > 1 \\end{cases}$. Find the limit $\\lim_{x \\to 1} f(x)$.",
+		"options": [
+			"0",
+			"1",
+			"2",
+			"The limit does not exist."
+		],
+		"correct_answer_index": 3,
+		"explanation": "To find the limit as x approaches 1, we must check the left-hand limit and the right-hand limit. Left-hand limit (x → 1⁻): We use the function for x < 1, which is f(x) = 2x - 1. lim (x→1⁻) (2x - 1) = 2(1) - 1 = 1. Right-hand limit (x → 1⁺): We use the function for x > 1, which is f(x) = 5x - 2. lim (x→1⁺) (5x - 2) = 5(1) - 2 = 3. Since the left-hand limit (1) does not equal the right-hand limit (3), the overall limit does not exist.",
+		"has_latex": true,
+		"difficulty_score": 1.8
+	},
+	{
+		"question_text": "Evaluate the limit: $\\lim_{x \\to 8^+} \\frac{x^2 - 10x + 16}{\\sqrt{x-8}}$",
+		"options": [
+			"0",
+			"1",
+			"$\\infty$",
+			"Indeterminate"
+		],
+		"correct_answer_index": 0,
+		"explanation": "First, let's try direct substitution: (8² - 10*8 + 16) / √(8-8) = (64 - 80 + 16) / 0 = 0/0. This is an indeterminate form. We can factor the numerator: x² - 10x + 16 = (x - 8)(x - 2). The expression becomes: lim (x→8⁺) [(x - 8)(x - 2)] / √(x-8). We can rewrite (x-8) as (√(x-8))². The expression is now: lim (x→8⁺) [√(x-8)²(x - 2)] / √(x-8). Cancel one √(x-8) term: lim (x→8⁺) √(x-8) * (x - 2). Now, substitute x = 8: √(8-8) * (8 - 2) = 0 * 6 = 0.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Find the derivative of $y = x^{\\sin x}$.",
+		"options": [
+			"$x^{\\sin x} \\left[ \\frac{\\sin x}{x} + \\ln(x)\\cos(x) \\right]$",
+			"$x^{\\sin x} \\left[ \\frac{\\sin x}{x^2} + \\ln(x)\\cos(x) \\right]$",
+			"$\\sin(x) \\cdot x^{\\sin(x) - 1}$",
+			"$x^{\\sin x} \\left[ \\sin(x) - 2x \\ln(x)\\cos(x) \\right]$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "This requires logarithmic differentiation. Take the natural log of both sides: ln(y) = ln(x^(sin x)). Using logarithm properties: ln(y) = sin(x) * ln(x). Differentiate both sides with respect to x (using the product rule on the right side): (1/y)(dy/dx) = cos(x)ln(x) + sin(x)(1/x). Solve for dy/dx by multiplying by y: dy/dx = y * [ cos(x)ln(x) + sin(x)/x ]. Substitute back y = x^(sin x): dy/dx = x^(sin x) * [ (sin x / x) + ln(x)cos(x) ].",
+		"has_latex": true,
+		"difficulty_score": 2.925
+	},
+	{
+		"question_text": "The total distance travelled by a particle from $t=0$ to $t=3$ with velocity $v(t) = 6t - t^2$ is:",
+		"options": [
+			"3",
+			"6",
+			"9",
+			"18"
+		],
+		"correct_answer_index": 3,
+		"explanation": "Distance is the integral of the absolute value of velocity. First, check if the velocity changes sign between t=0 and t=3. Set v(t) = 0: 6t - t² = t(6-t) = 0. The roots are t=0 and t=6. Since the velocity is positive for t between 0 and 6, we don't need to worry about the absolute value. Distance = ∫₀³ (6t - t²) dt. Integrate: [ 3t² - (1/3)t³ ] evaluated from 0 to 3. Plug in the limits: (3(3)² - (1/3)(3)³) - (0) = (27 - 9) = 18.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Evaluate the integral $\\int \\frac{4t^2 + 1}{\\sqrt{t}} dt$.",
+		"options": [
+			"$(\\frac{8}{5})t^{5/2} + 2t^{1/2} + C$",
+			"$8t^{3/2} - (\\frac{1}{2})t^{-1/2} + C$",
+			"$(\\frac{4}{3})t^3 + \\ln|t| + C$",
+			"$4t^{3/2} + t^{-1/2} + C$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Rewrite the integrand by dividing each term in the numerator by the denominator: ∫ (4t²/t^(1/2) + 1/t^(1/2)) dt. Simplify using exponent rules: ∫ (4t^(3/2) + t^(-1/2)) dt. Integrate term by term using the power rule: 4 * [t^(5/2) / (5/2)] + [t^(1/2) / (1/2)] + C. Simplify the expression: (8/5)t^(5/2) + 2t^(1/2) + C.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Evaluate the integral $\\int_{0}^{\\pi/2} 22\\sin(x) dx$.",
+		"options": [
+			"0",
+			"22",
+			"-22",
+			"44"
+		],
+		"correct_answer_index": 1,
+		"explanation": "The integral of sin(x) is -cos(x). So, we evaluate ∫ 22sin(x) dx = -22cos(x). Apply the limits of integration from 0 to π/2: [-22cos(x)] from 0 to π/2. This is (-22cos(π/2)) - (-22cos(0)). Since cos(π/2) = 0 and cos(0) = 1, the expression becomes (-22 * 0) - (-22 * 1) = 0 - (-22) = 22.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Integrate $y = x^3(x^4 - 5)^7$ with respect to x.",
+		"options": [
+			"$(\\frac{1}{32})(x^4 - 5)^8 + C$",
+			"$(\\frac{1}{8})(x^4 - 5)^8 + C$",
+			"$(\\frac{x^4}{4}) \\cdot (\\frac{1}{8})(x^4-5)^8 + C$",
+			"$7x^3(x^4-5)^6 + C$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "This integral is best solved using u-substitution. Let u = x⁴ - 5. Then, the derivative is du/dx = 4x³. Rearranging gives du = 4x³ dx, or x³ dx = du/4. Substitute u and du/4 into the integral: ∫ u⁷ (du/4). Factor out the constant: (1/4) ∫ u⁷ du. Integrate using the power rule: (1/4) * (u⁸/8) + C = u⁸/32 + C. Substitute back u = x⁴ - 5 to get the final answer: (1/32)(x⁴ - 5)⁸ + C.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Find the derivative of $f(x) = \\sin(x^2)$.",
+		"options": [
+			"$-sin(x^2)$",
+			"$2x \\cos(x^2)$",
+			"$-2x \\cos(x^2)$",
+			"$-2x \\sin(x^2)$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "This problem requires the use of the chain rule, which states that the derivative of a composite function f(g(x)) is f'(g(x)) * g'(x). Here, the outer function is sin(u) and the inner function is u = x². The derivative of the outer function sin(u) is cos(u). The derivative of the inner function x² is 2x. Applying the chain rule, the derivative is cos(x²) * (2x), which is written as 2x cos(x²).",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Find the second derivative of $y = (1+3x)^5$.",
+		"options": [
+			"$\\frac{d^2y}{dx^2} = 15(1+3x)^4$",
+			"$\\frac{d^2y}{dx^2} = 180(1+3x)^3$",
+			"$\\frac{d^2y}{dx^2} = 160(1-3x)^3$",
+			"$\\frac{d^2y}{dx^2} = 5(1+3x)^4$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "First Derivative: Use the chain rule. The derivative of u⁵ is 5u⁴, and the derivative of the inner function (1+3x) is 3. dy/dx = 5(1+3x)⁴ * 3 = 15(1+3x)⁴. Second Derivative: Differentiate the first derivative, again using the chain rule. d²y/dx² = 15 * [4(1+3x)³ * 3]. d²y/dx² = 15 * 12(1+3x)³ = 180(1+3x)³.",
+		"has_latex": true,
+		"difficulty_score": 2.535
+	},
+	{
+		"question_text": "What is the derivative of $\\cot(x)$?",
+		"options": [
+			"$\\tan(x)$",
+			"$-sec^2(x)$",
+			"$-csc^2(x)$",
+			"$\\csc^2(x)$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "The derivative of cot(x) is a standard trigonometric derivative. Recall that cot(x) = cos(x)/sin(x). Using the quotient rule: [ ( -sin(x) * sin(x) - cos(x) * cos(x) ) / sin²(x) ]. This simplifies to [ -(sin²(x) + cos²(x)) / sin²(x) ]. Using the Pythagorean identity sin²(x) + cos²(x) = 1, this becomes -1/sin²(x). Since 1/sin(x) = csc(x), the final derivative is -csc²(x).",
+		"has_latex": true,
+		"difficulty_score": 1.2
+	},
+	{
+		"question_text": "If the gradient of a curve is given by $3x - 2$ and the curve passes through the point P(1, 2), find its equation.",
+		"options": [
+			"$y = (\\frac{3}{2})x^2 - 2x - 1/2$",
+			"$y = (\\frac{3}{2})x^2 - 2x + 5/2$",
+			"$y = 3x^2 - 2x + 1$",
+			"$y = 3$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "The equation of the curve y is the integral of its gradient, dy/dx. Integrate the gradient: y = ∫(3x - 2) dx = (3/2)x² - 2x + C. To find the constant of integration, C, use the fact that the curve passes through the point (1, 2). Substitute x=1 and y=2 into the equation: 2 = (3/2)(1)² - 2(1) + C. Solve for C: 2 = 3/2 - 2 + C => 2 = -1/2 + C => C = 2 + 1/2 = 5/2. The equation of the curve is y = (3/2)x² - 2x + 5/2.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Find the coordinates of the stationary point(s) of the function $y = x^2 - 6x + 3$.",
+		"options": [
+			"(-3, 6)",
+			"(3, -6)",
+			"(3, 6)",
+			"(3, -5)"
+		],
+		"correct_answer_index": 1,
+		"explanation": "Stationary points occur where the first derivative is zero. Find the first derivative: dy/dx = 2x - 6. Set the derivative to zero and solve for x: 2x - 6 = 0 => 2x = 6 => x = 3. Substitute this x-value back into the original function to find the y-coordinate. y = (3)² - 6(3) + 3 = 9 - 18 + 3 = -6. The stationary point is (3, -6).",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Find the integral of $\\sec^2(x)$.",
+		"options": [
+			"$\\cos(x) + C$",
+			"$\\tan(x) + C$",
+			"$\\csc(x) + C$",
+			"$\\sin(x) + C$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "This is a standard integral. The function whose derivative is sec²(x) is tan(x). Therefore, ∫ sec²(x) dx = tan(x) + C.",
+		"has_latex": true,
+		"difficulty_score": 1.0
+	},
+	{
+		"question_text": "Let g be the function given by $g(x) = x^2e^{kx}$, where k is a constant. For what value of k does g have a critical point at $x = 2/3$?",
+		"options": [
+			"-3",
+			"-3/2",
+			"-1/3",
+			"0"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Critical points occur where the derivative is zero or undefined. We need to find g'(x). Use the product rule: g'(x) = (2x)eᵏˣ + x²(keᵏˣ). Factor out xeᵏˣ: g'(x) = xeᵏˣ(2 + kx). Set the derivative to zero: xeᵏˣ(2 + kx) = 0. This gives x=0 or 2+kx=0. We are given a critical point at x = 2/3. Plug this into the second equation. 2 + k(2/3) = 0. Solve for k: (2/3)k = -2 => k = -3.",
+		"has_latex": true,
+		"difficulty_score": 2.925
+	},
+	{
+		"question_text": "A rectangular area has a perimeter of 40cm. Determine the length and breadth that will maximize the area.",
+		"options": [
+			"(10, 10)",
+			"(6, 14)",
+			"(15, 5)",
+			"(8, 12)"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Let the length be L and the breadth be B. The perimeter is 2L + 2B = 40, which simplifies to L + B = 20. The area is A = L * B. From the perimeter equation, we can express L as L = 20 - B. Substitute this into the area formula: A(B) = (20 - B) * B = 20B - B². To maximize the area, find the derivative with respect to B and set it to zero: A'(B) = 20 - 2B. 20 - 2B = 0 => 2B = 20 => B = 10. If B = 10, then L = 20 - 10 = 10. The dimensions that maximize the area are 10cm by 10cm (a square).",
+		"has_latex": false,
+		"difficulty_score": 2.925
+	},
+	{
+		"question_text": "Find the limit: $\\lim_{x \\to 1} \\left[ \\frac{1}{x-1} - \\frac{2}{x^2-1} \\right]$",
+		"options": [
+			"1",
+			"1/2",
+			"0",
+			"The limit does not exist"
+		],
+		"correct_answer_index": 1,
+		"explanation": "Direct substitution leads to an indeterminate form (∞ - ∞). We need to combine the fractions. Factor the denominator of the second term: x² - 1 = (x-1)(x+1). Find a common denominator, which is (x-1)(x+1). Rewrite the expression: lim (x→1) [ (x+1)/((x-1)(x+1)) - 2/((x-1)(x+1)) ]. Combine the numerators: lim (x→1) [ (x+1-2) / (x²-1) ] = lim (x→1) [ (x-1) / (x²-1) ]. Factor the denominator again: lim (x→1) [ (x-1) / ((x-1)(x+1)) ]. Cancel the (x-1) terms: lim (x→1) [ 1 / (x+1) ]. Now, substitute x=1: 1 / (1+1) = 1/2.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Evaluate the limit: $\\lim_{x \\to 5} \\left[ \\frac{4 - \\sqrt{3x+1}}{x^2 - 7x + 10} \\right]$",
+		"options": [
+			"1/8",
+			"-1/8",
+			"-3/8",
+			"0"
+		],
+		"correct_answer_index": 1,
+		"explanation": "Direct substitution of x=5 gives (4 - √16) / (25 - 35 + 10) = 0/0, which is an indeterminate form. We can use L'Hôpital's Rule. Differentiate the numerator and the denominator with respect to x. Derivative of the numerator: d/dx(4 - (3x+1)¹ᐟ²) = - (1/2)(3x+1)⁻¹ᐟ² * 3 = -3 / (2√(3x+1)). Derivative of the denominator: d/dx(x² - 7x + 10) = 2x - 7. Now, take the limit of the ratio of the derivatives: lim (x→5) [ (-3 / (2√(3x+1))) / (2x - 7) ]. Substitute x=5: [ (-3 / (2√(16))) / (2(5) - 7) ] = [ (-3 / (2*4)) / (10 - 7) ] = (-3/8) / 3 = -1/8.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "If $y = \\sin^{-1}(\\frac{2x}{1+x^2})$, what is $\\frac{dy}{dx}$ for $|x|<1$?",
+		"options": [
+			"$\\frac{1}{1+x^2}$",
+			"$\\frac{-2}{1+x^2}$",
+			"$\\frac{2}{1+x^2}$",
+			"$\\frac{2x}{1+x^2}$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "This problem can be simplified using the trigonometric identity that for |x|<1, sin⁻¹(2x / (1+x²)) = 2tan⁻¹(x). Therefore, we need to find the derivative of y = 2tan⁻¹(x). The derivative of tan⁻¹(x) is a standard result: 1 / (1+x²). So, dy/dx = 2 * [ 1 / (1+x²) ] = 2 / (1+x²).",
+		"has_latex": true,
+		"difficulty_score": 3.0
+	},
+	{
+		"question_text": "Find the limit: $\\lim_{h \\to 0} \\frac{\\sqrt[3]{8+h} - 2}{h}$",
+		"options": [
+			"1/4",
+			"1/8",
+			"1/12",
+			"1/2"
+		],
+		"correct_answer_index": 2,
+		"explanation": "This limit represents the definition of the derivative of the function f(x) = ³√x at the point x=8. First, find the derivative of f(x) = x¹ᐟ³. Using the power rule, f'(x) = (1/3)x⁻²ᐟ³. Now, evaluate the derivative at x=8: f'(8) = (1/3)(8)⁻²ᐟ³ = (1/3) * (1 / 8²ᐟ³) = (1/3) * (1 / (³√8)²) = (1/3) * (1 / 2²) = (1/3) * (1/4) = 1/12.",
+		"has_latex": true,
+		"difficulty_score": 2.4
+	},
+	{
+		"question_text": "Find the limit: $\\lim_{x \\to 1} \\frac{x^3 - 1}{x - 1}$",
+		"options": [
+			"1",
+			"2",
+			"3",
+			"4"
+		],
+		"correct_answer_index": 2,
+		"explanation": "Directly substituting x=1 results in the indeterminate form 0/0. We can solve this by factoring the numerator, which is a difference of cubes: x³ - 1 = (x - 1)(x² + x + 1). The expression becomes: lim (x→1) [ (x - 1)(x² + x + 1) ] / (x - 1). Cancel the (x - 1) terms: lim (x→1) (x² + x + 1). Now substitute x=1: (1)² + 1 + 1 = 3. Alternative (L'Hôpital's Rule): Take the derivative of the numerator (3x²) and the denominator (1). The limit is lim (x→1) 3x² / 1 = 3(1)² = 3.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Evaluate the limit: $\\lim_{x \\to 1/3} \\frac{3x^2 + 2x - 1}{15x^2 + x - 2}$",
+		"options": [
+			"4/11",
+			"-1/11",
+			"1/11",
+			"-4/11"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Substituting x = 1/3 into the numerator gives 3(1/9) + 2(1/3) - 1 = 1/3 + 2/3 - 1 = 0. Substituting x = 1/3 into the denominator gives 15(1/9) + 1/3 - 2 = 5/3 + 1/3 - 2 = 6/3 - 2 = 0. Since this is an indeterminate form (0/0), we can use L'Hôpital's Rule. Differentiate the numerator: d/dx(3x² + 2x - 1) = 6x + 2. Differentiate the denominator: d/dx(15x² + x - 2) = 30x + 1. Now, take the limit of the new expression: lim (x→1/3) (6x + 2) / (30x + 1). Substitute x = 1/3: (6(1/3) + 2) / (30(1/3) + 1) = (2 + 2) / (10 + 1) = 4/11.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Determine an expression for $\\frac{dy}{dx}$ when $x = \\sin^3(\\theta)$ and $y = \\cos^3(\\theta)$.",
+		"options": [
+			"$3\\cot(\\theta)$",
+			"$-3\\cot(\\theta)$",
+			"$-cot(\\theta)$",
+			"$\\cot(\\theta)$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "This requires parametric differentiation. We find dy/dθ and dx/dθ first. Using the chain rule for y = cos³(θ): dy/dθ = 3cos²(θ) * (-sin(θ)) = -3cos²(θ)sin(θ). Using the chain rule for x = sin³(θ): dx/dθ = 3sin²(θ) * (cos(θ)). The derivative dy/dx is the ratio (dy/dθ) / (dx/dθ). dy/dx = [ -3cos²(θ)sin(θ) ] / [ 3sin²(θ)cos(θ) ]. Cancel common terms (3, sin(θ), cos(θ)): dy/dx = -cos(θ) / sin(θ). By definition, cos(θ)/sin(θ) = cot(θ), so the final answer is -cot(θ).",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Evaluate the limit: $\\lim_{x \\to 1} \\frac{(x-1)\\sqrt{2-x}}{x^2 - 1}$",
+		"options": [
+			"1/2",
+			"-1/2",
+			"1",
+			"-1"
+		],
+		"correct_answer_index": 0,
+		"explanation": "This is another 0/0 indeterminate form upon direct substitution. We can simplify the expression by factoring the denominator: x² - 1 = (x - 1)(x + 1). The expression becomes: lim (x→1) [ (x-1)√(2-x) ] / [ (x - 1)(x + 1) ]. Cancel the (x - 1) term from the numerator and denominator. The expression simplifies to: lim (x→1) √(2-x) / (x + 1). Now, substitute x = 1: √(2-1) / (1 + 1) = √1 / 2 = 1/2.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Evaluate the limit: $\\lim_{x \\to 0} \\frac{x(1-x)}{1 - \\sqrt{1-x}}$",
+		"options": [
+			"0",
+			"1",
+			"3",
+			"2"
+		],
+		"correct_answer_index": 3,
+		"explanation": "This is a 0/0 indeterminate form. We can solve it by multiplying the numerator and denominator by the conjugate of the denominator, which is 1 + √(1-x). Numerator becomes: x(1-x) * [1 + √(1-x)]. Denominator becomes: (1 - √(1-x))(1 + √(1-x)) = 1² - (√(1-x))² = 1 - (1-x) = x. The expression is now: lim (x→0) [ x(1-x)(1 + √(1-x)) ] / x. Cancel the x terms: lim (x→0) (1-x)(1 + √(1-x)). Substitute x=0: (1-0)(1 + √(1-0)) = 1 * (1 + 1) = 2.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Find the limit: $\\lim_{n \\to \\infty} \\frac{2n - 1}{3n + 1}$",
+		"options": [
+			"2/3",
+			"-2/3",
+			"1/2",
+			"$\\infty$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "To evaluate a limit at infinity for a rational function, we can divide both the numerator and the denominator by the highest power of n, which is n. The expression becomes: lim (n→∞) [ (2n/n) - (1/n) ] / [ (3n/n) + (1/n) ]. This simplifies to: lim (n→∞) (2 - 1/n) / (3 + 1/n). As n approaches infinity, the term 1/n approaches 0. The limit evaluates to (2 - 0) / (3 + 0) = 2/3.",
+		"has_latex": true,
+		"difficulty_score": 1.5
+	},
+	{
+		"question_text": "The statement 'The derivative of a constant is zero' is:",
+		"options": [
+			"True",
+			"False",
+			"Sometimes true",
+			"Sometimes false"
+		],
+		"correct_answer_index": 0,
+		"explanation": "This is a fundamental rule of differentiation. A constant function f(x) = c has a graph that is a horizontal line. The slope of this line is zero everywhere. Therefore, the derivative, which represents the slope, is always zero. The statement is always true.",
+		"has_latex": false,
+		"difficulty_score": 1.0
+	},
+	{
+		"question_text": "What is the integral of $\\sin(x)$?",
+		"options": [
+			"$\\cos(x) + C$",
+			"$-cos(x) + C$",
+			"$\\csc(x) + C$",
+			"$\\tan(x) + C$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "Integration is the reverse process of differentiation. We are looking for a function whose derivative is sin(x). Recall the derivative of cos(x) is -sin(x). To get a derivative of positive sin(x), we must start with -cos(x), since d/dx(-cos(x)) = -(-sin(x)) = sin(x). Therefore, ∫ sin(x) dx = -cos(x) + C.",
+		"has_latex": true,
+		"difficulty_score": 1.2
+	},
+	{
+		"question_text": "Integrate the function $(2 + 3x)^6$ with respect to x.",
+		"options": [
+			"$(\\frac{1}{7})(2 + 3x)^7 + C$",
+			"$(\\frac{1}{3})(2 + 3x)^7 + C$",
+			"$(\\frac{1}{21})(2 + 3x)^7 + C$",
+			"$7(2 + 3x)^5 + C$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "This integral can be solved using the substitution method. Let u = 2 + 3x. Then, du/dx = 3, which can be rearranged to dx = du/3. Substitute u and du/3 into the integral: ∫ u⁶ (du/3). Factor out the constant: (1/3) ∫ u⁶ du. Integrate with respect to u using the power rule: (1/3) * (u⁷/7) + C = u⁷/21 + C. Substitute back u = 2 + 3x to get the final answer: (1/21)(2 + 3x)⁷ + C.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "If $(x + 2y)(\\frac{dy}{dx}) = 2x - y$, what is the value of $\\frac{d^2y}{dx^2}$ at the point (3, 0)?",
+		"options": [
+			"-10/3",
+			"0",
+			"2",
+			"10/3"
+		],
+		"correct_answer_index": 0,
+		"explanation": "First, find the value of dy/dx at (3,0). (3 + 2(0)) (dy/dx) = 2(3) - 0 => 3(dy/dx) = 6 => dy/dx = 2. Next, implicitly differentiate the original equation with respect to x to find d²y/dx². Use the product rule on the left side: [1*(dy/dx) + 2(dy/dx)*(dy/dx)] + (x+2y)(d²y/dx²) is not the correct application. Correctly applying the product rule: (d/dx(x+2y))(dy/dx) + (x+2y)(d²y/dx²) = 2 - dy/dx. This becomes (1 + 2(dy/dx))(dy/dx) + (x+2y)(d²y/dx²) = 2 - dy/dx. Now, substitute the known values: x=3, y=0, and dy/dx=2. (1 + 2(2))(2) + (3 + 2(0))(d²y/dx²) = 2 - 2. (5)(2) + 3(d²y/dx²) = 0. 10 + 3(d²y/dx²) = 0. 3(d²y/dx²) = -10. d²y/dx² = -10/3.",
+		"has_latex": true,
+		"difficulty_score": 3.65
+	},
+	{
+		"question_text": "The first derivative of a function is given by $f'(x) = 2x - \\frac{2}{x^3}$. Find the function f(x), given that $f(1) = 1$.",
+		"options": [
+			"$f(x) = x^2 + \\frac{1}{x^2} - 1$",
+			"$f(x) = x^2 + \\frac{1}{x} - 1$",
+			"$f(x) = x^2 - \\frac{1}{x^2} + 1$",
+			"$f(x) = x^2 + \\frac{1}{x^2} + 1$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "To find f(x), we must integrate the derivative f'(x). Rewrite the derivative for easier integration: f'(x) = 2x - 2x⁻³. Integrate term by term: f(x) = ∫(2x - 2x⁻³) dx = x² - 2(x⁻² / -2) + C = x² + x⁻² + C = x² + 1/x² + C. Use the given condition f(1) = 1 to solve for the constant C. 1 = (1)² + 1/(1)² + C => 1 = 1 + 1 + C => 1 = 2 + C => C = -1. Therefore, the function is f(x) = x² + 1/x² - 1.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Find the coordinates of the point on the curve $y = 5 + 5x - x^2$ at which the gradient is -3.",
+		"options": [
+			"(9, 4)",
+			"(4, 3)",
+			"(4, 9)",
+			"(3, 9)"
+		],
+		"correct_answer_index": 2,
+		"explanation": "The gradient of the curve is given by its first derivative, dy/dx. Find the derivative: dy/dx = 5 - 2x. Set the derivative equal to the given gradient of -3: 5 - 2x = -3. Solve for x: 8 = 2x => x = 4. Substitute x = 4 back into the original equation for the curve to find the y-coordinate. y = 5 + 5(4) - (4)² = 5 + 20 - 16 = 9. The coordinates of the point are (4, 9).",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Differentiate the function $(4x - 5)^5$ with respect to x.",
+		"options": [
+			"$5(4x - 5)^4$",
+			"$4(4x + 5)^4$",
+			"$20(4x - 5)^4$",
+			"$10(4x - 5)^4$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "This requires the chain rule. Let the outer function be u⁵ and the inner function be u = 4x - 5. The derivative of the outer function is 5u⁴. The derivative of the inner function is 4. According to the chain rule, the derivative is the product of the derivative of the outer function and the derivative of the inner function. dy/dx = 5(4x - 5)⁴ * 4 = 20(4x - 5)⁴.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Which of the following defines a function f for which $f(-x) = -f(x)$?",
+		"options": [
+			"$f(x) = x^2$",
+			"$f(x) = \\sin(x)$",
+			"$f(x) = \\cos(x)$",
+			"$f(x) = e^x$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "The condition f(-x) = -f(x) is the definition of an odd function. We test each option: A) f(-x) = (-x)² = x² = f(x). This is an even function. B) f(-x) = sin(-x) = -sin(x) = -f(x). This is an odd function. C) f(-x) = cos(-x) = cos(x) = f(x). This is an even function. D) f(-x) = e⁻ˣ. This is neither even nor odd. The only odd function listed is sin(x).",
+		"has_latex": true,
+		"difficulty_score": 3.6
+	},
+	{
+		"question_text": "The condition $\\ln(x-2) < 0$ is true if and only if:",
+		"options": [
+			"$x < 3$",
+			"$0 < x < 3$",
+			"$2 < x < 3$",
+			"$x > 2$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "For ln(u) to be defined, the argument u must be positive. So, x - 2 > 0, which means x > 2. For ln(u) to be negative, the argument u must be between 0 and 1. So, 0 < x - 2 < 1. To solve for x, add 2 to all parts of the inequality: 0 + 2 < x < 1 + 2. This simplifies to 2 < x < 3.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Evaluate the integral $\\int_{0}^{8} \\frac{dx}{\\sqrt{1+x}}$.",
+		"options": [
+			"1",
+			"3/2",
+			"2",
+			"4"
+		],
+		"correct_answer_index": 3,
+		"explanation": "Use u-substitution. Let u = 1 + x. Then du = dx. Change the limits of integration: When x=0, u=1. When x=8, u=9. The integral becomes ∫₁⁹ du / √u = ∫₁⁹ u⁻¹ᐟ² du. Integrate using the power rule: [ 2u¹ᐟ² ] from 1 to 9. Evaluate at the limits: 2(9)¹ᐟ² - 2(1)¹ᐟ² = 2(3) - 2(1) = 6 - 2 = 4.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "What is the limit $\\lim_{h \\to 0} \\frac{8(\\frac{1}{2} + h)^8 - 8(\\frac{1}{2})^8}{h}$ ?",
+		"options": [
+			"0",
+			"1/2",
+			"1",
+			"The limit does not exist."
+		],
+		"correct_answer_index": 1,
+		"explanation": "This expression matches the definition of the derivative of a function f(x) at a point a: lim (h→0) [ f(a+h) - f(a) ] / h. By comparing the expression, we can identify the function as f(x) = 8x⁸ and the point as a = 1/2. First, find the derivative of the function: f'(x) = 8 * (8x⁷) = 64x⁷. Now, evaluate the derivative at x = 1/2. f'(1/2) = 64 * (1/2)⁷ = 64 * (1/128) = 64/128 = 1/2.",
+		"has_latex": true,
+		"difficulty_score": 2.4
+	},
+	{
+		"question_text": "For what value of k will $f(x) = x + \\frac{k}{x}$ have a relative maximum at $x = -2$?",
+		"options": [
+			"-4",
+			"-2",
+			"2",
+			"4"
+		],
+		"correct_answer_index": 3,
+		"explanation": "For a relative maximum to exist at x=-2, the first derivative must be zero there: f'(-2) = 0. Find the first derivative of f(x) = x + kx⁻¹: f'(x) = 1 - kx⁻² = 1 - k/x². Set f'(-2) = 0: 1 - k/(-2)² = 0 => 1 - k/4 = 0 => 1 = k/4 => k = 4. We must also check the second derivative test. f''(x) = 2kx⁻³ = 2k/x³. At x=-2, with k=4: f''(-2) = 2(4)/(-2)³ = 8/-8 = -1. Since f''(-2) < 0, it confirms a relative maximum.",
+		"has_latex": true,
+		"difficulty_score": 2.925
+	},
+	{
+		"question_text": "Integrate $\\int\\cos(3x+7) dx$.",
+		"options": [
+			"$(\\frac{1}{3})\\sin(3x+7) + C$",
+			"$-(\\frac{1}{3})\\sin(3x+7) + C$",
+			"$3\\sin(3x+7) + C$",
+			"$-3\\sin(3x+7) + C$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Use u-substitution. Let u = 3x + 7. Then du = 3 dx, or dx = du/3. The integral becomes ∫cos(u) (du/3). This equals (1/3)∫cos(u)du = (1/3)sin(u) + C. Substitute back for u: (1/3)sin(3x+7) + C.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "If $y = (x^3 - \\cos x)^5$, then y' = ?",
+		"options": [
+			"$5(x^3 - \\cos x)^4$",
+			"$5(3x^2 + \\sin x)^4$",
+			"$5(3x^2 + \\sin x)^4(6x + \\cos x)$",
+			"$5(x^3 - \\cos x)^4(3x^2 + \\sin x)$"
+		],
+		"correct_answer_index": 3,
+		"explanation": "Use the chain rule. The outer function is u⁵ and the inner function is u = x³ - cosx. The derivative of the outer function is 5u⁴. The derivative of the inner function is 3x² - (-sinx) = 3x² + sinx. The derivative y' is the product of these: 5(x³ - cosx)⁴ * (3x² + sinx).",
+		"has_latex": true,
+		"difficulty_score": 2.925
+	},
+	{
+		"question_text": "The derivative of $y = \\ln(\\frac{e^x}{e^x - 1})$ is:",
+		"options": [
+			"$x - \\frac{e^x}{e^x-1}$",
+			"$\\frac{1}{e^x - 1}$",
+			"$\\frac{-1}{e^x - 1}$",
+			"$\\frac{e^x}{e^x - 1}$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "First, simplify the expression using logarithm properties: ln(a/b) = ln(a) - ln(b). y = ln(eˣ) - ln(eˣ - 1) = x - ln(eˣ - 1). Now, differentiate with respect to x. y' = 1 - [ 1/(eˣ - 1) ] * d/dx(eˣ - 1) = 1 - eˣ/(eˣ - 1). Combine into a single fraction: y' = (eˣ - 1)/(eˣ - 1) - eˣ/(eˣ - 1) = (eˣ - 1 - eˣ) / (eˣ - 1) = -1 / (eˣ - 1).",
+		"has_latex": true,
+		"difficulty_score": 2.535
+	},
+	{
+		"question_text": "Using integration by parts, find $\\int x^2 \\ln(3x) dx$.",
+		"options": [
+			"$(\\frac{x^3}{9})(\\ln(3x) - 1) + C$",
+			"$(\\frac{x^3}{9})(3\\ln(3x) - 1) + C$",
+			"$(\\frac{x^3}{3})(\\ln(3x)) - \\frac{x^2}{3} + C$",
+			"$(\\frac{x^3}{3})(\\ln(3x) - \\frac{1}{3}) + C$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "Use integration by parts formula: ∫u dv = uv - ∫v du. Choose u = ln(3x) and dv = x² dx. Then du = (1/(3x)) * 3 dx = (1/x) dx, and v = x³/3. Substitute into the formula: ln(3x)(x³/3) - ∫(x³/3)(1/x) dx. Simplify: (x³/3)ln(3x) - ∫(x²/3) dx. Integrate the remaining term: (x³/3)ln(3x) - (1/3)(x³/3) + C = (x³/3)ln(3x) - x³/9 + C. Factor out x³/9: (x³/9)(3ln(3x) - 1) + C.",
+		"has_latex": true,
+		"difficulty_score": 3.2175
+	},
+	{
+		"question_text": "Find the gradient of the curve $y = x^3 + 6x^2 - 2x + 4$ at $x = -1$.",
+		"options": [
+			"-11",
+			"13",
+			"-7",
+			"17"
+		],
+		"correct_answer_index": 0,
+		"explanation": "The gradient of the curve is its first derivative. Find the derivative: dy/dx = 3x² + 12x - 2. Evaluate the derivative at x = -1. Gradient = 3(-1)² + 12(-1) - 2 = 3 - 12 - 2 = -11.",
+		"has_latex": true,
+		"difficulty_score": 1.5
+	},
+	{
+		"question_text": "Evaluate the integral $\\int \\sin(6x - 2) dx$.",
+		"options": [
+			"$6\\cos(6x - 2) + C$",
+			"$-(\\frac{1}{6})\\cos(6x - 2) + C$",
+			"$(\\frac{1}{6})\\cos(6x - 2) + C$",
+			"$-cos(6x - 2) + C$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "Use u-substitution. Let u = 6x - 2. Then du = 6 dx, so dx = du/6. The integral becomes ∫sin(u) (du/6). This is (1/6) ∫sin(u)du = (1/6)(-cos(u)) + C. Substitute back for u: -(1/6)cos(6x - 2) + C.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "Find the derivative of $f(x) = (1 + x^4 - \\frac{1}{x^3})^{10/3}$.",
+		"options": [
+			"$(\\frac{10}{3})(1 + x^4 - \\frac{1}{x^3})^{7/3}$",
+			"$(\\frac{10}{3})(1 + x^4 - \\frac{1}{x^3})^{7/3} (4x^3 + \\frac{3}{x^4})$",
+			"$(1 + x^4 - \\frac{1}{x^3})^{7/3} (4x^3 + \\frac{3}{x^4})$",
+			"$(\\frac{10}{3})(4x^3 + \\frac{3}{x^4})$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "Rewrite the function with negative exponents: f(x) = (1 + x⁴ - x⁻³)¹⁰⁄³. Apply the chain rule. The derivative of u¹⁰⁄³ is (10/3)u⁷⁄³. The derivative of the inner function (1 + x⁴ - x⁻³) is 4x³ - (-3x⁻⁴) = 4x³ + 3x⁻⁴ = 4x³ + 3/x⁴. Multiply the derivatives: f'(x) = (10/3)(1 + x⁴ - 1/x³)⁷⁄³ * (4x³ + 3/x⁴).",
+		"has_latex": true,
+		"difficulty_score": 2.925
+	},
+	{
+		"question_text": "Which of the following equations has a graph that is symmetric with respect to the origin?",
+		"options": [
+			"$y = \\frac{x+1}{x}$",
+			"$y = -x^5 + 3x$",
+			"$y = x^4 - 2x^2 + 6$",
+			"$y = (x-1)^3 + 1$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "A graph is symmetric with respect to the origin if it represents an odd function, where f(-x) = -f(x). Let's test option B: f(x) = -x⁵ + 3x. f(-x) = -(-x)⁵ + 3(-x) = -(-x⁵) - 3x = x⁵ - 3x = -(-x⁵ + 3x) = -f(x). Since f(-x) = -f(x), the function is odd.",
+		"has_latex": true,
+		"difficulty_score": 3.6
+	},
+	{
+		"question_text": "A particle moves in a straight line with velocity $v(t) = t^2$. How far does the particle move between $t=1$ and $t=2$?",
+		"options": [
+			"1/3",
+			"7/3",
+			"3",
+			"7"
+		],
+		"correct_answer_index": 1,
+		"explanation": "The distance traveled is the definite integral of the velocity function. Since v(t) = t² is non-negative on the interval [1, 2], the distance is: Distance = ∫₁² t² dt = [t³/3] evaluated from 1 to 2. = (2³/3) - (1³/3) = 8/3 - 1/3 = 7/3.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "The domain of the function defined by $f(x) = \\ln(x^2 - 4)$ is the set of all real numbers x such that:",
+		"options": [
+			"$|x| < 2$",
+			"$|x| \\leq 2$",
+			"$|x| > 2$",
+			"$|x| \\geq 2$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "The argument of a natural logarithm must be strictly positive. Therefore, we must have x² - 4 > 0. This inequality holds when x² > 4, which means |x| > 2 (i.e., x > 2 or x < -2).",
+		"has_latex": true,
+		"difficulty_score": 1.8
+	},
+	{
+		"question_text": "What is the x-coordinate of the point of inflection on the graph of $y = \\frac{1}{3}x^3 + 5x^2 + 24$?",
+		"options": [
+			"5",
+			"0",
+			"10/3",
+			"-5"
+		],
+		"correct_answer_index": 3,
+		"explanation": "Points of inflection can occur where the second derivative is zero or undefined and changes sign. First derivative (y'): y' = x² + 10x. Second derivative (y''): y'' = 2x + 10. Set the second derivative to zero: 2x + 10 = 0 => x = -5. Since y'' is a line, it changes sign at x=-5, confirming it is a point of inflection.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Evaluate $\\int_{0}^{3} |x - 1| dx$",
+		"options": [
+			"0",
+			"3/2",
+			"2",
+			"5/2"
+		],
+		"correct_answer_index": 3,
+		"explanation": "The absolute value function changes definition at x=1. We must split the integral at this point. ∫₀³ |x-1| dx = ∫₀¹ -(x-1) dx + ∫₁³ (x-1) dx = [x - x²/2] from 0 to 1 + [x²/2 - x] from 1 to 3 = [(1 - 1/2) - 0] + [(9/2 - 3) - (1/2 - 1)] = (1/2) + (3/2) - (-1/2) = 5/2.",
+		"has_latex": true,
+		"difficulty_score": 3.51
+	},
+	{
+		"question_text": "A particle moves along the x-axis so that its position at time t is given by $x(t) = t^2 - 6t + 5$. For what value of t is the velocity of the particle zero?",
+		"options": [
+			"1",
+			"2",
+			"3",
+			"4"
+		],
+		"correct_answer_index": 2,
+		"explanation": "Velocity, v(t), is the derivative of the position function, x(t). v(t) = x'(t) = 2t - 6. Set the velocity to zero to find when the particle is at rest: 2t - 6 = 0 => t = 3.",
+		"has_latex": true,
+		"difficulty_score": 1.5
+	},
+	{
+		"question_text": "If $f(x) = \\sin(e^{-x})$, then $f'(x) = $ ?",
+		"options": [
+			"$-e^{-x}\\cos(e^{-x})$",
+			"$\\cos(e^{-x}) + \\sin(e^{-x})$",
+			"$e^{-x}\\cos(e^{-x})$",
+			"$-cos(e^{-x})$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Use the chain rule. The outer function is sin(u) and the inner function is u = e⁻ˣ. The derivative of sin(u) is cos(u). The derivative of e⁻ˣ is -e⁻ˣ. f'(x) = cos(e⁻ˣ) * (-e⁻ˣ) = -e⁻ˣcos(e⁻ˣ).",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "The function f is given by $f(x) = x^4 + x^2 - 2$. On which of the following intervals is f increasing?",
+		"options": [
+			"$(-\\frac{1}{\\sqrt{2}}, \\infty)$",
+			"$(-\\frac{1}{\\sqrt{2}}, \\frac{1}{\\sqrt{2}})$",
+			"$(0, \\infty)$",
+			"$(-\\infty, 0)$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "A function is increasing where its derivative is positive. f'(x) = 4x³ + 2x = 2x(2x² + 1). The term (2x² + 1) is always positive. Therefore, the sign of f'(x) is determined by the sign of 2x. f'(x) > 0 when 2x > 0, which means x > 0. So, the function is increasing on the interval (0, ∞).",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "If $f(x) = x\\sqrt{2x - 3}$, then $f'(x) = $ ?",
+		"options": [
+			"$\\frac{3x-3}{\\sqrt{2x-3}}$",
+			"$\\frac{1}{\\sqrt{2x-3}}$",
+			"$\\frac{5x-6}{2\\sqrt{2x-3}}$",
+			"$\\frac{2x - 3 + x}{\\sqrt{2x-3}}$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Use the product rule: (u'v + uv'). Let u=x and v=(2x-3)¹ᐟ². u'=1. v' = (1/2)(2x-3)⁻¹ᐟ² * 2 = 1/√(2x-3). f'(x) = 1 * √(2x-3) + x * (1/√(2x-3)). Find a common denominator: f'(x) = (√(2x-3) * √(2x-3) + x) / √(2x-3) = (2x - 3 + x) / √(2x-3) = (3x-3) / √(2x-3).",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "Using integration by partial fractions, evaluate $\\int \\frac{2x-1}{x^2-5x+6} dx$.",
+		"options": [
+			"$5\\ln|x-3| - 3\\ln|x-2| + C$",
+			"$3\\ln|x-3| + 5\\ln|x-2| + C$",
+			"$\\ln|x-3| - \\ln|x-2| + C$",
+			"$5\\ln|x-3| + 3\\ln|x-2| + C$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Factor the denominator: x² - 5x + 6 = (x-2)(x-3). Set up partial fractions: (2x-1)/((x-2)(x-3)) = A/(x-2) + B/(x-3). Multiply by the denominator: 2x-1 = A(x-3) + B(x-2). If x=2: 2(2)-1 = A(2-3) => 3 = -A => A = -3. If x=3: 2(3)-1 = B(3-2) => 5 = B. The integral is ∫(-3/(x-2) + 5/(x-3)) dx = -3ln|x-2| + 5ln|x-3| + C.",
+		"has_latex": true,
+		"difficulty_score": 3.2175
+	},
+	{
+		"question_text": "What is the derivative of $y = \\cos^{-1}(\\frac{x^2-1}{x^2+1})$?",
+		"options": [
+			"$\\frac{-2}{x^2+1}$",
+			"$\\frac{2}{\\sqrt{x^2+1}}$",
+			"$\\frac{2x}{x^2+1}$",
+			"$\\frac{-2x}{|x|(x^2+1)}$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "This can be solved with a trigonometric substitution. Let x = tan(θ). Then (x²-1)/(x²+1) = (tan²θ - 1)/(tan²θ + 1) = -(1-tan²θ)/(1+tan²θ) = -cos(2θ). So, y = cos⁻¹(-cos(2θ)) = π - cos⁻¹(cos(2θ)) = π - 2θ. Since x = tan(θ), then θ = tan⁻¹(x). Thus y = π - 2tan⁻¹(x). Now, differentiate: dy/dx = 0 - 2 * (1/(1+x²)) = -2/(1+x²).",
+		"has_latex": true,
+		"difficulty_score": 3.9
+	},
+	{
+		"question_text": "$\\int_{0}^{\\pi/4} \\tan^2(x) dx = $ ?",
+		"options": [
+			"$\\pi/4 - 1$",
+			"$1 - \\pi/4$",
+			"1",
+			"$\\sqrt{2} - 1$"
+		],
+		"correct_answer_index": 1,
+		"explanation": "Use the identity tan²(x) = sec²(x) - 1. The integral becomes ∫₀^(π/4) (sec²(x) - 1) dx. Integrate: [tan(x) - x] evaluated from 0 to π/4. (tan(π/4) - π/4) - (tan(0) - 0) = (1 - π/4) - 0 = 1 - π/4.",
+		"has_latex": true,
+		"difficulty_score": 2.535
+	},
+	{
+		"question_text": "The radius r of a sphere is increasing at a rate of 0.3 in/sec. At the instant when the surface area S becomes 100π in², what is the rate of increase of the volume V? ($S=4\\pi r^2$, $V=\\frac{4}{3}\\pi r^3$)",
+		"options": [
+			"$10\\pi$",
+			"$12\\pi$",
+			"$22.5\\pi$",
+			"$30\\pi$"
+		],
+		"correct_answer_index": 3,
+		"explanation": "We are given dr/dt = 0.3. We want to find dV/dt. dV/dt = d/dt [(4/3)πr³] = 4πr² (dr/dt). We need to find the radius r when the surface area S is 100π. S = 4πr² => 100π = 4πr² => r² = 25 => r = 5. Now substitute r=5 and dr/dt=0.3 into the dV/dt equation. dV/dt = 4π(5)² (0.3) = 4π(25)(0.3) = 100π(0.3) = 30π.",
+		"has_latex": true,
+		"difficulty_score": 3.2175
+	},
+	{
+		"question_text": "What is the average value of $f(x) = \\cos(x)$ on the interval [-3, 5]?",
+		"options": [
+			"$\\frac{\\sin(5) - \\sin(-3)}{8}$",
+			"$\\frac{\\sin(5) + \\sin(3)}{8}$",
+			"$\\frac{\\sin(3) - \\sin(5)}{2}$",
+			"$\\frac{\\sin(5) - \\sin(3)}{2}$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "The average value of a function f(x) on [a, b] is (1/(b-a)) ∫ₐᵇ f(x) dx. Here, a=-3, b=5, and f(x)=cos(x). b-a = 5 - (-3) = 8. Average value = (1/8) ∫₋₃⁵ cos(x) dx. The integral of cos(x) is sin(x). (1/8) [sin(x)] from -3 to 5 = (1/8) (sin(5) - sin(-3)). Note that since sin is an odd function, sin(-3) = -sin(3), so the answer can also be written as (sin(5) + sin(3))/8.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "What are all values of x for which the function f defined by $f(x) = (x^2-3)e^{-x}$ is increasing?",
+		"options": [
+			"There are no such values",
+			"$x < -1$ and $x > 3$",
+			"$-3 < x < 1$",
+			"$-1 < x < 3$"
+		],
+		"correct_answer_index": 3,
+		"explanation": "The function is increasing where f'(x) > 0. Use the product rule: f'(x) = (2x)e⁻ˣ + (x²-3)(-e⁻ˣ). f'(x) = e⁻ˣ(2x - (x²-3)) = e⁻ˣ(-x² + 2x + 3) = -e⁻ˣ(x²-2x-3). Factor the quadratic: f'(x) = -e⁻ˣ(x-3)(x+1). Since e⁻ˣ is always positive, the sign of f'(x) is determined by -(x-3)(x+1). We want -(x-3)(x+1) > 0, which means (x-3)(x+1) < 0. This inequality holds when x is between the roots -1 and 3. So, -1 < x < 3.",
+		"has_latex": true,
+		"difficulty_score": 3.2175
+	},
+	{
+		"question_text": "$\\int x \\sin(2x) dx = $ ?",
+		"options": [
+			"$-(\\frac{x}{2})\\cos(2x) + (\\frac{1}{4})\\sin(2x) + C$",
+			"$-(\\frac{x}{2})\\cos(2x) - (\\frac{1}{4})\\sin(2x) + C$",
+			"$(\\frac{x}{2})\\cos(2x) - (\\frac{1}{4})\\sin(2x) + C$",
+			"$-2x \\cos(2x) + 4\\sin(2x) + C$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Use integration by parts: ∫u dv = uv - ∫v du. Let u=x and dv=sin(2x)dx. Then du=dx and v = - (1/2)cos(2x). ∫x sin(2x)dx = x(-1/2 cos(2x)) - ∫(-1/2 cos(2x))dx = -(x/2)cos(2x) + (1/2)∫cos(2x)dx = -(x/2)cos(2x) + (1/2)(1/2 sin(2x)) + C = -(x/2)cos(2x) + (1/4)sin(2x) + C.",
+		"has_latex": true,
+		"difficulty_score": 2.34
+	},
+	{
+		"question_text": "If f is the function defined by $f(x) = x^5 - 1$, then $f^{-1}(x)$, the inverse function of f, is defined by $f^{-1}(x) = $ ?",
+		"options": [
+			"$\\frac{1}{\\sqrt[5]{x} + 1}$",
+			"$\\sqrt[5]{x-1}$",
+			"$\\sqrt[5]{x+1}$",
+			"$\\sqrt[5]{x} + 1$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "To find the inverse, set y = x⁵ - 1. Swap x and y: x = y⁵ - 1. Solve for y: y⁵ = x + 1 => y = ⁵√(x+1). So, f⁻¹(x) = ⁵√(x+1).",
+		"has_latex": true,
+		"difficulty_score": 1.5
+	},
+	{
+		"question_text": "At $x=0$, which of the following is true of the function f defined by $f(x) = x^2 + e^{-2x}$?",
+		"options": [
+			"f is increasing",
+			"f is decreasing",
+			"f is discontinuous",
+			"f has a relative minimum"
+		],
+		"correct_answer_index": 1,
+		"explanation": "Check the first derivative at x=0 to determine if the function is increasing or decreasing. f'(x) = 2x - 2e⁻²ˣ. f'(0) = 2(0) - 2e⁰ = 0 - 2(1) = -2. Since f'(0) is negative, the function is decreasing at x=0.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "$\\int_{1}^{e} \\frac{x^2-1}{x} dx = $ ?",
+		"options": [
+			"$e - \\frac{1}{e}$",
+			"$e^2 - e$",
+			"$\\frac{e^2-3}{2}$",
+			"$e^2-2$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "Split the integrand: ∫(x - 1/x) dx. Integrate: [x²/2 - ln|x|] evaluated from 1 to e. (e²/2 - ln(e)) - (1²/2 - ln(1)) = (e²/2 - 1) - (1/2 - 0) = e²/2 - 3/2 = (e²-3)/2.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "If $f(x) = x^2 + 2x$, then the derivative of $f(\\ln(x))$ is:",
+		"options": [
+			"$\\frac{2\\ln(x)+2}{x}$",
+			"$2x\\ln(x) + 2x$",
+			"$2\\ln(x) + 2$",
+			"$(\\ln(x))^2 + 2\\ln(x)$"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Let h(x) = f(ln(x)). We need to find h'(x). h(x) = (ln(x))² + 2ln(x). Using the chain rule: h'(x) = 2(ln(x)) * (1/x) + 2 * (1/x) = (2ln(x))/x + 2/x = (2ln(x)+2)/x.",
+		"has_latex": true,
+		"difficulty_score": 2.535
+	},
+	{
+		"question_text": "The position of a particle on the x-axis at time t is $-5t^2$. What is the average velocity of the particle for $0 \\leq t \\leq 3$?",
+		"options": [
+			"-45",
+			"-30",
+			"-15",
+			"-10"
+		],
+		"correct_answer_index": 2,
+		"explanation": "Average velocity is the total displacement divided by the total time. Displacement = Position at t=3 - Position at t=0. Position at t=3: -5(3)² = -45. Position at t=0: -5(0)² = 0. Displacement = -45 - 0 = -45. Time interval = 3 - 0 = 3. Average velocity = -45 / 3 = -15.",
+		"has_latex": true,
+		"difficulty_score": 1.5
+	},
+	{
+		"question_text": "The acceleration of a particle is given by $a(t) = 6t - 2$. If the velocity is 25 when $t=3$ and the position is 10 when $t=1$, then the position $x(t) = $ ?",
+		"options": [
+			"$9t^2 + 1$",
+			"$3t^2 - 2t + 4$",
+			"$t^3 - t^2 + 4t + 6$",
+			"$t^3 - t^2 + 9t - 20$"
+		],
+		"correct_answer_index": 2,
+		"explanation": "Velocity v(t) = ∫a(t) dt = ∫(6t-2)dt = 3t² - 2t + C. Use v(3)=25: 25 = 3(3)² - 2(3) + C => 25 = 27 - 6 + C => C = 4. So, v(t) = 3t² - 2t + 4. Position x(t) = ∫v(t) dt = ∫(3t² - 2t + 4)dt = t³ - t² + 4t + K. Use x(1)=10: 10 = 1³ - 1² + 4(1) + K => 10 = 1 - 1 + 4 + K => K = 6. So, x(t) = t³ - t² + 4t + 6.",
+		"has_latex": true,
+		"difficulty_score": 2.535
+	},
+	{
+		"question_text": "If $y = 2\\cos(\\frac{x}{2})$, then $\\frac{d^2y}{dx^2} = $ ?",
+		"options": [
+			"$-8\\cos(\\frac{x}{2})$",
+			"$-2\\cos(\\frac{x}{2})$",
+			"$-sin(\\frac{x}{2})$",
+			"$-(\\frac{1}{2})\\cos(\\frac{x}{2})$"
+		],
+		"correct_answer_index": 3,
+		"explanation": "First derivative: y' = 2 * (-sin(x/2)) * (1/2) = -sin(x/2). Second derivative: y'' = -cos(x/2) * (1/2) = -(1/2)cos(x/2).",
+		"has_latex": true,
+		"difficulty_score": 2.535
+	},
+	{
+		"question_text": "The area of the region enclosed by the graphs of $y = x$ and $y = x^2 - 3x + 3$ is:",
+		"options": [
+			"2/3",
+			"1",
+			"4/3",
+			"2"
+		],
+		"correct_answer_index": 2,
+		"explanation": "Find the points of intersection: x = x² - 3x + 3 => x² - 4x + 3 = 0 => (x-1)(x-3) = 0. The curves intersect at x=1 and x=3. The area is the integral of the top curve minus the bottom curve. On [1,3], the line y=x is above the parabola. Area = ∫₁³ (x - (x² - 3x + 3)) dx = ∫₁³ (-x² + 4x - 3) dx. Integrate: [-x³/3 + 2x² - 3x] from 1 to 3. = (-9 + 18 - 9) - (-1/3 + 2 - 3) = 0 - (-1/3 - 1) = 4/3.",
+		"has_latex": true,
+		"difficulty_score": 2.925
+	},
+	{
+		"question_text": "What are all values of k for which $\\int_{-3}^{k} x^2 dx = 0$?",
+		"options": [
+			"-3",
+			"0",
+			"3",
+			"-3 and 3"
+		],
+		"correct_answer_index": 0,
+		"explanation": "First, evaluate the integral: ∫ x² dx = x³/3. [x³/3] from -3 to k = k³/3 - (-3)³/3 = k³/3 - (-27)/3 = k³/3 + 9. Set the result to zero: k³/3 + 9 = 0 => k³ = -27 => k = -3.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "If $f(x) = (x-1)^2\\sin(x)$, then $f'(0) = $ ?",
+		"options": [
+			"-2",
+			"-1",
+			"0",
+			"1"
+		],
+		"correct_answer_index": 3,
+		"explanation": "Use the product rule: f'(x) = [2(x-1)]sin(x) + (x-1)²cos(x). Evaluate at x=0: f'(0) = 2(0-1)sin(0) + (0-1)²cos(0). = 2(-1)(0) + (-1)²(1) = 0 + 1 = 1.",
+		"has_latex": true,
+		"difficulty_score": 1.95
+	},
+	{
+		"question_text": "The absolute maximum value of $f(x) = x^3 - 3x^2 + 12$ on the closed interval [-2, 4] occurs at x = ?",
+		"options": [
+			"4",
+			"2",
+			"1",
+			"0"
+		],
+		"correct_answer_index": 0,
+		"explanation": "Find critical points by setting f'(x)=0. f'(x) = 3x² - 6x = 3x(x-2). Critical points are x=0, x=2. Evaluate the function at the critical points and the endpoints of the interval. f(-2) = (-2)³ - 3(-2)² + 12 = -8 - 12 + 12 = -8. f(0) = 12. f(2) = 2³ - 3(2)² + 12 = 8 - 12 + 12 = 8. f(4) = 4³ - 3(4)² + 12 = 64 - 48 + 12 = 28. The maximum value is 28, which occurs at x = 4.",
+		"has_latex": true,
+		"difficulty_score": 2.925
+	},
+	{
+		"question_text": "$\\int_{1}^{2} \\frac{1}{x^2} dx = $ ?",
+		"options": [
+			"-1/2",
+			"7/24",
+			"1/2",
+			"1"
+		],
+		"correct_answer_index": 2,
+		"explanation": "Rewrite the integral: ∫₁² x⁻² dx. Integrate using the power rule: [-x⁻¹] from 1 to 2 = [-1/x] from 1 to 2. Evaluate at the limits: (-1/2) - (-1/1) = -1/2 + 1 = 1/2.",
+		"has_latex": true,
+		"difficulty_score": 1.5
+	}
+]

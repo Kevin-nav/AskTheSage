@@ -1,9 +1,10 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from src.config import WELCOME_MESSAGE
+from src.config import WELCOME_MESSAGE, ADMIN_USERNAMES
 from src.database import get_db
-from src.services import quiz_service
+from src.models.models import User
+from src.adaptive_learning.service import AdaptiveQuizService
 
 HELP_MESSAGE = """
 Here's how to use the bot:
@@ -20,95 +21,103 @@ I will adapt to your performance to help you focus on your weak spots. Happy stu
 """
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Sends a welcome message when the /start command is issued."""
-    await update.message.reply_text(WELCOME_MESSAGE)
+    """Sends a welcome message and ensures the user exists in the database."""
+    telegram_user = update.effective_user
+    welcome_text = f"Welcome to AskTheSageQuizzer, {telegram_user.first_name}!"
+    
+    with get_db() as session:
+        db_user = session.query(User).filter(User.telegram_id == telegram_user.id).first()
+
+        if not db_user:
+            db_user = User(
+                telegram_id=telegram_user.id,
+                username=telegram_user.username,
+                is_admin=False
+            )
+            session.add(db_user)
+            if telegram_user.username and telegram_user.username in ADMIN_USERNAMES:
+                db_user.is_admin = True
+            session.commit()
+            await update.message.reply_text(f"{welcome_text}\n" + WELCOME_MESSAGE)
+        else:
+            welcome_text = f"Welcome back to AskTheSageQuizzer, {telegram_user.first_name}!"
+            if db_user.username != telegram_user.username:
+                db_user.username = telegram_user.username
+            if telegram_user.username and telegram_user.username in ADMIN_USERNAMES and not db_user.is_admin:
+                db_user.is_admin = True
+            session.commit()
+            await update.message.reply_text(f"{welcome_text}\n" + WELCOME_MESSAGE)
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Sends a detailed help message when the /help command is issued."""
     await update.message.reply_text(HELP_MESSAGE)
 
 async def performance_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Displays the user's quiz performance over time."""
-    user_id = update.effective_user.id
-    chat_id = update.effective_chat.id
-
+    """Displays the user's new, comprehensive performance report."""
+    telegram_id = update.effective_user.id
+    
     with get_db() as db:
-        performance_data = quiz_service.get_user_performance_data(db, user_id)
+        service = AdaptiveQuizService(db)
+        performance_data = service.get_user_performance_data(telegram_id)
 
-    total_quizzes = performance_data["total_quizzes"]
-    overall_average_score = performance_data["overall_average_score"]
-    categorized_performance = performance_data["categorized_performance"]
-    other_courses_performance = performance_data["other_courses_performance"]
+    if performance_data.get("status") != "success":
+        await update.message.reply_text("Could not retrieve your performance data. Have you completed a quiz yet?")
+        return
 
-    message_parts = ["✨ Your Quiz Journey So Far! ✨\n"]
-    message_parts.append(f"Total Quizzes Completed: **{total_quizzes}**")
-    
-    overall_avg_score_message = f"Overall Average Score: **{overall_average_score:.0f}%** "
-    if overall_average_score >= 90:
-        overall_avg_score_message += "- Outstanding! Keep shining! 🌟"
-    elif overall_average_score >= 75:
-        overall_avg_score_message += "- Great work! You're mastering it! 💪"
-    elif overall_average_score >= 50:
-        overall_avg_score_message += "- Good progress! Keep pushing forward! 👍"
+    # --- Part 1: Overall Performance ---
+    lifetime_stats = performance_data.get("lifetime_stats", {})
+    total_answered = lifetime_stats.get("total_answered", 0)
+    total_correct = lifetime_stats.get("total_correct", 0)
+
+    message_parts = ["✨ **Your Quiz Journey So Far!** ✨\n"]
+    message_parts.append("🧠 **Overall Performance**")
+    if total_answered > 0:
+        overall_accuracy = (total_correct / total_answered) * 100
+        message_parts.append(f"- Accuracy: {overall_accuracy:.1f}%")
+        message_parts.append(f"- Total Questions Attempted: {total_answered}")
+        message_parts.append(f"- Total Correct Questions: {total_correct}")
     else:
-        overall_avg_score_message += "- Every step counts! Let's learn and grow! 🌱"
-    message_parts.append(overall_avg_score_message + "\n")
+        message_parts.append("No questions answered yet. Time to start a /quiz! 🚀")
 
-    if categorized_performance:
-        message_parts.append("🎓 Performance by Faculty & Program: ")
-        for faculty_name, programs_data in categorized_performance.items():
-            message_parts.append(f"\n**Faculty: {faculty_name}**")
-            for program_name, courses_data in programs_data.items():
-                message_parts.append(f"  **Program: {program_name}**")
-                for course_name, data in courses_data.items():
-                    message_parts.append(f"    - **{course_name}**")
-                    message_parts.append(f"      Quizzes: {data["total_quizzes_in_course"]}")
-                    
-                    course_avg_score = data["average_score_in_course"]
-                    course_avg_score_message = f"      Average Score: {course_avg_score:.0f}% "
-                    if course_avg_score >= 90:
-                        course_avg_score_message += "- Excellent!"
-                    elif course_avg_score >= 75:
-                        course_avg_score_message += "- Very Good!"
-                    elif course_avg_score >= 50:
-                        course_avg_score_message += "- Keep Going!"
-                    else:
-                        course_avg_score_message += "- Focus Area!"
-                    message_parts.append(course_avg_score_message)
+    message_parts.append("\n" + ("-" * 25) + "\n")
 
-                    if data["recent_quizzes_in_course"]:
-                        message_parts.append("      Recent Scores:")
-                        for entry in data["recent_quizzes_in_course"]:
-                            message_parts.append(f"        - {entry["score"]:.0f}% on {entry["date"]}")
-                    else:
-                        message_parts.append("        No recent scores for this course.")
+    # --- Part 2: Categorized Course Performance ---
+    categorized_performance = performance_data.get("categorized_performance", {})
+    preferred_courses = categorized_performance.get("preferred_courses", [])
+    other_courses = categorized_performance.get("other_courses", [])
+
+    if preferred_courses or other_courses:
+        if preferred_courses:
+            message_parts.append("🎓 **Performance in Your Program**")
+            for course in preferred_courses:
+                message_parts.append(f"- _{course['course_name']}_: {course['accuracy']:.1f}% Accuracy")
+            message_parts.append("")
+
+        if other_courses:
+            message_parts.append("🌍 **Performance in Other Courses**")
+            for course in other_courses:
+                message_parts.append(f"- _{course['course_name']}_: {course['accuracy']:.1f}% Accuracy")
+            message_parts.append("")
     
-    if other_courses_performance:
-        message_parts.append("\n🌍 Courses Outside Your Preferred Program: ")
-        for course_name, data in other_courses_performance.items():
-            message_parts.append(f"\n  - **{course_name}**")
-            message_parts.append(f"    Quizzes: {data["total_quizzes_in_course"]}")
-            
-            course_avg_score = data["average_score_in_course"]
-            course_avg_score_message = f"    Average Score: {course_avg_score:.0f}% "
-            if course_avg_score >= 90:
-                course_avg_score_message += "- Excellent!"
-            elif course_avg_score >= 75:
-                course_avg_score_message += "- Very Good!"
-            elif course_avg_score >= 50:
-                course_avg_score_message += "- Keep Going!"
-            else:
-                course_avg_score_message += "- Focus Area!"
-            message_parts.append(course_avg_score_message)
+    message_parts.append("-" * 25 + "\n")
 
-            if data["recent_quizzes_in_course"]:
-                message_parts.append("    Recent Scores:")
-                for entry in data["recent_quizzes_in_course"]:
-                    message_parts.append(f"      - {entry["score"]:.0f}% on {entry["date"]}")
-            else:
-                message_parts.append("      No recent scores for this course.")
+    # --- Part 3: Recent Activity ---
+    recent_quizzes = performance_data.get("recent_quizzes", [])
+    if recent_quizzes:
+        message_parts.append("🕒 **Recent Activity:**")
+        status_map = {
+            'completed': '(Completed)',
+            'incomplete': '(Ended Early)',
+            'cancelled': '(Stopped by You)'
+        }
+        for quiz in recent_quizzes:
+            score_fraction = f"{quiz['correct_count']}/{quiz['answered_count']}"
+            status_text = status_map.get(quiz['status'], '(Finished)')
+            message_parts.append(f"- _{quiz['course_name']}_: **{score_fraction}** {status_text}")
 
-    if not categorized_performance and not other_courses_performance:
-        message_parts.append("No detailed course performance to display. Time to start a new /quiz! 🚀")
+    message = "\n".join(message_parts)
+    await update.message.reply_text(message, parse_mode='Markdown')
 
-    await context.bot.send_message(chat_id=chat_id, text="\n".join(message_parts), parse_mode='Markdown')
+async def unknown_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Handles any command that is not recognized."""
+    await update.message.reply_text("Sorry, I didn't understand that command. Please use /help to see what I can do.")

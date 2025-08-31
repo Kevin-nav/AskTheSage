@@ -32,25 +32,33 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))
 if not SECRET_KEY:
     raise ValueError("SECRET_KEY environment variable not set. This is crucial for JWT security.")
 
+# Admin & Feedback Configuration
+ADMIN_USERNAMES_STR = os.getenv("ADMIN_USERNAMES", "")
+ADMIN_USERNAMES = [username.strip() for username in ADMIN_USERNAMES_STR.split(",") if username.strip()]
+TELEGRAM_ADMIN_GROUP_ID_STR = os.getenv("TELEGRAM_ADMIN_GROUP_ID")
+TELEGRAM_ADMIN_GROUP_ID = int(TELEGRAM_ADMIN_GROUP_ID_STR) if TELEGRAM_ADMIN_GROUP_ID_STR else None
+
+# Static Text Configuration
 # Static Text Configuration
 WELCOME_MESSAGE = """
-Welcome to the Adaptive Learning Bot! 🧠
+Welcome to AskTheSageQuizzer! 🧠
 
-I am here to help you master your courses through personalized quizzes.
+I'm here to help you master your courses with personalized quizzes that adapt to your learning pace.
 
-Here's how to get started:
+To get started, simply send /quiz.
 
-➡ Send /quiz to begin a new quiz session.
-   - You'll be guided to choose your Faculty, Program, Level, and Course.
-
-➡ Answer the questions to the best of your ability.
-   - The bot will adapt to your performance, helping you focus on your weak spots.
-
-Available commands:
-/quiz - Start a new quiz.
+Here are the available commands:
+/quiz - Start a new adaptive quiz.
+/performance - See your progress and quiz history.
+/feedback - Have a suggestion or an issue? Let us know!
 /help - Show this message again.
 
 Happy studying!
+
+---
+*AskTheSageQuizzer is a product of HCX Technologies, a subsidiary of HCX Industries.*
+*For inquiries, contact us at info@askthe.online.*
+*For administrative matters (non-customer support), reach the admins at admin@askthe.online.*
 """
 # Adaptive Quiz Configuration
 ADAPTIVE_QUIZ_ENABLED = os.getenv("ADAPTIVE_QUIZ_ENABLED", "True").lower() == "true"
@@ -104,4 +112,11 @@ TIME_LIMIT_CONFIG = {
         4.5: 2.0,
         6.75: 2.5,
     }
+}
+
+# "Guided Placement" Quiz Configuration for new users
+DIFFICULTY_BANDS = {
+    "easy": 1.5,
+    "medium": 3.0,
+    "hard": float('inf')
 }

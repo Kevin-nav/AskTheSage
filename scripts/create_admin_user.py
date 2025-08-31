@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+import argparse
 from dotenv import load_dotenv
 
 # Add the 'src' directory to the Python path
@@ -18,39 +19,52 @@ from src.database import SessionLocal
 from src.models.models import User
 from src.api.auth_utils import get_password_hash
 
-def create_admin_user():
+def promote_user_to_admin(telegram_id, password):
     """
-    Creates a default admin user if one doesn't already exist.
+    Finds a user by their Telegram ID and promotes them to an admin,
+    setting their password for web dashboard access.
     """
     db = SessionLocal()
 
     try:
-        # --- Check if admin user already exists ---
-        admin_user = db.query(User).filter_by(username="hackeron").first()
-        if admin_user:
-            logger.info("Admin user 'hackeron' already exists.")
+        # --- Find user by Telegram ID ---
+        user = db.query(User).filter_by(telegram_id=telegram_id).first()
+        if not user:
+            logger.error(f"User with Telegram ID '{telegram_id}' not found.")
+            logger.info("The user must first interact with the bot to be registered in the database.")
             return
 
-        # --- Create Admin User ---
-        hashed_password = get_password_hash("admin")
-        new_admin = User(
-            username="hackeron",
-            full_name="Kevin  Nchorbuno",
-            email="nchorkevin@gmail.com",
-            hashed_password=hashed_password,
-            is_admin=True
-        )
-        db.add(new_admin)
+        if user.is_admin:
+            logger.info(f"User '{user.username}' (Telegram ID: {telegram_id}) is already an admin.")
+        else:
+            user.is_admin = True
+            logger.info(f"User '{user.username}' (Telegram ID: {telegram_id}) has been promoted to admin.")
+
+        # --- Set/Update Password ---
+        if password:
+            user.hashed_password = get_password_hash(password)
+            logger.info(f"Password for user '{user.username}' has been set.")
+        
         db.commit()
-        logger.info("Admin user 'Kevin' created successfully.")
-        logger.info("Username: hackeron")
-        logger.info("Password: hackeronhacker1")
+        logger.info("Promotion and password setting complete.")
 
     except Exception as e:
         db.rollback()
-        logger.error(f"An error occurred while creating the admin user: {e}", exc_info=True)
+        logger.error(f"An error occurred: {e}", exc_info=True)
     finally:
         db.close()
 
 if __name__ == "__main__":
-    create_admin_user()
+    parser = argparse.ArgumentParser(
+        description="Promote a user to admin by their Telegram ID.",
+        formatter_class=argparse.RawTextHelpFormatter
+    )
+    parser.add_argument('telegram_id', type=int, help="The Telegram ID of the user to promote.")
+    parser.add_argument(
+        '--password',
+        type=str,
+        help="Optional: A new password for the user for web dashboard access.\nIf not provided, the password will not be changed."
+    )
+    args = parser.parse_args()
+    
+    promote_user_to_admin(args.telegram_id, args.password)

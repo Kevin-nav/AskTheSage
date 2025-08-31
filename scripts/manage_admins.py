@@ -37,23 +37,23 @@ async def update_user_details(db_session, bot):
             logger.error(f"  Could not fetch details for User ID: {user.id} (Telegram ID: {user.telegram_id}). Error: {e}")
     db_session.commit()
 
-def set_admin_status(db_session, user_ids, is_admin, password=None):
-    """Sets the admin status and password for a list of user IDs."""
-    if not user_ids:
+def set_admin_status(db_session, telegram_ids, is_admin, password=None):
+    """Sets the admin status and password for a list of user Telegram IDs."""
+    if not telegram_ids:
         return
 
     action = "Promoting" if is_admin else "Demoting"
     logger.info(f"--- {action} Users ---")
     
-    users_to_modify = db_session.query(User).filter(User.id.in_(user_ids)).all()
+    users_to_modify = db_session.query(User).filter(User.telegram_id.in_(telegram_ids)).all()
     
     if not users_to_modify:
-        logger.warning("No users found for the given IDs.")
+        logger.warning("No users found for the given Telegram IDs.")
         return
 
     for user in users_to_modify:
         user.is_admin = is_admin
-        log_message = f"  - User ID: {user.id} ({user.username}), New Admin Status: {user.is_admin}"
+        log_message = f"  - User ID: {user.id} (Telegram ID: {user.telegram_id}), New Admin Status: {user.is_admin}"
         
         if is_admin and password:
             user.hashed_password = get_password_hash(password)
@@ -86,8 +86,8 @@ def list_users(db_session):
 async def main():
     """Main function to manage admin users."""
     parser = argparse.ArgumentParser(description="Manage admin users.")
-    parser.add_argument('--promote', nargs='+', type=int, help="List of user IDs to promote to admin.")
-    parser.add_argument('--demote', nargs='+', type=int, help="List of user IDs to demote from admin.")
+    parser.add_argument('--promote', nargs='+', type=int, help="List of user Telegram IDs to promote to admin.")
+    parser.add_argument('--demote', nargs='+', type=int, help="List of user Telegram IDs to demote from admin.")
     parser.add_argument('--password', type=str, help="Set a password for the user(s) being promoted. Required with --promote.")
     parser.add_argument('--update', action='store_true', help="Update user details from Telegram.")
     parser.add_argument('--list', action='store_true', help="List all users.")

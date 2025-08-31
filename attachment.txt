@@ -1,7 +1,7 @@
 
 ### Full Ruleset for Gauging MCQ Difficulty
 
-Here is the complete ruleset for gauging the difficulty of multiple-choice questions (MCQs) for your basic electronics course, combining the core principles with the specific considerations for the MCQ format.
+Here is the complete ruleset for gauging the difficulty of multiple-choice questions (MCQs) for the courses, combining the core principles with the specific considerations for the MCQ format.
 
 ---
 
@@ -53,11 +53,11 @@ This is a crucial multiplier unique to the MCQ format. It evaluates the quality 
 This category combines the structure of the question stem and the complexity of any required calculations or diagrams.
 
 * **Single-Step Question (Multiplier = 1.0):** The question requires a single piece of information or a single calculation to find the answer.
-* **Multi-Step Question (Multiplier = 1.2):** The question or the process to find the correct answer involves multiple steps.
-* **Complex Algebra (Multiplier = 1.2):** The question requires rearranging formulas, solving multi-step equations, or working with systems of equations.
+* **Multi-Step Question (Multiplier = 1.3):** The question or the process to find the correct answer involves multiple steps.
+* **Complex Algebra (Multiplier = 1.3):** The question requires rearranging formulas, solving multi-step equations, or working with systems of equations.
 * **Graphical or Diagrammatic Interpretation (Multiplier = 1.5):** The student must read, interpret, or create a graph or circuit diagram to solve the problem.
 
-This comprehensive set of rules should provide a consistent and reliable method for scoring the difficulty of your basic electronics MCQs based on your course notes.
+This comprehensive set of rules should provide a consistent and reliable method for scoring the difficulty of your MCQs based on your course notes.
 
 
 

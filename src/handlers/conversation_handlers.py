@@ -3,10 +3,12 @@ import asyncio
 import time
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes, ConversationHandler, CommandHandler, CallbackQueryHandler, PollAnswerHandler
+from sqlalchemy.exc import IntegrityError
 
 from src.database import get_db
 from src.services import navigation_service, quiz_service, scoring_service
-from src.models.models import QuestionReport, Question, User, Faculty, Program # Import QuestionReport, Question, User, Faculty, and Program models
+from src.services.notification_service import send_new_feedback_notification
+from src.models.models import QuestionReport, Question, User, Faculty, Program, QuizSessionQuestion, Course, Feedback # Import QuestionReport, Question, User, Faculty, and Program models
 
 # Set up logger
 logger = logging.getLogger(__name__)
@@ -15,10 +17,16 @@ logger = logging.getLogger(__name__)
 CHOOSE_FACULTY, CHOOSE_PROGRAM, CHOOSE_LEVEL, CHOOSE_COURSE, CHOOSE_QUIZ_LENGTH, IN_QUIZ, AWAITING_REPORT_REASON, CONFIRM_PREFERENCES = range(8)
 
 async def start_quiz(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    # Check if the user is already in the quiz setup process
+    if context.user_data.get('in_quiz_setup', False):
+        await update.message.reply_text("You are already setting up a quiz. Please continue your selection or type /cancel to start over.")
+        return
+
     chat_id = update.effective_chat.id
     user_id = update.effective_user.id
     context.user_data['chat_id'] = chat_id
     context.user_data['user_id'] = user_id
+    context.user_data['in_quiz_setup'] = True  # Set the flag
     logger.info(f"Entering start_quiz for chat_id: {chat_id}, user_id: {user_id}")
 
     with get_db() as db:
@@ -158,12 +166,17 @@ async def quiz_length_choice(update: Update, context: ContextTypes.DEFAULT_TYPE)
     logger.info(f"User chose quiz length: {quiz_length} for course_id: {course_id}")
     with get_db() as db:
         try:
+            context.user_data.pop('in_quiz_setup', None)  # Clear the setup flag
             quiz_session = quiz_service.start_new_quiz(db, telegram_id, course_id, quiz_length)
             context.user_data['current_quiz_session_id'] = quiz_session.id
             logger.info(f"DEBUG: Context object in quiz_length_choice before ask_question: {context} (Type: {type(context)})")
             await query.edit_message_text(text=f"Starting your {quiz_session.total_questions}-question quiz...")
             chat_id = context.user_data['chat_id'] # Retrieve chat_id from user_data
             return await ask_question(context, chat_id, telegram_id)
+        except IntegrityError:
+            logger.warning(f"User {telegram_id} tried to start a quiz while another was in progress, caught by DB constraint.")
+            await query.edit_message_text(text="You already have an ongoing quiz. Please complete it or use /cancel to end it.")
+            return ConversationHandler.END
         except Exception as e:
             error_message = str(e)
             if "ongoing quiz" in error_message:
@@ -179,9 +192,15 @@ async def poll_timeout_callback(context: ContextTypes.DEFAULT_TYPE):
     if job.removed:
         return
 
+    # Check if the quiz session is still active
+    if 'current_quiz_session_id' not in context.user_data:
+        logger.info(f"Poll timed out for job {job.name}, but quiz session has already ended. Ignoring.")
+        return
+
     session_id = job.data['session_id']
     question_id = job.data['question_id']
     chat_id = job.chat_id
+    user_id = job.user_id
 
     await context.bot.send_message(chat_id=chat_id, text="Time's up!")
     context.user_data.pop('current_poll_id', None) # Clear poll ID as it timed out.
@@ -279,9 +298,12 @@ async def ask_question(context: ContextTypes.DEFAULT_TYPE, chat_id: int, user_id
             )
             return IN_QUIZ
         else:
+            # All questions are answered, complete the session to calculate score
+            quiz_service.complete_quiz_session(db, session_id)
             results = quiz_service.get_quiz_results(db, session_id)
+            
             score_msg = ""
-            if results and results.total_questions > 0:
+            if results and results.final_score is not None:
                 percentage = results.final_score
                 if percentage == 100:
                     score_msg = "🎉 Perfect score! You aced it! Keep up the excellent work! 🎉"
@@ -293,7 +315,7 @@ async def ask_question(context: ContextTypes.DEFAULT_TYPE, chat_id: int, user_id
                     score_msg = "💪 You're making progress! Don't worry, every mistake is a step forward. Let's review and try again! 💪"
                 score_msg = f"Quiz finished! 🏁\n\nYour score: {results.final_score:.0f}%\n{score_msg}"
             else:
-                score_msg = "Quiz finished! You've completed all available questions, but no score was recorded."
+                score_msg = "Quiz finished! You've completed all available questions, but your score could not be calculated."
             
             await context.bot.send_message(chat_id=chat_id, text=score_msg)
             logger.info("No more questions. Ending conversation.")
@@ -424,6 +446,11 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         context.user_data.pop('current_quiz_session_id', None)
         context.user_data.pop('current_question_id', None)
 
+        message = 'Quiz cancelled. You can start a new one with /quiz.'
+    else:
+        message = "There is nothing to cancel."
+
+    context.user_data.pop('in_quiz_setup', None) # Clear the setup flag
     logger.warning(f"User {update.effective_user.id} cancelled the conversation.")
     
     poll_id = context.user_data.get('current_poll_id')
@@ -435,7 +462,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         context.user_data.pop('current_poll_id', None)
         context.user_data.pop('current_poll_message_id', None)
 
-    await update.message.reply_text('Quiz cancelled. You can start a new one with /quiz.')
+    await update.message.reply_text(message)
     return ConversationHandler.END
 
 async def report_issue_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -478,7 +505,7 @@ async def report_issue_start(update: Update, context: ContextTypes.DEFAULT_TYPE)
 async def submit_report(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     query = update.callback_query
     await query.answer()
-    report_reason = query.data.split('_', 1)[1] # Split only on first underscore
+    report_reason = query.data.split('_', 1)[1]  # Split only on first underscore
     question_id = context.user_data.get('reported_question_id')
     user_id = update.effective_user.id
     username = update.effective_user.username or update.effective_user.full_name
@@ -487,32 +514,65 @@ async def submit_report(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
         await query.edit_message_text("Error: Could not find question to report.")
         return IN_QUIZ
 
+    # Stop the poll for the reported question
+    poll_id = context.user_data.get('current_poll_id')
+    if poll_id:
+        jobs = context.job_queue.get_jobs_by_name(f"poll_timeout_{poll_id}")
+        for job in jobs:
+            job.schedule_removal()
+            logger.info(f"Removed timeout job for poll {poll_id} due to report.")
+        try:
+            await context.bot.stop_poll(chat_id=query.message.chat_id, message_id=context.user_data.get('current_poll_message_id'))
+        except Exception as e:
+            logger.warning(f"Could not stop poll {poll_id} (might already be closed): {e}")
+        context.user_data.pop('current_poll_id', None)
+        context.user_data.pop('current_poll_message_id', None)
+
     with get_db() as db:
-        # Fetch the internal user ID from the database
-        user = db.query(quiz_service.User).filter_by(telegram_id=user_id).first()
+        user = db.query(User).filter_by(telegram_id=user_id).first()
         if not user:
             logger.error(f"User with telegram_id {user_id} not found in DB during report submission.")
             await query.edit_message_text("Sorry, your user account could not be found. Please try starting a new quiz.")
             return ConversationHandler.END
 
+        question = db.query(Question).filter_by(id=question_id).first()
+        if not question:
+            await query.edit_message_text("Sorry, an error occurred while fetching report details.")
+            return IN_QUIZ
+
         try:
-            report = QuestionReport(
+            # Create a Feedback object instead of a QuestionReport
+            feedback = Feedback(
+                user_id=user.id,
                 question_id=question_id,
-                user_id=user.id, # Use the internal database ID
-                username=username,
-                reason=report_reason
+                feedback_type='question_report',
+                text_content=report_reason,
+                status='open'
             )
-            db.add(report)
+            db.add(feedback)
+            db.commit()
+            db.refresh(feedback)
+
+            # Mark the question as reported in the session
+            db.query(QuizSessionQuestion).filter_by(
+                session_id=context.user_data['current_quiz_session_id'],
+                question_id=question_id
+            ).update({'is_reported': True})
             db.commit()
 
             # Add to reported_in_session list to skip for this quiz
             context.user_data.setdefault('reported_in_session', []).append(question_id)
 
             await query.edit_message_text("Thank you for your feedback! The question has been reported and will be skipped for this quiz.")
+
+            # Send notification to admins using the existing feedback notification service
+            await send_new_feedback_notification(context.bot, feedback, username)
+
             # Move to the next question
             return await ask_question(context, context.user_data['chat_id'], context.user_data['user_id'])
         except Exception as e:
             logger.error(f"Error submitting report for question {question_id} by user {user_id}: {e}")
+            db.rollback()
             await query.edit_message_text("Sorry, an error occurred while submitting your report.")
             return IN_QUIZ
 

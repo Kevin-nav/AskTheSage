@@ -1,3 +1,5 @@
+# rendering_service.py
+
 import os
 import hashlib
 import boto3
@@ -45,9 +47,9 @@ class MCQImageRenderer:
         self.db_path = db_path
         self.init_database()
         
-        # LaTeX template for questions
-        # Using 'standalone' class to auto-crop whitespace. Increased font to 16pt.
-        self.question_template = r"""
+        # --- MODIFICATION START ---
+        # A single, definitive header for all LaTeX documents
+        self.latex_header = r"""
 \documentclass[16pt, border=10pt]{standalone}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -60,6 +62,29 @@ class MCQImageRenderer:
 \usepackage[most]{tcolorbox}
 \usepackage{varwidth}
 \usepackage{listings}
+\usepackage{textcomp}
+\usepackage{newunicodechar}
+% Math Symbols
+\newunicodechar{∫}{\ensuremath{\int}}
+\newunicodechar{√}{\ensuremath{\sqrt}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{÷}{\ensuremath{\div}}
+\newunicodechar{π}{\ensuremath{\pi}}
+\newunicodechar{θ}{\ensuremath{\theta}}
+% Superscripts
+\newunicodechar{⁰}{\ensuremath{^0}}
+\newunicodechar{¹}{\ensuremath{^1}}
+\newunicodechar{²}{\ensuremath{^2}}
+\newunicodechar{³}{\ensuremath{^3}}
+\newunicodechar{⁴}{\ensuremath{^4}}
+\newunicodechar{⁵}{\ensuremath{^5}}
+\newunicodechar{⁶}{\ensuremath{^6}}
+\newunicodechar{⁷}{\ensuremath{^7}}
+\newunicodechar{⁸}{\ensuremath{^8}}
+\newunicodechar{⁹}{\ensuremath{^9}}
 
 % Configure listings package for better code rendering
 \lstset{
@@ -80,9 +105,11 @@ class MCQImageRenderer:
     aboveskip=10pt,
     belowskip=10pt
 }
-
+"""
+        
+        # Template for the question body ONLY
+        self.question_template_body = r"""
 \definecolor{questionbg}{rgb}{0.95, 0.95, 0.98}
-
 \begin{document}
 \begin{varwidth}{0.9\textwidth}
 \begin{tcolorbox}[colback=questionbg, colframe=black!50!blue, title=Question {QUESTION_NUMBER}]
@@ -95,44 +122,10 @@ class MCQImageRenderer:
 \end{document}
 """
 
-        # LaTeX template for explanations
-        # Using 'standalone' class to auto-crop whitespace. Increased font to 16pt.
-        self.explanation_template = r"""
-\documentclass[16pt, border=10pt]{standalone}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{mhchem}
-\usepackage{xcolor}
-\usepackage[most]{tcolorbox}
-\usepackage{varwidth}
-\usepackage{listings}
-
-% Configure listings package for better code rendering
-\lstset{
-    basicstyle=\small\ttfamily,
-    breaklines=true,
-    breakatwhitespace=false,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    frame=single,
-    rulecolor=\color{black!30},
-    backgroundcolor=\color{gray!10},
-    keywordstyle=\color{blue}\bfseries,
-    commentstyle=\color{green!60!black},
-    stringstyle=\color{red},
-    numberstyle=\tiny\color{gray},
-    captionpos=b,
-    aboveskip=10pt,
-    belowskip=10pt
-}
-
+        # Template for the explanation body ONLY
+        self.explanation_template_body = r"""
 \definecolor{explainbg}{rgb}{0.95, 0.98, 0.95}
 \definecolor{answerbg}{rgb}{0.98, 0.95, 0.95}
-
 \begin{document}
 \begin{varwidth}{0.9\textwidth}
 \begin{tcolorbox}[colback=answerbg, colframe=green!50!black, title=Answer: {CORRECT_ANSWER}]
@@ -145,6 +138,7 @@ class MCQImageRenderer:
 \end{varwidth}
 \end{document}
 """
+        # --- MODIFICATION END ---
 
     def init_database(self):
         """Initialize SQLite database for tracking questions"""
@@ -161,33 +155,51 @@ class MCQImageRenderer:
         conn.commit()
         conn.close()
 
+    # --- MODIFICATION START ---
+    # Helper function to build the full LaTeX document
+    def _build_latex_document(self, body_template: str, replacements: Dict[str, str]) -> str:
+        """Combines the header and body, and performs text replacements."""
+        content = body_template
+        for key, value in replacements.items():
+            content = content.replace(key, value)
+        return self.latex_header + content
+    # --- MODIFICATION END ---
+
     def clean_latex_text(self, text: str) -> str:
         """
         Cleans and prepares text for LaTeX by isolating math and code blocks,
         escaping the remaining plain text, and then reassembling the string with
-        the correct LaTeX wrappers. This prevents corrupting LaTeX commands or code.
+        the correct LaTeX wrappers.
         """
         if not text:
             return ""
 
-        # Use "safe" placeholders that contain no special LaTeX characters.
+
+        # --- MODIFICATION START ---
+        # Pre-process malformed square roots before other cleaning.
+        text = re.sub(r'√\((.*?)\)', r'\\sqrt{\1}', text) # Handles formats like √(...)
+        text = re.sub(r'√(\d+\.?\d*)', r'\\sqrt{\1}', text) # Handles formats like √45
+        text = re.sub(r'√(\w+)', r'\\sqrt{\1}', text) # Handles single variables
+        # --- MODIFICATION END ---
+
+        # Use safe placeholders
         math_placeholder = "MATHBLOCKPLACEHOLDER{}"
         inline_code_placeholder = "INLINECODEPLACEHOLDER{}"
         multiline_code_placeholder = "MULTILINECODEPLACEHOLDER{}"
 
-        # Storage for the different content types we extract
+        # Storage for different content types
         math_blocks = []
         inline_code_blocks = []
         multiline_code_blocks = []
 
-        # 1. Isolate LaTeX math environments ($...$) first to protect them.
+        # 1. Extract LaTeX math environments ($...$) to protect them
         def extract_math(match):
-            math_blocks.append(match.group(0)) # Store the full match, e.g., "$\frac{1}{3}$"
+            math_blocks.append(match.group(0))
             return math_placeholder.format(len(math_blocks) - 1)
-        # Non-greedy regex to find content between single dollar signs
-        text = re.sub(r'\$(.*?)\$', extract_math, text, flags=re.DOTALL)
+        
+        text = re.sub(r'\$(?:\\.|[^$])*\$', extract_math, text)
 
-        # 2. Isolate multiline code blocks.
+        # 2. Extract multiline code blocks
         def extract_multiline_code(match):
             lang = match.group(1) or "text"
             code = match.group(2).strip()
@@ -195,40 +207,33 @@ class MCQImageRenderer:
             return multiline_code_placeholder.format(len(multiline_code_blocks) - 1)
         text = re.sub(r'```(\w*)\n(.*?)\n```', extract_multiline_code, text, flags=re.DOTALL)
 
-        # 3. Isolate inline code blocks.
+        # 3. Extract inline code blocks
         def extract_inline_code(match):
             code = match.group(1)
             inline_code_blocks.append(code)
             return inline_code_placeholder.format(len(inline_code_blocks) - 1)
         text = re.sub(r'`([^`]+)`', extract_inline_code, text)
 
-        # 4. Now, with all special content protected, escape the remaining plain text.
+        # 4. Escape LaTeX special characters in the remaining plain text
         replacements = [
-            ('\\', r'\textbackslash{}'),
-            ('&', r'\&'),
-            ('%', r'\%'),
-            ('#', r'\#'),
-            ('_', r'\_'),
-            ('{', r'\{'),
-            ('}', r'\}'),
-            ('~', r'\textasciitilde{}'),
-            ('^', r'\textasciicircum{}'),
+            ('\\', r'\textbackslash{}'), ('&', r'\&'), ('%', r'\%'),
+            ('#', r'\#'), ('_', r'\_'), ('{', r'\{'), ('}', r'\}'),
+            ('~', r'\textasciitilde{}'), ('^', r'\textasciicircum{}'),
         ]
+        
         for old, new in replacements:
             text = text.replace(old, new)
         
-        # 5. Handle newlines for paragraph breaks in the plain text.
+        # 5. Handle newlines for paragraph breaks
         text = text.replace('\n\n', '\\par\n')
         text = text.replace('\n', '\\newline\n')
 
-        # 6. Reassemble the final string by restoring the isolated blocks.
-        # Restore multiline code into a 'listings' environment (code is NOT escaped).
+        # 6. Restore the isolated blocks
         for i, (lang, code) in enumerate(multiline_code_blocks):
             lang_option = f"[language={lang}]" if lang and lang != "text" else ""
             replacement = f"\\begin{{lstlisting}}{lang_option}\n{code}\n\\end{{lstlisting}}"
             text = text.replace(multiline_code_placeholder.format(i), replacement)
 
-        # Restore inline code into a 'texttt' command (code content IS escaped).
         for i, code in enumerate(inline_code_blocks):
             escaped_inline_code = code
             for old, new in replacements:
@@ -236,11 +241,11 @@ class MCQImageRenderer:
             replacement = f"\\texttt{{{escaped_inline_code}}}"
             text = text.replace(inline_code_placeholder.format(i), replacement)
             
-        # Restore the math blocks exactly as they were (they are NOT escaped).
         for i, math in enumerate(math_blocks):
             text = text.replace(math_placeholder.format(i), math)
 
         return text
+
     def render_to_pdf(self, latex_content: str, output_path: str) -> bool:
         """Render LaTeX content to PDF"""
         try:
@@ -252,12 +257,11 @@ class MCQImageRenderer:
                 result = subprocess.run([
                     'pdflatex', '-interaction=nonstopmode',
                     '-output-directory', temp_dir, tex_file
-                ], capture_output=True, text=True, cwd=temp_dir)
+                ], capture_output=True, text=True, cwd=temp_dir, encoding='utf-8', errors='ignore')
                 
                 if result.returncode != 0:
-                    with open(os.path.join(temp_dir, "question.log"), "r", encoding="utf-8") as log_file:
-                        log_output = log_file.read()
-                    logger.error(f"LaTeX compilation failed. Log:\n{log_output}")
+                    log_output = result.stdout or ""
+                    logger.error(f"LaTeX compilation failed. Log:\n{log_output[-2000:]}")
                     return False
                 
                 pdf_file = os.path.join(temp_dir, "question.pdf")
@@ -284,7 +288,7 @@ class MCQImageRenderer:
             return False
 
     def create_fallback_image(self, question: MCQQuestion, output_path: str) -> bool:
-        """Create fallback text-based image using matplotlib with larger fonts."""
+        """Create fallback text-based image using matplotlib"""
         try:
             import matplotlib.pyplot as plt
             import textwrap
@@ -326,27 +330,24 @@ class MCQImageRenderer:
         
         question_success = False
         if question.has_latex:
-            # --- START: CORRECTED SECTION ---
-            # Manually create the full option line (e.g., "\textbf{A)} The option text")
-            # This is much more robust than relying on a LaTeX package for enumeration.
-            options_list = []
-            for i, opt in enumerate(question.options):
-                option_letter = chr(65 + i)  # Generates A, B, C...
-                cleaned_option_text = self.clean_latex_text(opt)
-                options_list.append(f"\\textbf{{{option_letter}}}) {cleaned_option_text}")
-
-            # Join the fully formatted options with a vertical space between them
+            options_list = [
+                f"\\textbf{{{chr(65 + i)}}}) {self.clean_latex_text(opt)}"
+                for i, opt in enumerate(question.options)
+            ]
             options_latex = r" \\ ".join(options_list)
-            # --- END: CORRECTED SECTION ---
 
-            latex_content = self.question_template.replace("{QUESTION_NUMBER}", str(question_number))
-            latex_content = latex_content.replace("{QUESTION_TEXT}", self.clean_latex_text(question.question_text))
-            latex_content = latex_content.replace("{OPTIONS}", options_latex)
+            # Build the question document using the new helper
+            question_replacements = {
+                "{QUESTION_NUMBER}": str(question_number),
+                "{QUESTION_TEXT}": self.clean_latex_text(question.question_text),
+                "{OPTIONS}": options_latex
+            }
+            latex_content = self._build_latex_document(self.question_template_body, question_replacements)
+            
             pdf_path = question_path.with_suffix('.pdf')
             if self.render_to_pdf(latex_content, str(pdf_path)):
                 question_success = self.pdf_to_image(str(pdf_path), str(question_path))
-                if pdf_path.exists():
-                    os.remove(pdf_path)
+                if pdf_path.exists(): os.remove(pdf_path)
         
         if not question_success:
             if question.has_latex:
@@ -357,14 +358,19 @@ class MCQImageRenderer:
         if question.has_latex and question.explanation:
             correct_letter = chr(65 + question.correct_answer_index)
             correct_option = question.options[question.correct_answer_index]
-            latex_content = self.explanation_template.replace("{CORRECT_ANSWER}", correct_letter)
-            latex_content = latex_content.replace("{CORRECT_OPTION}", self.clean_latex_text(correct_option))
-            latex_content = latex_content.replace("{EXPLANATION_TEXT}", self.clean_latex_text(question.explanation))
+            
+            # Build the explanation document using the new helper
+            explanation_replacements = {
+                "{CORRECT_ANSWER}": correct_letter,
+                "{CORRECT_OPTION}": self.clean_latex_text(correct_option),
+                "{EXPLANATION_TEXT}": self.clean_latex_text(question.explanation)
+            }
+            latex_content = self._build_latex_document(self.explanation_template_body, explanation_replacements)
+            
             pdf_path = explanation_path.with_suffix('.pdf')
             if self.render_to_pdf(latex_content, str(pdf_path)):
                 explanation_success = self.pdf_to_image(str(pdf_path), str(explanation_path))
-                if pdf_path.exists():
-                    os.remove(pdf_path)
+                if pdf_path.exists(): os.remove(pdf_path)
         
         self.update_database(question, 
                            question_filename if question_success else None,
@@ -399,10 +405,14 @@ class MCQImageRenderer:
             for i, question_data in enumerate(data):
                 try:
                     question = MCQQuestion(
-                        question_text=question_data['question_text'], options=question_data['options'],
+                        question_text=question_data['question_text'], 
+                        options=question_data['options'],
                         correct_answer_index=question_data['correct_answer_index'],
-                        explanation=question_data['explanation'], has_latex=question_data.get('has_latex', False),
-                        course=course_name, topic=question_data.get('topic', ''))
+                        explanation=question_data['explanation'], 
+                        has_latex=question_data.get('has_latex', False),
+                        course=course_name, 
+                        topic=question_data.get('topic', '')
+                    )
                     
                     question_file, explanation_file = self.render_question(question, i + 1)
                     results.append((question.question_id, question_file, explanation_file))
@@ -446,51 +456,17 @@ class LaTeXRenderingService:
             logger.error("LaTeX or pdftocairo is not installed. Rendering will fail.")
             logger.error("Please install a LaTeX distribution (like MiKTeX, TeX Live) and poppler-utils.")
         
-        self.mcq_image_renderer = MCQImageRenderer() # Instantiate the new renderer
+        self.mcq_image_renderer = MCQImageRenderer()
 
     def _validate_latex_installation(self):
-        """Check if pdflatex and pdftocairo are available in the system's PATH."""
+        """Check if pdflatex and pdftocairo are available"""
         try:
             subprocess.run(['pdflatex', '-version'], capture_output=True, text=True, check=True)
-            # Check for pdf2image dependencies (poppler-utils)
             subprocess.run(['pdftocairo', '-v'], capture_output=True, text=True, check=True)
             logger.info("LaTeX and pdf2image rendering environment validated successfully.")
             return True
         except (FileNotFoundError, subprocess.CalledProcessError):
             return False
-
-    def _render_latex_to_png(self, latex_string: str) -> bytes | None:
-        """
-        Renders a LaTeX string to a PNG image using pdflatex and pdf2image.
-        This method is adapted to use the MCQImageRenderer's pipeline.
-        """
-        if not self.latex_available:
-            logger.error("Cannot render LaTeX, required tools are not installed.")
-            return None
-
-        # Create a dummy MCQQuestion to leverage MCQImageRenderer's render_question
-        # This is a simplified approach for generic LaTeX strings, not full questions.
-        dummy_question = MCQQuestion(
-            question_text=latex_string,
-            options=[],
-            correct_answer_index=0, # Dummy value, not used for rendering question image
-            explanation="", # Dummy value
-            has_latex=True,
-            course="generic",
-            topic="latex_snippet"
-        )
-        
-        # Use MCQImageRenderer's render_question to get the image path
-        # This will save the image to the default output_dir of MCQImageRenderer
-        question_image_path, _ = self.mcq_image_renderer.render_question(dummy_question, 1)
-
-        if question_image_path and os.path.exists(question_image_path):
-            with open(question_image_path, 'rb') as f:
-                image_data = f.read()
-            # Clean up the temporary image file created by MCQImageRenderer
-            os.remove(question_image_path)
-            return image_data
-        return None
 
     def _generate_cache_key(self, content: str) -> str:
         return hashlib.md5(content.encode('utf-8')).hexdigest()
@@ -519,51 +495,3 @@ class LaTeXRenderingService:
         except Exception as e:
             logger.error(f"S3 upload failed: {e}")
             return None
-
-    def render_question_with_options(self, question_text: str, options: list[str], use_cache: bool = True) -> dict | None:
-        """
-        Renders a full MCQ question with options and handles S3 caching.
-        This method now leverages MCQImageRenderer for the actual rendering.
-        """
-        combined_content = f"Question: {question_text}\n" + "\n".join([f"Option {i+1}: {opt}" for i, opt in enumerate(options)])
-        cache_key = self._generate_cache_key(combined_content)
-
-        if use_cache:
-            cached_url = self._check_s3_cache(cache_key)
-            if cached_url:
-                return {'question_url': cached_url}
-
-        # Create a full MCQQuestion object for rendering
-        mcq_question = MCQQuestion(
-            question_text=question_text,
-            options=options,
-            correct_answer_index=0, # Dummy value, not used for rendering question image
-            explanation="", # Dummy value
-            has_latex=True, # Assume LaTeX for this path
-            course="telegram_bot_render", # A generic course name for questions rendered via the bot
-            topic="dynamic_render"
-        )
-
-        # Use MCQImageRenderer to render the question
-        question_image_path, _ = self.mcq_image_renderer.render_question(mcq_question, 1)
-
-        if question_image_path and os.path.exists(question_image_path):
-            with open(question_image_path, 'rb') as f:
-                image_data = f.read()
-            
-            if use_cache:
-                url = self._upload_to_s3_cache(cache_key, image_data)
-                if url:
-                    # Clean up the temporary image file created by MCQImageRenderer
-                    os.remove(question_image_path)
-                    return {'question_url': url}
-            else:
-                # If not using cache, return local path or raw image data (depending on needs)
-                # For now, we'll just return the path and expect the caller to handle it.
-                return {'question_local_path': question_image_path}
-        
-        logger.error(f"Failed to render MCQ question for content: {combined_content}")
-        return None
-
-# The existing `rendering_service = LaTeXRenderingService()` line will be removed
-# as the main application should instantiate this service.

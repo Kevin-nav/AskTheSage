@@ -46,10 +46,13 @@ def upgrade() -> None:
     op.add_column('questions', sa.Column('total_incorrect', sa.Integer(), nullable=True))
     op.execute("UPDATE questions SET total_incorrect = 0 WHERE total_incorrect IS NULL")
     op.alter_column('questions', 'total_incorrect', existing_type=sa.Integer(), nullable=False)
+    
+    # This column type change was handled in a later migration, so we ensure it's a string here
     op.alter_column('questions', 'correct_answer',
                existing_type=sa.INTEGER(),
                type_=sa.String(),
                existing_nullable=False)
+
     op.add_column('quiz_session_questions', sa.Column('order_number', sa.Integer(), nullable=True))
     op.execute("UPDATE quiz_session_questions SET order_number = 0 WHERE order_number IS NULL") # Assuming 0 as default
     op.alter_column('quiz_session_questions', 'order_number', existing_type=sa.Integer(), nullable=False)
@@ -59,6 +62,7 @@ def upgrade() -> None:
     op.add_column('quiz_session_questions', sa.Column('time_taken', sa.Integer(), nullable=True))
     op.add_column('quiz_session_questions', sa.Column('selection_reason', sa.String(length=50), nullable=True))
     op.add_column('quiz_session_questions', sa.Column('selection_score', sa.Float(), nullable=True))
+    
     op.add_column('quiz_sessions', sa.Column('started_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True))
     op.add_column('quiz_sessions', sa.Column('completed_at', sa.DateTime(), nullable=True))
     op.add_column('quiz_sessions', sa.Column('is_completed', sa.Boolean(), nullable=True))
@@ -68,10 +72,13 @@ def upgrade() -> None:
     op.execute("UPDATE quiz_sessions SET total_questions = 0 WHERE total_questions IS NULL") # Assuming 0 as default
     op.alter_column('quiz_sessions', 'total_questions', existing_type=sa.Integer(), nullable=False)
     op.add_column('quiz_sessions', sa.Column('final_score', sa.Float(), nullable=True))
-    op.drop_column('quiz_sessions', 'is_active')
-    op.drop_column('quiz_sessions', 'correct_answers')
-    op.drop_column('quiz_sessions', 'questions_count')
-    op.drop_column('quiz_sessions', 'created_at')
+    
+    # Instead of dropping, we rename the old columns to preserve data
+    op.alter_column('quiz_sessions', 'is_active', new_column_name='_legacy_is_active')
+    op.alter_column('quiz_sessions', 'correct_answers', new_column_name='_legacy_correct_answers')
+    op.alter_column('quiz_sessions', 'questions_count', new_column_name='_legacy_questions_count')
+    op.alter_column('quiz_sessions', 'created_at', new_column_name='_legacy_created_at')
+
     op.add_column('user_answers', sa.Column('correct_streak', sa.Integer(), nullable=True))
     op.execute("UPDATE user_answers SET correct_streak = 0 WHERE correct_streak IS NULL")
     op.alter_column('user_answers', 'correct_streak', existing_type=sa.Integer(), nullable=False)
@@ -86,10 +93,12 @@ def downgrade() -> None:
     op.drop_column('user_answers', 'time_taken')
     op.drop_column('user_answers', 'next_review_date')
     op.drop_column('user_answers', 'correct_streak')
-    op.add_column('quiz_sessions', sa.Column('created_at', postgresql.TIMESTAMP(timezone=True), server_default=sa.text('now()'), autoincrement=False, nullable=True))
-    op.add_column('quiz_sessions', sa.Column('questions_count', sa.INTEGER(), server_default=sa.text('10'), autoincrement=False, nullable=False))
-    op.add_column('quiz_sessions', sa.Column('correct_answers', sa.INTEGER(), server_default=sa.text('0'), autoincrement=False, nullable=False))
-    op.add_column('quiz_sessions', sa.Column('is_active', sa.BOOLEAN(), autoincrement=False, nullable=False))
+    
+    op.alter_column('quiz_sessions', '_legacy_created_at', new_column_name='created_at')
+    op.alter_column('quiz_sessions', '_legacy_questions_count', new_column_name='questions_count')
+    op.alter_column('quiz_sessions', '_legacy_correct_answers', new_column_name='correct_answers')
+    op.alter_column('quiz_sessions', '_legacy_is_active', new_column_name='is_active')
+
     op.drop_column('quiz_sessions', 'final_score')
     op.drop_column('quiz_sessions', 'total_questions')
     op.drop_column('quiz_sessions', 'is_completed')
@@ -102,6 +111,7 @@ def downgrade() -> None:
     op.drop_column('quiz_session_questions', 'is_correct')
     op.drop_column('quiz_session_questions', 'user_answer')
     op.drop_column('quiz_session_questions', 'order_number')
+    
     op.alter_column('questions', 'correct_answer',
                existing_type=sa.String(),
                type_=sa.INTEGER(),

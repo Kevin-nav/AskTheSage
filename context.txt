@@ -1,186 +1,1950 @@
-Edge Cases for src/adaptive_bot/selector.py
+Looking at your difficulty scoring system and the coverage requirement, I can see several excellent integration opportunities. Let me show you how to enhance the algorithm to leverage difficulty scores and ensure comprehensive course coverage.
 
-Below are many edge cases (grouped) that can break behavior, produce surprising results, or make outputs hard to trust. For each group I list what can go wrong and a one‑line mitigation where useful.
+import logging
+from datetime import datetime, timedelta, timezone
+from typing import List, Tuple, Dict, Optional, Set
+from dataclasses import dataclass, field
+from enum import Enum
+import random
+from collections import defaultdict
+import math
 
-Input / type issues
+class SelectionReason(Enum):
+    WEAKNESS = "weakness"
+    SRS_DUE = "srs_due"
+    NEW_QUESTION = "new"
+    RANDOM_REVIEW = "random_review"
+    COVERAGE_GAP = "coverage_gap"
+    DIFFICULTY_PROGRESSION = "difficulty_progression"
 
-available_questions is empty -> returns empty selection (ok) but downstream analytics/usage may divide by zero or expect >= quiz_length. Mitigation: validate and early-return.
-available_questions contains duplicates -> same question can be selected multiple times. Mitigation: dedupe input.
-available_questions items use non-int ids (str, UUID) while UserPerformance.question_id are ints -> lookup misses and all scored as NEW. Mitigation: normalize id types.
-user_performance is None or not a list -> TypeError. Mitigation: validate types.
-user_performance contains duplicate entries for same question_id -> last entry wins silently. Mitigation: detect duplicates and merge/validate.
-user_performance contains entries for questions not in available_questions (harmless but possibly wasteful).
-Missing / malformed performance fields
+@dataclass
+class QuestionScore:
+    question_id: int
+    score: float
+    reason: SelectionReason
+    metadata: Dict = field(default_factory=dict)
 
-performance.last_attempt_date is None or not a datetime -> _calculate_recency_factor fails. Mitigation: guard and provide fallback.
-performance.next_review_date is None or not a datetime -> current code treats missing as non-SRS, but mixing naive/aware datetimes raises TypeError. Mitigation: ensure timezone consistency or use aware datetimes.
-performance.total_attempts == 0 -> code uses max(...,1) in error_rate, OK but could hide data problems.
-performance.total_correct > performance.total_attempts -> error_rate negative, consecutive_errors negative. Mitigation: clamp and validate stats.
-correct_streak negative -> used to index srs_intervals (negative index selects from end). Mitigation: clamp correct_streak >= 0.
-missing attributes (e.g., last_attempt_correct) -> AttributeError. Mitigation: defensive attribute access or dataclass validation.
-Datetime & timezone issues
+@dataclass
+class UserPerformance:
+    question_id: int
+    correct_streak: int
+    last_attempt_correct: bool
+    last_attempt_date: datetime
+    total_attempts: int
+    total_correct: int
+    next_review_date: Optional[datetime] = None
+    difficulty_score: Optional[float] = None  # Add difficulty score
 
-Mixing timezone-aware and naive datetimes -> TypeError on subtraction. Mitigation: enforce UTC-aware times or convert to naive consistently.
-next_review_date and last_attempt_date in the future -> days calculations yield negative days, treated as recently answered/due; can produce odd scoring. Mitigation: clamp future dates or log anomalies.
-Using .days integer granularity ignores hours/minutes -> items slightly overdue (<1 day) treated as due (days_until_due <=0 yields due) or not overdue if 0. Mitigation: use total_seconds for finer granularity if desired.
-Scoring logic edge cases
+@dataclass
+class CoverageTracker:
+    """Tracks which questions/topics the user has covered"""
+    attempted_questions: Set[int] = field(default_factory=set)
+    mastered_questions: Set[int] = field(default_factory=set)  # 2+ correct in a row
+    topic_coverage: Dict[str, int] = field(default_factory=dict)
+    difficulty_bands_covered: Dict[str, int] = field(default_factory=dict)
 
-total_correct > total_attempts -> negative error_rate and thus negative weakness_boost lowering priority unexpectedly.
-error_rate calculation may produce 0/1 extremes; multiplicative boost is fixed 20 points and may be too small/large relative to weights.
-random_review_weight * recency_factor may produce 0 (if weights are zero) or negative if config corrupted.
-weights in config can be zero or negative -> weird ordering. Mitigation: validate config ranges.
-srs_intervals empty -> index error in calculate_next_review_date. Mitigation: require non-empty intervals.
-calculate_next_review_date uses min(correct_streak, len-1) but not max; negative correct_streak gives negative index (see above).
-Selection & distribution
+class EnhancedQuestionSelector:
+    """
+    Enhanced question selection algorithm that includes:
+    1. Difficulty-aware progression
+    2. Comprehensive coverage tracking
+    3. Adaptive difficulty adjustment
+    """
+    
+    def __init__(self, config: Dict = None, rng: Optional[random.Random] = None):
+        # Enhanced default configuration
+        default_config = {
+            # Original weights
+            'weakness_weight': 100,
+            'new_question_weight': 50,
+            'srs_due_weight': 30,
+            'srs_overdue_bonus': 20,
+            'random_review_weight': 5,
+            
+            # New difficulty and coverage weights
+            'coverage_gap_weight': 80,      # High priority for uncovered areas
+            'difficulty_progression_weight': 40,  # Medium priority for appropriate difficulty
+            
+            # Distribution targets
+            'target_weakness_pct': 0.40,        # Reduced to make room for coverage
+            'target_new_pct': 0.25,
+            'target_srs_pct': 0.15,
+            'target_coverage_pct': 0.20,        # New: ensure coverage gaps are filled
+            
+            # Difficulty bands (matching your rubric)
+            'difficulty_bands': {
+                'easy': (1.0, 1.8),      # Base scores 1.0-1.8
+                'medium': (1.8, 2.5),    # Base scores 1.8-2.5
+                'hard': (2.5, 4.0),      # Base scores 2.5-4.0
+                'expert': (4.0, 10.0)    # Base scores 4.0+
+            },
+            
+            # Coverage settings
+            'mastery_threshold': 2,       # 2 correct in a row = mastered
+            'coverage_decay_days': 30,    # Coverage importance decays over time
+            'max_difficulty_jump': 0.5,   # Don't jump difficulty too quickly
+            
+            # Difficulty progression
+            'target_success_rate': 0.75,  # Aim for 75% success rate
+            'difficulty_adjustment_sensitivity': 0.1,
+            
+            # SRS intervals
+            'srs_intervals': [1, 3, 7, 14, 30, 60, 120, 240, 480],
+            'min_attempts_for_stats': 3,
+        }
+        
+        self.config = {**default_config, **(config or {})}
+        self.rng = rng or random.Random()
+        
+    def select_questions(self, 
+                        user_id: int, 
+                        course_id: int, 
+                        quiz_length: int,
+                        user_performance: List[UserPerformance],
+                        available_questions: List[int],
+                        question_metadata: Dict[int, Dict] = None) -> List[QuestionScore]:
+        """
+        Enhanced question selection with difficulty and coverage awareness.
+        
+        Args:
+            question_metadata: Dict mapping question_id to metadata including:
+                - difficulty_score: float
+                - topic: str (optional)
+                - subtopic: str (optional)
+        """
+        
+        if not isinstance(quiz_length, int) or quiz_length <= 0:
+            return []
 
-quiz_length <= 0 or negative -> target counts negative, list slicing with negative indices can select wrong items. Mitigation: validate quiz_length > 0.
-quiz_length larger than available pool -> returns fewer than requested; may be acceptable but should be explicit.
-integer truncation of target counts (int(...)) causes rounding down and leftover fill handles it but distribution might deviate from desired percentages.
-Slicing with negative target (from negative quiz_length) can return unexpected elements.
-If a category has fewer questions than its target, code uses leftovers to fill — fine but might under/over represent categories unexpectedly.
-Sorting by score only may starve lower-scoring categories if distribution control not applied or miscomputed.
-Final random.shuffle makes selection nondeterministic -> flaky tests. Mitigation: allow injectable RNG / seed.
-Numeric / arithmetic issues
+        if not available_questions:
+            return []
 
-Large pools: memory/time overhead from scoring and sorting O(n log n). Mitigation: sampling or partial selection for very large n.
-Scores may be non-comparable if metadata contains non-numeric types (not used in sort but could confuse consumers).
-_calculate_consecutive_errors returns negative if total_correct > total_attempts.
-Metadata & serialization
+        # Deduplicate and handle invalid inputs
+        available_questions = list(set(available_questions))
+        if user_performance is None:
+            user_performance = []
+        if question_metadata is None:
+            question_metadata = {}
 
-metadata may contain datetimes if extended later -> not JSON-serializable by default. Mitigation: avoid embedding datetimes or serialize them first.
-reason Enum values used as dict keys in analytics via .value — consistent but consumers expecting Enum objects may be surprised.
-Determinism, testing & reproducibility
+        # Create performance lookup
+        performance_map = {p.question_id: p for p in user_performance}
+        
+        # Calculate user's current state
+        coverage_tracker = self._build_coverage_tracker(user_performance, question_metadata)
+        user_difficulty_level = self._estimate_user_difficulty_level(user_performance)
+        
+        # Score all available questions
+        scored_questions = []
+        for question_id in available_questions:
+            performance = performance_map.get(question_id)
+            metadata = question_metadata.get(question_id, {})
+            
+            score_data = self._score_question_enhanced(
+                question_id, 
+                performance, 
+                metadata, 
+                coverage_tracker,
+                user_difficulty_level
+            )
+            scored_questions.append(score_data)
+        
+        # Sort by score (highest first)
+        scored_questions.sort(key=lambda x: x.score, reverse=True)
+        
+        # Apply enhanced distribution control
+        selected = self._apply_enhanced_distribution_control(scored_questions, quiz_length)
+        
+        return selected
+    
+    def _score_question_enhanced(self, 
+                               question_id: int, 
+                               performance: Optional[UserPerformance], 
+                               metadata: Dict,
+                               coverage_tracker: CoverageTracker,
+                               user_difficulty_level: float) -> QuestionScore:
+        """Enhanced scoring that considers difficulty and coverage"""
+        
+        difficulty_score = metadata.get('difficulty_score', 2.0)  # Default medium
+        topic = metadata.get('topic', 'unknown')
+        
+        # Case 1: Coverage gap - never attempted or topic underrepresented
+        if performance is None:
+            if question_id not in coverage_tracker.attempted_questions:
+                # Check if this fills a coverage gap
+                topic_attempts = coverage_tracker.topic_coverage.get(topic, 0)
+                coverage_bonus = max(0, 50 - (topic_attempts * 10))  # Diminishing returns
+                
+                # Difficulty appropriateness bonus
+                difficulty_appropriateness = self._calculate_difficulty_appropriateness(
+                    difficulty_score, user_difficulty_level
+                )
+                
+                return QuestionScore(
+                    question_id=question_id,
+                    score=self.config['coverage_gap_weight'] + coverage_bonus + difficulty_appropriateness,
+                    reason=SelectionReason.COVERAGE_GAP,
+                    metadata={
+                        'is_new': True,
+                        'topic': topic,
+                        'difficulty_score': difficulty_score,
+                        'coverage_bonus': coverage_bonus,
+                        'difficulty_appropriateness': difficulty_appropriateness
+                    }
+                )
+            else:
+                # Regular new question scoring
+                difficulty_appropriateness = self._calculate_difficulty_appropriateness(
+                    difficulty_score, user_difficulty_level
+                )
+                return QuestionScore(
+                    question_id=question_id,
+                    score=self.config['new_question_weight'] + difficulty_appropriateness,
+                    reason=SelectionReason.NEW_QUESTION,
+                    metadata={
+                        'is_new': True,
+                        'difficulty_score': difficulty_score,
+                        'difficulty_appropriateness': difficulty_appropriateness
+                    }
+                )
+        
+        # Case 2: Weakness (last attempt was wrong)
+        if not performance.last_attempt_correct:
+            # Enhanced weakness scoring with difficulty consideration
+            total_attempts = max(performance.total_attempts, 1)
+            total_correct = max(0, min(performance.total_correct, total_attempts))
+            error_rate = 1 - (total_correct / total_attempts)
+            
+            # If they're struggling with hard questions, maybe give easier ones
+            # If they're struggling with easy questions, definitely prioritize
+            difficulty_factor = 1.0
+            if difficulty_score > user_difficulty_level + 1.0:
+                difficulty_factor = 0.8  # Slightly lower priority for too-hard questions
+            elif difficulty_score < user_difficulty_level - 0.5:
+                difficulty_factor = 1.2  # Higher priority for foundational gaps
+            
+            weakness_boost = error_rate * 20 * difficulty_factor
+            
+            return QuestionScore(
+                question_id=question_id,
+                score=self.config['weakness_weight'] + weakness_boost,
+                reason=SelectionReason.WEAKNESS,
+                metadata={
+                    'error_rate': error_rate,
+                    'difficulty_score': difficulty_score,
+                    'difficulty_factor': difficulty_factor,
+                    'user_difficulty_level': user_difficulty_level
+                }
+            )
+        
+        # Case 3: SRS - question answered correctly, check if due for review
+        if performance.next_review_date:
+            now = datetime.now(timezone.utc)
+            next_review_date = performance.next_review_date
+            if next_review_date.tzinfo is None:
+                next_review_date = next_review_date.replace(tzinfo=timezone.utc)
+            
+            days_until_due = (next_review_date - now).days
+            
+            if days_until_due <= 0:
+                overdue_bonus = min(abs(days_until_due) * 2, self.config['srs_overdue_bonus'])
+                
+                # Boost SRS for questions that are foundations for harder concepts
+                foundation_boost = 0
+                if difficulty_score < user_difficulty_level:
+                    foundation_boost = 10  # Foundation concepts are important to maintain
+                
+                return QuestionScore(
+                    question_id=question_id,
+                    score=self.config['srs_due_weight'] + overdue_bonus + foundation_boost,
+                    reason=SelectionReason.SRS_DUE,
+                    metadata={
+                        'days_overdue': abs(days_until_due),
+                        'correct_streak': performance.correct_streak,
+                        'difficulty_score': difficulty_score,
+                        'foundation_boost': foundation_boost
+                    }
+                )
+        
+        # Case 4: Difficulty progression - push user to next level
+        if question_id not in coverage_tracker.mastered_questions:
+            difficulty_gap = difficulty_score - user_difficulty_level
+            
+            # Perfect difficulty progression: slightly above current level
+            if 0.2 <= difficulty_gap <= 0.8:
+                return QuestionScore(
+                    question_id=question_id,
+                    score=self.config['difficulty_progression_weight'],
+                    reason=SelectionReason.DIFFICULTY_PROGRESSION,
+                    metadata={
+                        'difficulty_gap': difficulty_gap,
+                        'user_difficulty_level': user_difficulty_level,
+                        'difficulty_score': difficulty_score
+                    }
+                )
+        
+        # Case 5: Random review (fallback)
+        last_attempt_date_aware = performance.last_attempt_date
+        if last_attempt_date_aware.tzinfo is None:
+            last_attempt_date_aware = last_attempt_date_aware.replace(tzinfo=timezone.utc)
+            
+        recency_factor = self._calculate_recency_factor(last_attempt_date_aware)
+        
+        return QuestionScore(
+            question_id=question_id,
+            score=self.config['random_review_weight'] * recency_factor,
+            reason=SelectionReason.RANDOM_REVIEW,
+            metadata={
+                'recency_factor': recency_factor,
+                'difficulty_score': difficulty_score,
+                'days_since_last': (datetime.now(timezone.utc) - last_attempt_date_aware).days
+            }
+        )
+    
+    def _build_coverage_tracker(self, user_performance: List[UserPerformance], 
+                               question_metadata: Dict[int, Dict]) -> CoverageTracker:
+        """Build a coverage tracker from user's performance history"""
+        tracker = CoverageTracker()
+        
+        for performance in user_performance:
+            tracker.attempted_questions.add(performance.question_id)
+            
+            # Check if mastered (configurable threshold)
+            if performance.correct_streak >= self.config['mastery_threshold']:
+                tracker.mastered_questions.add(performance.question_id)
+            
+            # Track topic coverage
+            metadata = question_metadata.get(performance.question_id, {})
+            topic = metadata.get('topic', 'unknown')
+            tracker.topic_coverage[topic] = tracker.topic_coverage.get(topic, 0) + 1
+            
+            # Track difficulty band coverage
+            difficulty_score = metadata.get('difficulty_score', 2.0)
+            band = self._get_difficulty_band(difficulty_score)
+            tracker.difficulty_bands_covered[band] = tracker.difficulty_bands_covered.get(band, 0) + 1
+        
+        return tracker
+    
+    def _estimate_user_difficulty_level(self, user_performance: List[UserPerformance]) -> float:
+        """Estimate user's current difficulty level based on recent performance"""
+        if not user_performance:
+            return 1.5  # Start with easy-medium
+        
+        # Get recent successful attempts (last 20 or so)
+        successful_attempts = [
+            p for p in user_performance 
+            if p.last_attempt_correct and p.difficulty_score is not None
+        ]
+        
+        if not successful_attempts:
+            return 1.2  # Conservative start
+        
+        # Sort by recency and take recent successes
+        recent_successes = sorted(
+            successful_attempts, 
+            key=lambda x: x.last_attempt_date, 
+            reverse=True
+        )[:20]
+        
+        # Calculate weighted average (more recent = higher weight)
+        total_weight = 0
+        weighted_sum = 0
+        
+        for i, performance in enumerate(recent_successes):
+            weight = 1.0 / (i + 1)  # Decreasing weight for older attempts
+            weighted_sum += performance.difficulty_score * weight
+            total_weight += weight
+        
+        estimated_level = weighted_sum / total_weight if total_weight > 0 else 1.5
+        
+        # Add small buffer for challenge
+        return min(estimated_level + 0.2, 4.0)  # Cap at expert level
+    
+    def _calculate_difficulty_appropriateness(self, question_difficulty: float, 
+                                            user_level: float) -> float:
+        """Calculate bonus/penalty for difficulty appropriateness"""
+        difficulty_gap = abs(question_difficulty - user_level)
+        
+        if difficulty_gap <= 0.3:
+            return 20  # Perfect match
+        elif difficulty_gap <= 0.6:
+            return 10  # Good match
+        elif difficulty_gap <= 1.0:
+            return 0   # Neutral
+        else:
+            return -10  # Poor match
+    
+    def _get_difficulty_band(self, difficulty_score: float) -> str:
+        """Get difficulty band name from score"""
+        for band, (min_score, max_score) in self.config['difficulty_bands'].items():
+            if min_score <= difficulty_score < max_score:
+                return band
+        return 'expert'  # Fallback for very high scores
+    
+    def _apply_enhanced_distribution_control(self, 
+                                           scored_questions: List[QuestionScore], 
+                                           quiz_length: int) -> List[QuestionScore]:
+        """Enhanced distribution control with coverage awareness"""
+        
+        # Separate questions by type
+        question_pools = {
+            SelectionReason.WEAKNESS: sorted([q for q in scored_questions if q.reason == SelectionReason.WEAKNESS], key=lambda x: x.score, reverse=True),
+            SelectionReason.NEW_QUESTION: sorted([q for q in scored_questions if q.reason == SelectionReason.NEW_QUESTION], key=lambda x: x.score, reverse=True),
+            SelectionReason.SRS_DUE: sorted([q for q in scored_questions if q.reason == SelectionReason.SRS_DUE], key=lambda x: x.score, reverse=True),
+            SelectionReason.COVERAGE_GAP: sorted([q for q in scored_questions if q.reason == SelectionReason.COVERAGE_GAP], key=lambda x: x.score, reverse=True),
+            SelectionReason.DIFFICULTY_PROGRESSION: sorted([q for q in scored_questions if q.reason == SelectionReason.DIFFICULTY_PROGRESSION], key=lambda x: x.score, reverse=True),
+            SelectionReason.RANDOM_REVIEW: sorted([q for q in scored_questions if q.reason == SelectionReason.RANDOM_REVIEW], key=lambda x: x.score, reverse=True)
+        }
 
-random.shuffle leads to non-deterministic order across runs. Mitigation: accept a random.Random instance in constructor for seeding.
-Sorting tie-breakers not deterministic (order among equal scores), making tests flaky.
-Data quality / integrity edge cases
+        # Calculate target counts
+        target_counts = {
+            SelectionReason.WEAKNESS: int(quiz_length * self.config['target_weakness_pct']),
+            SelectionReason.NEW_QUESTION: int(quiz_length * self.config['target_new_pct']),
+            SelectionReason.SRS_DUE: int(quiz_length * self.config['target_srs_pct']),
+            SelectionReason.COVERAGE_GAP: int(quiz_length * self.config['target_coverage_pct'])
+        }
 
-Inconsistent backend data (impossible dates, negative attempts, etc.) leads to nonsensical scores; the selector has no validation/logging to surface these anomalies.
-Performance data stale vs available_questions snapshot mismatch (e.g., question deleted or re-id'd).
-Concurrency & state
+        selected_ids = set()
+        final_selection = []
 
-UniversalQuestionSelector is effectively stateless aside from config, so concurrency is fine, but if config mutated concurrently it may race. Mitigation: treat config as immutable or copy.
-API & integration
+        # Priority selection loop
+        for reason, target_count in target_counts.items():
+            pool = question_pools[reason]
+            count = 0
+            for question in pool:
+                if count < target_count and question.question_id not in selected_ids:
+                    final_selection.append(question)
+                    selected_ids.add(question.question_id)
+                    count += 1
 
-select_questions returns QuestionScore objects (with datetime-containing metadata if changed) — callers expecting primitive types may fail.
-get_selection_analytics divides by len(selected_questions) indirectly — if selected_questions empty, comprehension is safe but average_score guard exists; still check consumers.
-Minor correctness/UX issues
+        # Fill remaining slots with best available questions
+        remaining_slots = quiz_length - len(final_selection)
+        if remaining_slots > 0:
+            fallback_pool = []
+            for pool in question_pools.values():
+                for question in pool:
+                    if question.question_id not in selected_ids:
+                        fallback_pool.append(question)
+            
+            fallback_pool.sort(key=lambda x: x.score, reverse=True)
+            
+            for question in fallback_pool:
+                if len(final_selection) < quiz_length:
+                    final_selection.append(question)
+                    selected_ids.add(question.question_id)
+                else:
+                    break
 
-Weakness takes precedence over SRS: a question both wrong and with next_review_date will be labeled WEAKNESS — this may be intended but should be explicit.
-days_since calculations use .days (int) which may underrepresent recency for recent attempts; yields discrete jumps.
-calculate_next_review_date uses current datetime; tests relying on exact date comparisons will be brittle.
-Malformed config values
+        # Shuffle to avoid predictable patterns
+        self.rng.shuffle(final_selection)
+        
+        # Log distribution for debugging
+        final_dist = defaultdict(int)
+        for q in final_selection:
+            final_dist[q.reason.value] += 1
+        logging.info(f"Enhanced selection distribution: {dict(final_dist)}")
 
-config passed with wrong types (strings, None) will lead to TypeErrors when used in arithmetic.
-config with percentages that don't sum to 1 is permitted; leftover fill handles it but may be surprising.
-Security / safety
+        return final_selection[:quiz_length]
+    
+    def _calculate_recency_factor(self, last_attempt_date: datetime) -> float:
+        """Calculate recency factor (same as original)"""
+        now = datetime.now(timezone.utc)
+        if last_attempt_date.tzinfo is None:
+            last_attempt_date = last_attempt_date.replace(tzinfo=timezone.utc)
+        days_since = (now - last_attempt_date).days
+        
+        if days_since < 1:
+            return 0.5
+        elif days_since < 7:
+            return 0.8
+        elif days_since < 30:
+            return 1.0
+        else:
+            return 1.2
+    
+    def calculate_next_review_date(self, correct_streak: int) -> datetime:
+        """Universal SRS calculation (same as original)"""
+        intervals = self.config['srs_intervals']
+        if not intervals:
+            return datetime.now(timezone.utc) + timedelta(days=1)
+            
+        streak = max(0, correct_streak)
+        interval_days = intervals[min(streak, len(intervals) - 1)]
+        return datetime.now(timezone.utc) + timedelta(days=interval_days)
+    
+    def get_coverage_report(self, user_performance: List[UserPerformance],
+                           all_questions: Dict[int, Dict]) -> Dict:
+        """Generate a comprehensive coverage report"""
+        coverage_tracker = self._build_coverage_tracker(user_performance, all_questions)
+        
+        total_questions = len(all_questions)
+        attempted_count = len(coverage_tracker.attempted_questions)
+        mastered_count = len(coverage_tracker.mastered_questions)
+        
+        # Topic coverage analysis
+        all_topics = set(q.get('topic', 'unknown') for q in all_questions.values())
+        topic_coverage_pct = {}
+        for topic in all_topics:
+            topic_questions = [qid for qid, meta in all_questions.items() if meta.get('topic') == topic]
+            attempted_in_topic = len([qid for qid in topic_questions if qid in coverage_tracker.attempted_questions])
+            topic_coverage_pct[topic] = (attempted_in_topic / len(topic_questions)) * 100 if topic_questions else 0
+        
+        # Difficulty coverage analysis
+        difficulty_coverage = {}
+        for band, (min_score, max_score) in self.config['difficulty_bands'].items():
+            band_questions = [
+                qid for qid, meta in all_questions.items() 
+                if min_score <= meta.get('difficulty_score', 2.0) < max_score
+            ]
+            attempted_in_band = len([qid for qid in band_questions if qid in coverage_tracker.attempted_questions])
+            difficulty_coverage[band] = {
+                'total': len(band_questions),
+                'attempted': attempted_in_band,
+                'percentage': (attempted_in_band / len(band_questions)) * 100 if band_questions else 0
+            }
+        
+        return {
+            'overall_coverage': (attempted_count / total_questions) * 100,
+            'mastery_rate': (mastered_count / attempted_count) * 100 if attempted_count > 0 else 0,
+            'questions_attempted': attempted_count,
+            'questions_mastered': mastered_count,
+            'total_questions': total_questions,
+            'topic_coverage': topic_coverage_pct,
+            'difficulty_coverage': difficulty_coverage,
+            'estimated_user_level': self._estimate_user_difficulty_level(user_performance),
+            'coverage_gaps': [
+                topic for topic, pct in topic_coverage_pct.items() if pct < 50
+            ]
+        }
 
-No user_id/course_id usage in algorithm; if used later for logging or DB access, be mindful of injection / logging PII.
-Summary of highest‑risk practical items to fix first
 
-Validate inputs: quiz_length > 0, available_questions deduped, types normalized.
-Defensive checks on performance fields (dates, counts, streaks) with clamping and warnings.
-Enforce timezone consistency for datetimes.
-Clamp correct_streak >= 0 and ensure srs_intervals non-empty.
-Make randomness injectable/seedable for deterministic testing.
+Now let me show you how to integrate this into the service layer:
 
 
 
 
+from sqlalchemy.orm import Session, aliased
+from sqlalchemy import func, case, and_, or_, text
+from datetime import datetime, timedelta, timezone
+from typing import List, Optional, Dict, Tuple
+import logging
+import random
+
+# Enhanced imports
+from .enhanced_selector import EnhancedQuestionSelector, UserPerformance, QuestionScore, SelectionReason, CoverageTracker
+from ..models.models import Question, UserAnswer, User, Course, QuizSession, QuizSessionQuestion, InteractionLog
+
+class EnhancedDatabaseQuestionSelector:
+    """
+    Enhanced database integration with difficulty awareness and coverage tracking.
+    """
+    
+    def __init__(self, db_session: Session, selector_config: Dict = None):
+        self.db = db_session
+        self.selector = EnhancedQuestionSelector(selector_config)
+        self.logger = logging.getLogger(__name__)
+    
+    def get_adaptive_questions(self, 
+                          user_id: int, 
+                          course_id: int, 
+                          quiz_length: int,
+                          focus_area: Optional[str] = None) -> List[QuestionScore]:
+        """
+        Gets adaptively selected questions with difficulty and coverage awareness.
+        
+        Args:
+            focus_area: Optional focus on specific topic/difficulty band
+        """
+        try:
+            # Get user's performance history with difficulty scores
+            user_performance = self._get_enhanced_user_performance(user_id, course_id)
+            
+            # Get available questions with metadata
+            available_questions, question_metadata = self._get_questions_with_metadata(
+                course_id, focus_area
+            )
+            
+            # Check if this is a new user
+            if not user_performance:
+                selected_questions = self._handle_new_user_enhanced(
+                    course_id, quiz_length, question_metadata
+                )
+            else:
+                # Use enhanced algorithm
+                selected_questions = self.selector.select_questions(
+                    user_id=user_id,
+                    course_id=course_id,
+                    quiz_length=quiz_length,
+                    user_performance=user_performance,
+                    available_questions=available_questions,
+                    question_metadata=question_metadata
+                )
+            
+            return selected_questions
+            
+        except Exception as e:
+            self.logger.exception(f"Error getting enhanced adaptive questions for user {user_id}")
+            raise
+    
+    def _get_enhanced_user_performance(self, user_id: int, course_id: int) -> List[UserPerformance]:
+        """
+        Enhanced performance history that includes difficulty scores.
+        """
+        
+        # Latest answer subquery
+        latest_answer_ids_subquery = (
+            self.db.query(
+                func.max(UserAnswer.id).label('max_id')
+            )
+            .join(Question, UserAnswer.question_id == Question.id)
+            .filter(
+                UserAnswer.user_id == user_id,
+                Question.course_id == course_id
+            )
+            .group_by(UserAnswer.question_id)
+        ).scalar_subquery()
+
+        latest_answers_query = (
+            self.db.query(UserAnswer)
+            .filter(UserAnswer.id.in_(latest_answer_ids_subquery))
+            .subquery('latest_answers_query')
+        )
+        
+        # Performance stats with difficulty scores
+        performance_stats_query = (
+            self.db.query(
+                UserAnswer.question_id,
+                func.count(UserAnswer.id).label('total_attempts'),
+                func.sum(case((UserAnswer.is_correct == True, 1), else_=0)).label('total_correct'),
+                func.max(Question.difficulty_score).label('difficulty_score')  # Add difficulty
+            )
+            .join(Question, UserAnswer.question_id == Question.id)
+            .filter(
+                UserAnswer.user_id == user_id,
+                Question.course_id == course_id
+            )
+            .group_by(UserAnswer.question_id)
+            .subquery('performance_stats')
+        )
+        
+        ua_alias = aliased(UserAnswer, latest_answers_query)
+
+        results = (
+            self.db.query(
+                ua_alias,
+                performance_stats_query.c.total_attempts,
+                performance_stats_query.c.total_correct,
+                performance_stats_query.c.difficulty_score
+            )
+            .join(
+                performance_stats_query,
+                ua_alias.question_id == performance_stats_query.c.question_id
+            )
+            .all()
+        )
+
+        performance_list = []
+        for row in results:
+            answer, total_attempts, total_correct, difficulty_score = row
+            if answer:
+                performance = UserPerformance(
+                    question_id=answer.question_id,
+                    correct_streak=answer.correct_streak or 0,
+                    last_attempt_correct=answer.is_correct,
+                    last_attempt_date=answer.timestamp,
+                    total_attempts=total_attempts or 0,
+                    total_correct=total_correct or 0,
+                    next_review_date=answer.next_review_date,
+                    difficulty_score=difficulty_score  # Include difficulty score
+                )
+                performance_list.append(performance)
+        
+        return performance_list
+
+    def _get_questions_with_metadata(self, course_id: int, 
+                                   focus_area: Optional[str] = None) -> Tuple[List[int], Dict[int, Dict]]:
+        """
+        Get available questions with their metadata (difficulty, topic, etc.).
+        """
+        query = self.db.query(
+            Question.id,
+            Question.difficulty_score,
+            Question.topic,
+            Question.subtopic,
+            Question.question_type,
+            Question.total_attempts,
+            Question.total_incorrect
+        ).filter(Question.course_id == course_id)
+        
+        # Apply focus area filter if specified
+        if focus_area:
+            if focus_area in ['easy', 'medium', 'hard', 'expert']:
+                # Focus on difficulty band
+                bands = self.selector.config['difficulty_bands']
+                min_diff, max_diff = bands.get(focus_area, (1.0, 10.0))
+                query = query.filter(
+                    Question.difficulty_score >= min_diff,
+                    Question.difficulty_score < max_diff
+                )
+            else:
+                # Focus on topic
+                query = query.filter(
+                    or_(
+                        Question.topic.ilike(f'%{focus_area}%'),
+                        Question.subtopic.ilike(f'%{focus_area}%')
+                    )
+                )
+        
+        results = query.all()
+        
+        question_ids = []
+        metadata = {}
+        
+        for row in results:
+            question_ids.append(row.id)
+            
+            # Calculate empirical difficulty if we have stats
+            empirical_difficulty = None
+            if row.total_attempts and row.total_attempts > 10:  # Minimum sample size
+                error_rate = (row.total_incorrect or 0) / row.total_attempts
+                # Combine designed difficulty with empirical data
+                empirical_difficulty = (row.difficulty_score or 2.0) * (1 + error_rate)
+            
+            metadata[row.id] = {
+                'difficulty_score': row.difficulty_score or 2.0,
+                'empirical_difficulty': empirical_difficulty,
+                'topic': row.topic or 'unknown',
+                'subtopic': row.subtopic,
+                'question_type': row.question_type,
+                'total_attempts': row.total_attempts or 0,
+                'error_rate': ((row.total_incorrect or 0) / row.total_attempts) if row.total_attempts else 0
+            }
+        
+        return question_ids, metadata
+
+    def _handle_new_user_enhanced(self, 
+                                 course_id: int, 
+                                 quiz_length: int,
+                                 question_metadata: Dict[int, Dict]) -> List[QuestionScore]:
+        """
+        Enhanced new user handling with intelligent difficulty progression and coverage.
+        """
+        
+        if not question_metadata:
+            return []
+        
+        # Analyze available questions
+        questions_by_difficulty = defaultdict(list)
+        topics_available = set()
+        
+        for qid, metadata in question_metadata.items():
+            difficulty_score = metadata['difficulty_score']
+            topic = metadata['topic']
+            topics_available.add(topic)
+            
+            # Categorize by difficulty band
+            band = self.selector._get_difficulty_band(difficulty_score)
+            questions_by_difficulty[band].append((qid, difficulty_score, topic))
+        
+        selected_questions = []
+        strategy = 'balanced_introduction'
+        
+        # Strategy 1: Balanced introduction across topics and difficulties
+        if len(topics_available) > 1 and len(questions_by_difficulty) > 1:
+            # Ensure coverage across topics and progressive difficulty
+            
+            # Phase 1: Start with easier questions from each topic (40% of quiz)
+            intro_count = int(quiz_length * 0.4)
+            easy_questions = questions_by_difficulty.get('easy', []) + questions_by_difficulty.get('medium', [])[:3]
+            
+            # Sample from different topics
+            topics_list = list(topics_available)
+            self.selector.rng.shuffle(easy_questions)
+            
+            topic_rotation = 0
+            for qid, diff_score, topic in easy_questions[:intro_count]:
+                selected_questions.append(QuestionScore(
+                    question_id=qid,
+                    score=60.0,  # High priority for foundational questions
+                    reason=SelectionReason.NEW_QUESTION,
+                    metadata={
+                        'new_user_strategy': 'topic_foundation',
+                        'difficulty_score': diff_score,
+                        'topic': topic,
+                        'phase': 'introduction'
+                    }
+                ))
+                if len(selected_questions) >= intro_count:
+                    break
+            
+            # Phase 2: Progressive difficulty increase (40% of quiz)
+            progression_count = int(quiz_length * 0.4)
+            medium_hard_questions = (questions_by_difficulty.get('medium', []) + 
+                                   questions_by_difficulty.get('hard', [])[:5])
+            
+            # Sort by difficulty for progression
+            medium_hard_questions.sort(key=lambda x: x[1])  # Sort by difficulty score
+            
+            for qid, diff_score, topic in medium_hard_questions[:progression_count]:
+                if qid not in [q.question_id for q in selected_questions]:
+                    selected_questions.append(QuestionScore(
+                        question_id=qid,
+                        score=50.0,
+                        reason=SelectionReason.DIFFICULTY_PROGRESSION,
+                        metadata={
+                            'new_user_strategy': 'progressive_difficulty',
+                            'difficulty_score': diff_score,
+                            'topic': topic,
+                            'phase': 'progression'
+                        }
+                    ))
+                    if len(selected_questions) >= intro_count + progression_count:
+                        break
+            
+            # Phase 3: Coverage gaps and challenge questions (20% of quiz)
+            remaining_count = quiz_length - len(selected_questions)
+            all_remaining = []
+            
+            for qid, metadata in question_metadata.items():
+                if qid not in [q.question_id for q in selected_questions]:
+                    all_remaining.append((qid, metadata))
+            
+            # Prioritize underrepresented topics
+            selected_topics = [q.metadata['topic'] for q in selected_questions]
+            topic_counts = {topic: selected_topics.count(topic) for topic in topics_available}
+            underrepresented_topics = [topic for topic, count in topic_counts.items() 
+                                     if count < (quiz_length / len(topics_available)) * 0.8]
+            
+            self.selector.rng.shuffle(all_remaining)
+            for qid, metadata in all_remaining[:remaining_count]:
+                reason = SelectionReason.COVERAGE_GAP if metadata['topic'] in underrepresented_topics else SelectionReason.NEW_QUESTION
+                selected_questions.append(QuestionScore(
+                    question_id=qid,
+                    score=45.0,
+                    reason=reason,
+                    metadata={
+                        'new_user_strategy': 'coverage_completion',
+                        'difficulty_score': metadata['difficulty_score'],
+                        'topic': metadata['topic'],
+                        'phase': 'coverage'
+                    }
+                ))
+        
+        # Strategy 2: Difficulty-based progression (fallback)
+        else:
+            strategy = 'simple_progression'
+            all_questions = [(qid, metadata['difficulty_score'], metadata['topic']) 
+                           for qid, metadata in question_metadata.items()]
+            all_questions.sort(key=lambda x: x[1])  # Sort by difficulty
+            
+            # Take questions in difficulty order with some randomness
+            chunk_size = max(3, len(all_questions) // 5)  # Group questions in chunks
+            selected_ids = []
+            
+            for i in range(0, len(all_questions), chunk_size):
+                chunk = all_questions[i:i+chunk_size]
+                self.selector.rng.shuffle(chunk)  # Randomize within difficulty range
+                selected_ids.extend([qid for qid, _, _ in chunk])
+            
+            for qid in selected_ids[:quiz_length]:
+                metadata = question_metadata[qid]
+                selected_questions.append(QuestionScore(
+                    question_id=qid,
+                    score=50.0,
+                    reason=SelectionReason.NEW_QUESTION,
+                    metadata={
+                        'new_user_strategy': strategy,
+                        'difficulty_score': metadata['difficulty_score'],
+                        'topic': metadata['topic']
+                    }
+                ))
+        
+        # Shuffle final selection to avoid predictable patterns
+        self.selector.rng.shuffle(selected_questions)
+        
+        self.logger.info(f"New user strategy '{strategy}' selected {len(selected_questions)} questions")
+        return selected_questions[:quiz_length]
+    
+    def get_user_progress_summary(self, user_id: int, course_id: int) -> Dict:
+        """
+        Get comprehensive progress summary including coverage and difficulty progression.
+        """
+        try:
+            # Get user performance and question metadata
+            user_performance = self._get_enhanced_user_performance(user_id, course_id)
+            _, all_question_metadata = self._get_questions_with_metadata(course_id)
+            
+            if not user_performance:
+                return {
+                    'status': 'new_user',
+                    'total_questions_available': len(all_question_metadata),
+                    'coverage_report': self.selector.get_coverage_report([], all_question_metadata)
+                }
+            
+            # Generate comprehensive coverage report
+            coverage_report = self.selector.get_coverage_report(user_performance, all_question_metadata)
+            
+            # Calculate learning velocity (questions mastered per day)
+            if user_performance:
+                first_attempt = min(p.last_attempt_date for p in user_performance)
+                days_active = max(1, (datetime.now(timezone.utc) - first_attempt).days)
+                learning_velocity = len(coverage_report.get('questions_mastered', [])) / days_active
+            else:
+                learning_velocity = 0
+            
+            # Identify next recommended focus areas
+            recommended_focus = self._get_recommended_focus_areas(user_performance, all_question_metadata)
+            
+            # Calculate readiness for exam (example metric)
+            exam_readiness = self._calculate_exam_readiness(coverage_report, user_performance)
+            
+            return {
+                'status': 'active_learner',
+                'coverage_report': coverage_report,
+                'learning_velocity': learning_velocity,
+                'days_active': days_active,
+                'recommended_focus': recommended_focus,
+                'exam_readiness': exam_readiness,
+                'total_sessions': self._count_user_sessions(user_id, course_id),
+                'average_performance': self._calculate_average_performance(user_performance)
+            }
+            
+        except Exception as e:
+            self.logger.exception(f"Error generating progress summary for user {user_id}")
+            return {'status': 'error', 'message': str(e)}
+    
+    def _get_recommended_focus_areas(self, user_performance: List[UserPerformance], 
+                                   all_questions: Dict[int, Dict]) -> List[Dict]:
+        """
+        Recommend focus areas based on performance gaps and coverage.
+        """
+        recommendations = []
+        
+        # Coverage tracker
+        coverage_tracker = self.selector._build_coverage_tracker(user_performance, all_questions)
+        
+        # Find topics with low coverage
+        topic_performance = defaultdict(lambda: {'attempted': 0, 'correct': 0, 'total_available': 0})
+        
+        for qid, metadata in all_questions.items():
+            topic = metadata['topic']
+            topic_performance[topic]['total_available'] += 1
+            
+            if qid in coverage_tracker.attempted_questions:
+                topic_performance[topic]['attempted'] += 1
+                
+                # Find performance for this question
+                perf = next((p for p in user_performance if p.question_id == qid), None)
+                if perf and perf.last_attempt_correct:
+                    topic_performance[topic]['correct'] += 1
+        
+        # Generate recommendations
+        for topic, stats in topic_performance.items():
+            coverage_pct = (stats['attempted'] / stats['total_available']) * 100
+            accuracy_pct = (stats['correct'] / stats['attempted']) * 100 if stats['attempted'] > 0 else 0
+            
+            if coverage_pct < 50:
+                recommendations.append({
+                    'type': 'coverage_gap',
+                    'area': topic,
+                    'priority': 'high',
+                    'description': f"Only {coverage_pct:.0f}% coverage in {topic}",
+                    'suggested_questions': 5
+                })
+            elif accuracy_pct < 60:
+                recommendations.append({
+                    'type': 'weakness',
+                    'area': topic,
+                    'priority': 'medium',
+                    'description': f"Low accuracy ({accuracy_pct:.0f}%) in {topic}",
+                    'suggested_questions': 3
+                })
+        
+        # Find difficulty progression opportunities
+        user_level = self.selector._estimate_user_difficulty_level(user_performance)
+        next_level_questions = [
+            qid for qid, meta in all_questions.items()
+            if user_level < meta['difficulty_score'] <= user_level + 0.8
+            and qid not in coverage_tracker.attempted_questions
+        ]
+        
+        if next_level_questions:
+            recommendations.append({
+                'type': 'difficulty_progression',
+                'area': f"Level {user_level:.1f} → {user_level + 0.5:.1f}",
+                'priority': 'medium',
+                'description': f"Ready for more challenging questions",
+                'suggested_questions': min(5, len(next_level_questions))
+            })
+        
+        return sorted(recommendations, key=lambda x: {'high': 0, 'medium': 1, 'low': 2}[x['priority']])
+    
+    def _calculate_exam_readiness(self, coverage_report: Dict, user_performance: List[UserPerformance]) -> Dict:
+        """
+        Calculate exam readiness based on coverage and performance metrics.
+        """
+        overall_coverage = coverage_report.get('overall_coverage', 0)
+        mastery_rate = coverage_report.get('mastery_rate', 0)
+        
+        # Weight different factors
+        coverage_score = min(100, overall_coverage * 1.2)  # Bonus for high coverage
+        mastery_score = mastery_rate
+        
+        # Factor in difficulty progression
+        user_level = coverage_report.get('estimated_user_level', 1.0)
+        difficulty_readiness = min(100, (user_level / 3.0) * 100)  # Assume level 3 is exam-ready
+        
+        # Combine scores
+        readiness_score = (coverage_score * 0.4 + mastery_score * 0.4 + difficulty_readiness * 0.2)
+        
+        if readiness_score >= 85:
+            status = "Ready"
+            message = "Strong performance across all areas"
+        elif readiness_score >= 70:
+            status = "Nearly Ready"
+            message = "Focus on weak areas and increase coverage"
+        elif readiness_score >= 50:
+            status = "In Progress"
+            message = "Continue regular practice"
+        else:
+            status = "Needs Work"
+            message = "Focus on fundamentals and increase practice time"
+        
+        return {
+            'score': readiness_score,
+            'status': status,
+            'message': message,
+            'breakdown': {
+                'coverage': coverage_score,
+                'mastery': mastery_score,
+                'difficulty_progression': difficulty_readiness
+            }
+        }
+    
+    def _count_user_sessions(self, user_id: int, course_id: int) -> int:
+        """Count completed quiz sessions for the user in this course."""
+        return self.db.query(QuizSession).filter(
+            QuizSession.user_id == user_id,
+            QuizSession.course_id == course_id,
+            QuizSession.status == 'completed'
+        ).count()
+    
+    def _calculate_average_performance(self, user_performance: List[UserPerformance]) -> float:
+        """Calculate average performance across all attempted questions."""
+        if not user_performance:
+            return 0.0
+        
+        total_attempts = sum(p.total_attempts for p in user_performance)
+        total_correct = sum(p.total_correct for p in user_performance)
+        
+        return (total_correct / total_attempts * 100) if total_attempts > 0 else 0.0
 
 
-Below are many possible edge cases for src/adaptive_bot/service.py, grouped by category. Each item is short and actionable.
+class EnhancedAdaptiveQuizService:
+    """
+    Enhanced service layer with difficulty awareness and comprehensive coverage tracking.
+    """
+    
+    def __init__(self, db_session: Session, config: Dict = None):
+        self.db = db_session
+        self.db_selector = EnhancedDatabaseQuestionSelector(db_session, config)
+    
+    def start_adaptive_quiz(self, 
+                          user_id: int, 
+                          course_id: int, 
+                          quiz_length: int = 20,
+                          focus_area: Optional[str] = None,
+                          difficulty_target: Optional[str] = None) -> Dict:
+        """
+        Start an enhanced adaptive quiz with optional focus areas.
+        
+        Args:
+            focus_area: Topic to focus on (e.g., "circuits", "ohm's law")
+            difficulty_target: Difficulty band to target ("easy", "medium", "hard", "expert")
+        """
+        try:
+            if not isinstance(quiz_length, int) or quiz_length <= 0:
+                raise ValueError("Quiz length must be a positive integer.")
 
-Database / ORM result-shape issues
+            # Validate inputs
+            user = self.db.query(User).filter(User.id == user_id).first()
+            course = self.db.query(Course).filter(Course.id == course_id).first()
+            
+            if not user or not course:
+                raise ValueError("Invalid user or course ID")
+            
+            # Handle ongoing sessions
+            ongoing_session = self.db.query(QuizSession).filter(
+                QuizSession.user_id == user_id,
+                QuizSession.status == 'in_progress'
+            ).first()
+            
+            if ongoing_session:
+                ongoing_session.status = 'incomplete'
+                self.db.commit()
 
-Query(Column).all() returns tuples/scalars depending on SQLAlchemy version — code expects objects with .id/.difficulty_score attributes (e.g., _get_available_questions and _handle_new_user). This will raise AttributeError.
-Using Query.get(...) (deprecated) may behave differently or be removed; returns None if not found — subsequent attribute access will fail.
-latest_answers_query.subquery() usage and row unpacking: structure of rows may differ; row[0] might not be a UserAnswer instance.
-bulk_save_objects bypasses some attribute events/defaults — inserted QuizSessionQuestion objects may miss defaults (is_answered etc.).
-Missing / malformed data
+            # Create the quiz session with enhanced metadata
+            session = QuizSession(
+                user_id=user_id,
+                course_id=course_id,
+                total_questions=quiz_length,
+                status='in_progress',
+                # Add custom fields if available in your schema
+                # focus_area=focus_area,
+                # difficulty_target=difficulty_target
+            )
+            self.db.add(session)
+            self.db.flush()
 
-question (from DB) is None in submit_answer -> AttributeError when accessing correct_answer, explanation, options.
-question.correct_answer or user_answer is None -> calling .strip().lower() raises AttributeError.
-Question fields like total_attempts, total_incorrect may be None initially -> incrementing (+= 1) causes TypeError.
-QuizSession.total_questions or session fields may be None -> division by None or 0-handling issues.
-InteractionLog expects sq (QuizSessionQuestion) present — if not found, sq.selection_reason access will fail.
-UserAnswer/Question fields (timestamps, next_review_date) may be strings or naive/aware datetimes -> type errors on arithmetic.
-Datetime / timezone issues
+            # Get enhanced adaptive questions
+            focus_param = difficulty_target or focus_area  # Combine parameters
+            selected_questions = self.db_selector.get_adaptive_questions(
+                user_id, course_id, quiz_length, focus_param
+            )
+            
+            if len(selected_questions) < quiz_length:
+                self.db.rollback()
+                return {
+                    'status': 'error', 
+                    'message': f'Only {len(selected_questions)} questions available for the specified criteria.'
+                }
 
-Mixing naive and timezone-aware datetimes causes TypeError on subtraction.
-next_review_date or timestamp in future/invalid -> negative days, unexpected SRS behavior.
-Using datetime.now() (naive) everywhere may desynchronize with DB timestamps stored as timezone-aware.
-Transaction / concurrency issues
+            # Save questions to the session with enhanced metadata
+            self._save_enhanced_session_questions(session.id, selected_questions)
+            
+            self.db.commit()
+            
+            # Get first question and session info
+            first_question = self.get_next_question(session.id)
+            session_info = self._get_session_info(session.id, selected_questions)
 
-Race when checking existing ongoing_session -> two concurrent requests may both pass and create sessions. Need DB-level uniqueness constraint or FOR UPDATE lock.
-self.db.flush() followed by operations that depend on DB state may be susceptible to concurrent writes.
-Long-running selection queries may hold transaction open; commit/rollback behavior might conflict with other threads.
-Selection / availability edge cases
+            return {
+                'status': 'success',
+                'session_id': session.id,
+                'first_question': first_question,
+                'session_info': session_info
+            }
+            
+        except Exception as e:
+            self.db.rollback()
+            logging.exception(f"Failed to start enhanced adaptive quiz for user {user_id}")
+            return {'status': 'error', 'message': 'An unexpected error occurred while starting the quiz.'}
+    
+    def _save_enhanced_session_questions(self, session_id: int, selected_questions: List[QuestionScore]):
+        """Save session questions with enhanced metadata."""
+        session_questions = []
+        for i, q_score in enumerate(selected_questions):
+            sq = QuizSessionQuestion(
+                session_id=session_id,
+                question_id=q_score.question_id,
+                order_number=i + 1,
+                selection_reason=q_score.reason.value,
+                selection_score=q_score.score,
+                # Add metadata as JSON if your schema supports it
+                # selection_metadata=json.dumps(q_score.metadata)
+            )
+            session_questions.append(sq)
+        self.db.bulk_save_objects(session_questions)
+    
+    def _get_session_info(self, session_id: int, selected_questions: List[QuestionScore]) -> Dict:
+        """Generate session information for the frontend."""
+        
+        # Analyze question distribution
+        reason_counts = defaultdict(int)
+        difficulty_distribution = defaultdict(int)
+        topic_distribution = defaultdict(int)
+        
+        for q in selected_questions:
+            reason_counts[q.reason.value] += 1
+            
+            # Extract metadata
+            difficulty = q.metadata.get('difficulty_score', 2.0)
+            topic = q.metadata.get('topic', 'unknown')
+            
+            # Categorize difficulty
+            if difficulty < 1.8:
+                difficulty_distribution['easy'] += 1
+            elif difficulty < 2.5:
+                difficulty_distribution['medium'] += 1
+            elif difficulty < 4.0:
+                difficulty_distribution['hard'] += 1
+            else:
+                difficulty_distribution['expert'] += 1
+            
+            topic_distribution[topic] += 1
+        
+        return {
+            'total_questions': len(selected_questions),
+            'selection_distribution': dict(reason_counts),
+            'difficulty_distribution': dict(difficulty_distribution),
+            'topic_distribution': dict(topic_distribution),
+            'estimated_time_minutes': len(selected_questions) * 1.5,  # Rough estimate
+        }
+    
+    def get_next_question(self, session_id: int, reported_question_ids: List[int] = None) -> Optional[Dict]:
+        """Get next question with enhanced metadata."""
+        if reported_question_ids is None:
+            reported_question_ids = []
 
-quiz_length <= 0 or None -> creation of session and target counts leads to negative slicing, weird behavior.
-Not enough questions: code rolls back and returns error, but session object was created and flushed — ensure no orphan state left.
-_handle_new_user uses all_questions even if some questions are not available or filtered — mismatch with available_questions.
-Query correctness & aggregation
+        sq = self.db.query(QuizSessionQuestion).filter(
+            QuizSessionQuestion.session_id == session_id,
+            QuizSessionQuestion.is_answered == False,
+            ~QuizSessionQuestion.question_id.in_(reported_question_ids)
+        ).order_by(QuizSessionQuestion.order_number).first()
 
-Aggregation subqueries (performance_stats_query) might return None for counts; code uses "or 0" but depending on row shape indexing may be wrong.
-Duplicate UserAnswer rows for same timestamp could break latest-answer logic if multiple answers share max(timestamp).
-total_attempts/total_correct logic can be inconsistent if older records have NULL flags or inconsistent is_correct values.
-Scoring / business-logic pitfalls
+        if not sq:
+            return None
 
-calculate_next_review_date called with huge correct_streak (no clamp) — selects last interval but still okay; negative streak would index from end unexpectedly.
-new_streak computation treats first correct as 1 always; if latest_answer exists but latest_answer.correct_streak is None, expression fails.
-Selecting and persisting selection_reason as string assumes enum .value mapping is stable; future refactor to Enum storage breaks comparisons.
-Update / persistence issues
+        question = self.db.query(Question).filter(Question.id == sq.question_id).first()
+        if not question:
+            return None
 
-Updating QuizSessionQuestion via .update(...) without checking affected rows silently fails if filter mismatch — question remains unanswered.
-_update_user_answer_history: adding UserAnswer without populating timestamp means later "latest answer" logic may misorder entries (depends on model defaults).
-_log_interaction uses count() of InteractionLog to compute attempt_number — race condition can produce duplicate attempt numbers under concurrency.
-Type and input validation
+        return {
+            'id': question.id,
+            'text': question.question_text,
+            'options': question.options,
+            'order': sq.order_number,
+            'difficulty_score': question.difficulty_score,
+            'topic': question.topic,
+            'selection_reason': sq.selection_reason,
+            'question_type': question.question_type
+        }
+    
+    # ... rest of the service methods remain similar to original
+    # but can be enhanced with difficulty-aware logging and analytics
 
-user_id, course_id, quiz_length not validated for type or range -> unexpected DB filters or huge loops.
-user_answer and time_taken unvalidated (time_taken negative or None, user_answer empty).
-available_questions / selected_questions lengths are not asserted before use (e.g., get_next_question expecting at least one).
-Performance & scalability
 
-Loading all questions and all user answers into memory for large courses could OOM / slow.
-Sorting, shuffling large lists in Python can be expensive — consider DB-driven sampling or limits.
-Randomness & determinism
 
-random.shuffle used in several places causes non-deterministic behavior; tests may be flaky.
-No injectable RNG or seed option.
-Logging & error handling
+Now let me show you some additional enhancements for comprehensive coverage tracking:
 
-Broad except Exception catches hide root causes and stack traces; logged message may leak sensitive data.
-Some errors are logged via logging.error and also re-raised — double-logging can be noisy.
-Security & integrity
 
-No authorization checks: user_id/course_id validated only for existence, not for enrollment/permissions.
-Potential for exposing correct_answer in submit_answer response (sends correct_answer unconditionally).
-Data integrity anomalies
 
-total_correct > total_attempts or negative counts from bad data leads to incorrect analytics.
-Duplicate UserPerformance entries could exist if DB aggregation logic wrong.
-Inconsistent selection_reason values stored as free text increase chance of mismatch when reading.
-Edge cases from external model changes
+from typing import Dict, List, Tuple, Optional
+from datetime import datetime, timedelta, timezone
+from collections import defaultdict
+import math
+from dataclasses import dataclass
+from enum import Enum
 
-Model schema changes (renamed columns, moved fields) will break attribute access widely.
-Field types changed in DB (e.g., options stored as JSON string vs list) will break get_next_question return structure.
-Minor API/UX issues
+class CoverageGoal(Enum):
+    COMPREHENSIVE = "comprehensive"  # Cover all questions
+    MASTERY_FOCUSED = "mastery"     # Focus on mastering attempted questions
+    EXAM_PREP = "exam_prep"         # Balanced for exam preparation
+    WEAKNESS_REPAIR = "weakness"    # Focus on fixing weak areas
 
-start_quiz returns first_question by calling get_next_question which queries DB again — if session questions not fully saved (flush/commit semantics), it may return None.
-get_next_question returns question.options as-is; if options are JSON string, consumer expects list.
-Suggested high-priority mitigations (brief)
+@dataclass
+class LearningPath:
+    """Represents a recommended learning path for comprehensive coverage"""
+    goal: CoverageGoal
+    phases: List[Dict]
+    estimated_sessions: int
+    estimated_weeks: int
+    priority_topics: List[str]
 
-Validate inputs (quiz_length > 0, non-null user/course, normalize types).
-Defensive None-checks after DB queries and before attribute access.
-Ensure SQLAlchemy query scalars vs objects (use .scalars()/.all() accordingly).
-Enforce timezone consistency for datetimes.
-Add DB uniqueness/transactional locks to avoid concurrent session creation.
-Seed or inject RNG for deterministic tests.
-Log full stack traces only to secure logs; return sanitized errors to clients.
-If desired, can produce a patch that:
+class CoverageAnalytics:
+    """
+    Advanced analytics for tracking and planning comprehensive course coverage.
+    """
+    
+    def __init__(self, config: Dict = None):
+        self.config = config or {}
+    
+    def generate_learning_path(self, 
+                             user_performance: List[UserPerformance],
+                             all_questions: Dict[int, Dict],
+                             goal: CoverageGoal = CoverageGoal.COMPREHENSIVE,
+                             target_weeks: int = 8) -> LearningPath:
+        """
+        Generate a personalized learning path for comprehensive coverage.
+        """
+        
+        # Analyze current state
+        analysis = self.analyze_comprehensive_coverage(user_performance, all_questions)
+        
+        # Calculate remaining work
+        total_questions = len(all_questions)
+        attempted_questions = len(analysis['attempted_questions'])
+        mastered_questions = len(analysis['mastered_questions'])
+        
+        remaining_new = total_questions - attempted_questions
+        remaining_review = attempted_questions - mastered_questions
+        
+        # Estimate sessions needed
+        questions_per_session = 20
+        sessions_for_new = math.ceil(remaining_new / (questions_per_session * 0.6))  # 60% new per session
+        sessions_for_review = math.ceil(remaining_review / (questions_per_session * 0.4))  # 40% review per session
+        
+        total_sessions = max(sessions_for_new, sessions_for_review)
+        sessions_per_week = target_weeks / total_sessions if total_sessions > 0 else 1
+        
+        # Generate phases based on goal
+        phases = self._generate_phases(analysis, goal, target_weeks)
+        
+        return LearningPath(
+            goal=goal,
+            phases=phases,
+            estimated_sessions=total_sessions,
+            estimated_weeks=target_weeks,
+            priority_topics=analysis['priority_topics']
+        )
+    
+    def analyze_comprehensive_coverage(self, 
+                                     user_performance: List[UserPerformance],
+                                     all_questions: Dict[int, Dict]) -> Dict:
+        """
+        Comprehensive analysis of user's coverage across all dimensions.
+        """
+        
+        attempted_questions = set()
+        mastered_questions = set()
+        weak_questions = set()
+        topic_coverage = defaultdict(lambda: {'total': 0, 'attempted': 0, 'mastered': 0, 'weak': 0})
+        difficulty_coverage = defaultdict(lambda: {'total': 0, 'attempted': 0, 'mastered': 0, 'weak': 0})
+        
+        # Analyze existing performance
+        performance_map = {p.question_id: p for p in user_performance}
+        
+        for qid, metadata in all_questions.items():
+            topic = metadata.get('topic', 'unknown')
+            difficulty_score = metadata.get('difficulty_score', 2.0)
+            difficulty_band = self._get_difficulty_band(difficulty_score)
+            
+            # Update totals
+            topic_coverage[topic]['total'] += 1
+            difficulty_coverage[difficulty_band]['total'] += 1
+            
+            # Check if attempted
+            if qid in performance_map:
+                perf = performance_map[qid]
+                attempted_questions.add(qid)
+                topic_coverage[topic]['attempted'] += 1
+                difficulty_coverage[difficulty_band]['attempted'] += 1
+                
+                # Check mastery (2+ correct streak)
+                if perf.correct_streak >= 2:
+                    mastered_questions.add(qid)
+                    topic_coverage[topic]['mastered'] += 1
+                    difficulty_coverage[difficulty_band]['mastered'] += 1
+                
+                # Check weakness (last attempt wrong or low success rate)
+                success_rate = perf.total_correct / perf.total_attempts if perf.total_attempts > 0 else 0
+                if not perf.last_attempt_correct or success_rate < 0.6:
+                    weak_questions.add(qid)
+                    topic_coverage[topic]['weak'] += 1
+                    difficulty_coverage[difficulty_band]['weak'] += 1
+        
+        # Calculate coverage percentages
+        topic_coverage_pct = {}
+        for topic, stats in topic_coverage.items():
+            topic_coverage_pct[topic] = {
+                'attempted_pct': (stats['attempted'] / stats['total']) * 100,
+                'mastered_pct': (stats['mastered'] / stats['total']) * 100,
+                'weakness_pct': (stats['weak'] / max(1, stats['attempted'])) * 100
+            }
+        
+        difficulty_coverage_pct = {}
+        for band, stats in difficulty_coverage.items():
+            difficulty_coverage_pct[band] = {
+                'attempted_pct': (stats['attempted'] / stats['total']) * 100,
+                'mastered_pct': (stats['mastered'] / stats['total']) * 100,
+                'weakness_pct': (stats['weak'] / max(1, stats['attempted'])) * 100
+            }
+        
+        # Identify priority topics (low coverage, high importance)
+        priority_topics = []
+        for topic, pct in topic_coverage_pct.items():
+            if pct['attempted_pct'] < 50 or pct['weakness_pct'] > 40:
+                priority_topics.append(topic)
+        
+        return {
+            'total_questions': len(all_questions),
+            'attempted_questions': attempted_questions,
+            'mastered_questions': mastered_questions,
+            'weak_questions': weak_questions,
+            'overall_coverage_pct': (len(attempted_questions) / len(all_questions)) * 100,
+            'overall_mastery_pct': (len(mastered_questions) / len(all_questions)) * 100,
+            'topic_coverage': dict(topic_coverage),
+            'topic_coverage_pct': topic_coverage_pct,
+            'difficulty_coverage': dict(difficulty_coverage),
+            'difficulty_coverage_pct': difficulty_coverage_pct,
+            'priority_topics': priority_topics,
+            'coverage_gaps': self._identify_coverage_gaps(topic_coverage, difficulty_coverage)
+        }
+    
+    def _generate_phases(self, analysis: Dict, goal: CoverageGoal, target_weeks: int) -> List[Dict]:
+        """Generate learning phases based on goal and current state."""
+        
+        phases = []
+        
+        if goal == CoverageGoal.COMPREHENSIVE:
+            # Phase 1: Foundation building (weeks 1-2)
+            phases.append({
+                'name': 'Foundation Building',
+                'weeks': [1, 2],
+                'focus': 'easy_and_medium_new_questions',
+                'description': 'Build strong foundation with easier questions',
+                'targets': {
+                    'new_questions_pct': 70,
+                    'difficulty_focus': ['easy', 'medium'],
+                    'target_topics': analysis['priority_topics'][:3]
+                }
+            })
+            
+            # Phase 2: Coverage expansion (weeks 3-5)
+            phases.append({
+                'name': 'Coverage Expansion',
+                'weeks': [3, 4, 5],
+                'focus': 'systematic_topic_coverage',
+                'description': 'Systematically cover all topics and question types',
+                'targets': {
+                    'new_questions_pct': 50,
+                    'coverage_target_pct': 80,
+                    'balanced_difficulty': True
+                }
+            })
+            
+            # Phase 3: Mastery and reinforcement (weeks 6-8)
+            phases.append({
+                'name': 'Mastery & Reinforcement',
+                'weeks': [6, 7, 8],
+                'focus': 'weakness_repair_and_mastery',
+                'description': 'Focus on weak areas and achieving mastery',
+                'targets': {
+                    'weakness_questions_pct': 60,
+                    'mastery_target_pct': 85,
+                    'srs_focus': True
+                }
+            })
+        
+        elif goal == CoverageGoal.EXAM_PREP:
+            # Phase 1: Diagnostic and gaps (weeks 1-2)
+            phases.append({
+                'name': 'Diagnostic Assessment',
+                'weeks': [1, 2],
+                'focus': 'identify_strengths_and_gaps',
+                'description': 'Sample questions from all areas to identify gaps',
+                'targets': {
+                    'diagnostic_sampling': True,
+                    'coverage_target_pct': 40,
+                    'balanced_topics': True
+                }
+            })
+            
+            # Phase 2: Targeted improvement (weeks 3-6)
+            phases.append({
+                'name': 'Targeted Improvement',
+                'weeks': [3, 4, 5, 6],
+                'focus': 'weakness_repair_and_coverage',
+                'description': 'Focus heavily on weak areas while filling coverage gaps',
+                'targets': {
+                    'weakness_questions_pct': 50,
+                    'new_questions_pct': 30,
+                    'priority_topics_focus': True
+                }
+            })
+            
+            # Phase 3: Exam simulation (weeks 7-8)
+            phases.append({
+                'name': 'Exam Simulation',
+                'weeks': [7, 8],
+                'focus': 'comprehensive_review_and_testing',
+                'description': 'Simulate exam conditions with comprehensive coverage',
+                'targets': {
+                    'exam_simulation': True,
+                    'balanced_difficulty': True,
+                    'comprehensive_topics': True,
+                    'timed_practice': True
+                }
+            })
+        
+        elif goal == CoverageGoal.MASTERY_FOCUSED:
+            # Phase 1: Current mastery assessment (week 1)
+            phases.append({
+                'name': 'Mastery Assessment',
+                'weeks': [1],
+                'focus': 'assess_current_mastery',
+                'description': 'Review attempted questions to confirm mastery levels',
+                'targets': {
+                    'review_attempted_pct': 80,
+                    'mastery_validation': True
+                }
+            })
+            
+            # Phase 2: Depth over breadth (weeks 2-6)
+            phases.append({
+                'name': 'Deep Mastery Building',
+                'weeks': [2, 3, 4, 5, 6],
+                'focus': 'deep_understanding_current_areas',
+                'description': 'Achieve deep mastery in attempted areas before expanding',
+                'targets': {
+                    'mastery_target_pct': 90,
+                    'weakness_elimination': True,
+                    'spaced_repetition_focus': True
+                }
+            })
+            
+            # Phase 3: Selective expansion (weeks 7-8)
+            phases.append({
+                'name': 'Selective Expansion',
+                'weeks': [7, 8],
+                'focus': 'strategic_coverage_expansion',
+                'description': 'Carefully expand to new areas while maintaining mastery',
+                'targets': {
+                    'new_questions_pct': 40,
+                    'maintain_mastery': True,
+                    'strategic_topic_selection': True
+                }
+            })
+        
+        elif goal == CoverageGoal.WEAKNESS_REPAIR:
+            # All phases focus on weakness repair with different intensities
+            phases.append({
+                'name': 'Intensive Weakness Repair',
+                'weeks': [1, 2, 3],
+                'focus': 'eliminate_major_weaknesses',
+                'description': 'Intensive focus on questions with poor performance',
+                'targets': {
+                    'weakness_questions_pct': 80,
+                    'foundation_reinforcement': True,
+                    'difficulty_stepping_down': True
+                }
+            })
+            
+            phases.append({
+                'name': 'Weakness Prevention',
+                'weeks': [4, 5, 6],
+                'focus': 'prevent_new_weaknesses',
+                'description': 'Balanced practice to prevent new weak areas',
+                'targets': {
+                    'weakness_questions_pct': 50,
+                    'new_questions_pct': 30,
+                    'preventive_review': True
+                }
+            })
+            
+            phases.append({
+                'name': 'Strength Consolidation',
+                'weeks': [7, 8],
+                'focus': 'consolidate_improvements',
+                'description': 'Consolidate improvements and build confidence',
+                'targets': {
+                    'balanced_practice': True,
+                    'confidence_building': True,
+                    'comprehensive_review': True
+                }
+            })
+        
+        return phases
+    
+    def _identify_coverage_gaps(self, topic_coverage: Dict, difficulty_coverage: Dict) -> List[Dict]:
+        """Identify specific coverage gaps that need attention."""
+        gaps = []
+        
+        # Topic gaps
+        for topic, stats in topic_coverage.items():
+            attempted_pct = (stats['attempted'] / stats['total']) * 100
+            if attempted_pct < 30:
+                gaps.append({
+                    'type': 'topic_gap',
+                    'area': topic,
+                    'severity': 'high' if attempted_pct < 10 else 'medium',
+                    'description': f"Only {attempted_pct:.0f}% coverage in {topic}",
+                    'questions_needed': stats['total'] - stats['attempted']
+                })
+        
+        # Difficulty gaps
+        for band, stats in difficulty_coverage.items():
+            attempted_pct = (stats['attempted'] / stats['total']) * 100
+            if attempted_pct < 40:
+                gaps.append({
+                    'type': 'difficulty_gap',
+                    'area': f"{band} questions",
+                    'severity': 'medium',
+                    'description': f"Only {attempted_pct:.0f}% coverage in {band} difficulty",
+                    'questions_needed': stats['total'] - stats['attempted']
+                })
+        
+        return gaps
+    
+    def _get_difficulty_band(self, difficulty_score: float) -> str:
+        """Get difficulty band from score."""
+        if difficulty_score < 1.8:
+            return 'easy'
+        elif difficulty_score < 2.5:
+            return 'medium'
+        elif difficulty_score < 4.0:
+            return 'hard'
+        else:
+            return 'expert'
+    
+    def calculate_completion_estimate(self, 
+                                    analysis: Dict, 
+                                    sessions_per_week: int = 3,
+                                    questions_per_session: int = 20) -> Dict:
+        """
+        Calculate realistic completion estimates for different goals.
+        """
+        
+        total_questions = analysis['total_questions']
+        attempted = len(analysis['attempted_questions'])
+        mastered = len(analysis['mastered_questions'])
+        weak = len(analysis['weak_questions'])
+        
+        remaining_new = total_questions - attempted
+        remaining_mastery = attempted - mastered
+        remaining_weakness_repair = weak
+        
+        # Different completion scenarios
+        scenarios = {}
+        
+        # Comprehensive coverage (attempt all questions)
+        new_questions_per_session = questions_per_session * 0.6  # 60% new questions
+        sessions_for_comprehensive = math.ceil(remaining_new / new_questions_per_session)
+        weeks_for_comprehensive = math.ceil(sessions_for_comprehensive / sessions_per_week)
+        
+        scenarios['comprehensive'] = {
+            'remaining_questions': remaining_new,
+            'estimated_sessions': sessions_for_comprehensive,
+            'estimated_weeks': weeks_for_comprehensive,
+            'description': 'Attempt all questions in the course'
+        }
+        
+        # Mastery focused (master all attempted)
+        mastery_questions_per_session = questions_per_session * 0.4  # Focus on review
+        sessions_for_mastery = math.ceil(remaining_mastery / mastery_questions_per_session)
+        weeks_for_mastery = math.ceil(sessions_for_mastery / sessions_per_week)
+        
+        scenarios['mastery'] = {
+            'remaining_questions': remaining_mastery,
+            'estimated_sessions': sessions_for_mastery,
+            'estimated_weeks': weeks_for_mastery,
+            'description': 'Master all previously attempted questions'
+        }
+        
+        # Weakness repair (fix all weak areas)
+        weakness_questions_per_session = questions_per_session * 0.7  # Focus on weaknesses
+        sessions_for_weakness = math.ceil(remaining_weakness_repair / weakness_questions_per_session)
+        weeks_for_weakness = math.ceil(sessions_for_weakness / sessions_per_week)
+        
+        scenarios['weakness_repair'] = {
+            'remaining_questions': remaining_weakness_repair,
+            'estimated_sessions': sessions_for_weakness,
+            'estimated_weeks': weeks_for_weakness,
+            'description': 'Repair all identified weaknesses'
+        }
+        
+        # Exam ready (balanced approach)
+        target_coverage = 0.85  # 85% coverage for exam readiness
+        target_mastery = 0.75   # 75% mastery rate
+        
+        questions_needed_for_coverage = math.ceil(total_questions * target_coverage) - attempted
+        questions_needed_for_mastery = math.ceil(attempted * target_mastery) - mastered
+        
+        total_work_needed = max(questions_needed_for_coverage, questions_needed_for_mastery)
+        sessions_for_exam_ready = math.ceil(total_work_needed / (questions_per_session * 0.5))
+        weeks_for_exam_ready = math.ceil(sessions_for_exam_ready / sessions_per_week)
+        
+        scenarios['exam_ready'] = {
+            'remaining_questions': total_work_needed,
+            'estimated_sessions': sessions_for_exam_ready,
+            'estimated_weeks': weeks_for_exam_ready,
+            'description': f'{target_coverage*100:.0f}% coverage with {target_mastery*100:.0f}% mastery rate',
+            'targets': {
+                'coverage_pct': target_coverage * 100,
+                'mastery_pct': target_mastery * 100
+            }
+        }
+        
+        return scenarios
+    
+    def generate_daily_study_plan(self, 
+                                learning_path: LearningPath,
+                                analysis: Dict,
+                                sessions_per_week: int = 3) -> List[Dict]:
+        """
+        Generate a detailed daily study plan based on the learning path.
+        """
+        
+        study_plan = []
+        current_week = 1
+        session_count = 0
+        
+        for phase in learning_path.phases:
+            phase_weeks = phase['weeks']
+            phase_targets = phase.get('targets', {})
+            
+            for week in phase_weeks:
+                # Generate sessions for this week
+                for session_in_week in range(sessions_per_week):
+                    session_count += 1
+                    
+                    # Determine session focus based on phase targets
+                    session_focus = self._determine_session_focus(phase_targets, analysis, session_count)
+                    
+                    study_plan.append({
+                        'week': week,
+                        'session': session_count,
+                        'session_in_week': session_in_week + 1,
+                        'phase': phase['name'],
+                        'focus': session_focus,
+                        'recommended_questions': 20,
+                        'estimated_duration_minutes': 45,
+                        'learning_objectives': self._generate_learning_objectives(session_focus, phase_targets)
+                    })
+        
+        return study_plan
+    
+    def _determine_session_focus(self, phase_targets: Dict, analysis: Dict, session_count: int) -> Dict:
+        """Determine the focus for a specific study session."""
+        
+        focus = {
+            'question_types': {},
+            'topics': [],
+            'difficulty_preference': 'adaptive',
+            'special_instructions': []
+        }
+        
+        # Extract targets from phase
+        new_pct = phase_targets.get('new_questions_pct', 30)
+        weakness_pct = phase_targets.get('weakness_questions_pct', 40)
+        srs_focus = phase_targets.get('srs_focus', False)
+        
+        # Adjust percentages to sum to 100%
+        remaining_pct = 100 - new_pct - weakness_pct
+        review_pct = remaining_pct * 0.7
+        srs_pct = remaining_pct * 0.3
+        
+        focus['question_types'] = {
+            'new': new_pct,
+            'weakness': weakness_pct,
+            'review': review_pct,
+            'srs': srs_pct
+        }
+        
+        # Topic focus
+        if 'target_topics' in phase_targets:
+            focus['topics'] = phase_targets['target_topics']
+        elif 'priority_topics_focus' in phase_targets:
+            focus['topics'] = analysis['priority_topics'][:3]
+        
+        # Difficulty preference
+        if 'difficulty_focus' in phase_targets:
+            focus['difficulty_preference'] = phase_targets['difficulty_focus']
+        elif phase_targets.get('balanced_difficulty'):
+            focus['difficulty_preference'] = 'balanced'
+        elif phase_targets.get('difficulty_stepping_down'):
+            focus['difficulty_preference'] = 'easier'
+        
+        # Special instructions
+        if phase_targets.get('diagnostic_sampling'):
+            focus['special_instructions'].append('Sample from all topics for diagnostic purposes')
+        if phase_targets.get('exam_simulation'):
+            focus['special_instructions'].append('Simulate exam conditions with time pressure')
+        if phase_targets.get('foundation_reinforcement'):
+            focus['special_instructions'].append('Focus on fundamental concepts')
+        
+        return focus
+    
+    def _generate_learning_objectives(self, session_focus: Dict, phase_targets: Dict) -> List[str]:
+        """Generate specific learning objectives for the session."""
+        objectives = []
+        
+        # Based on question type distribution
+        question_types = session_focus['question_types']
+        if question_types.get('new', 0) > 40:
+            objectives.append("Explore new concepts and question types")
+        if question_types.get('weakness', 0) > 50:
+            objectives.append("Address and resolve identified weaknesses")
+        if question_types.get('srs', 0) > 20:
+            objectives.append("Reinforce previously learned concepts through spaced repetition")
+        
+        # Based on topics
+        topics = session_focus.get('topics', [])
+        if topics:
+            objectives.append(f"Focus on {', '.join(topics[:2])} topics")
+        
+        # Based on phase-specific targets
+        if phase_targets.get('mastery_validation'):
+            objectives.append("Validate mastery of previously attempted questions")
+        if phase_targets.get('coverage_target_pct'):
+            objectives.append(f"Work toward {phase_targets['coverage_target_pct']}% course coverage")
+        if phase_targets.get('confidence_building'):
+            objectives.append("Build confidence through successful problem solving")
+        
+        return objectives if objectives else ["Continue systematic learning and practice"]
 
-Adds defensive guards and validations,
-Fixes Query result handling to use .scalars() or tuple unpacking,
-Makes timestamps timezone-aware,
-Adds concurrency-safe session creation.
+
+class ProgressTracker:
+    """
+    Track progress toward comprehensive coverage goals.
+    """
+    
+    def __init__(self):
+        self.milestones = [
+            {'coverage': 25, 'name': 'Foundation Established'},
+            {'coverage': 50, 'name': 'Halfway Point'},
+            {'coverage': 75, 'name': 'Advanced Learner'},
+            {'coverage': 90, 'name': 'Near Completion'},
+            {'coverage': 100, 'name': 'Complete Coverage'}
+        ]
+    
+    def check_milestones(self, current_coverage: float, previous_coverage: float) -> List[Dict]:
+        """Check if any milestones were achieved in the latest session."""
+        achieved = []
+        
+        for milestone in self.milestones:
+            threshold = milestone['coverage']
+            if previous_coverage < threshold <= current_coverage:
+                achieved.append({
+                    'name': milestone['name'],
+                    'coverage_achieved': threshold,
+                    'celebration_message': f"🎉 Congratulations! You've achieved {threshold}% coverage!"
+                })
+        
+        return achieved
+    
+    def calculate_momentum(self, recent_sessions: List[Dict]) -> Dict:
+        """Calculate learning momentum based on recent sessions."""
+        if len(recent_sessions) < 2:
+            return {'momentum': 'insufficient_data'}
+        
+        # Calculate coverage increase per session
+        coverage_increases = []
+        for i in range(1, len(recent_sessions)):
+            prev_coverage = recent_sessions[i-1].get('coverage_after', 0)
+            curr_coverage = recent_sessions[i].get('coverage_after', 0)
+            coverage_increases.append(curr_coverage - prev_coverage)
+        
+        avg_increase = sum(coverage_increases) / len(coverage_increases)
+        
+        if avg_increase > 2.0:
+            momentum = 'high'
+            message = "Excellent progress! You're learning quickly."
+        elif avg_increase > 1.0:
+            momentum = 'good'
+            message = "Good steady progress. Keep it up!"
+        elif avg_increase > 0.5:
+            momentum = 'moderate'
+            message = "Steady progress. Consider increasing session frequency."
+        else:
+            momentum = 'low'
+            message = "Progress is slow. Try focusing on easier questions or reviewing fundamentals."
+        
+        return {
+            'momentum': momentum,
+            'avg_coverage_increase': avg_increase,
+            'message': message,
+            'recommendation': self._get_momentum_recommendation(momentum)
+        }
+    
+    def _get_momentum_recommendation(self, momentum: str) -> str:
+        """Get recommendation based on learning momentum."""
+        recommendations = {
+            'high': "You're doing great! Consider tackling more challenging questions.",
+            'good': "Maintain your current study schedule and intensity.",
+            'moderate': "Try increasing study frequency or focusing on weaker areas.",
+            'low': "Consider reviewing fundamentals or adjusting your approach."
+        }
+        return recommendations.get(momentum, "Continue practicing regularly.")
+
+
+## Key Integrations and Improvements
+
+Here's how the enhanced system integrates your difficulty scoring system and ensures comprehensive coverage:
+
+### 1. **Difficulty-Aware Question Selection**
+- **Difficulty Appropriateness**: Questions are scored based on how well they match the user's current level
+- **Progressive Difficulty**: The algorithm gradually introduces harder questions as the user improves
+- **Foundation Reinforcement**: Lower difficulty questions get priority if the user is struggling with basics
+
+### 2. **Comprehensive Coverage Tracking**
+- **Topic Coverage**: Tracks which topics have been covered and prioritizes gaps
+- **Difficulty Band Coverage**: Ensures exposure to all difficulty levels appropriately
+- **Mastery Tracking**: Identifies truly mastered questions (2+ correct streak)
+- **Learning Path Generation**: Creates personalized study plans for complete course coverage
+
+### 3. **Your Difficulty Rubric Integration**
+The system now uses your 1-10 difficulty scoring system:
+- **Easy (1.0-1.8)**: Remembering + simple references + basic distractors
+- **Medium (1.8-2.5)**: Understanding/Applying + moderate complexity
+- **Hard (2.5-4.0)**: Analyzing + complex references + sophisticated distractors  
+- **Expert (4.0+)**: Multi-step analysis + conceptual inference + misconception-based distractors
+
+### 4. **Enhanced Features for Exam Prep**
+
+**Coverage Goals**: The system supports different learning objectives:
+- `COMPREHENSIVE`: Cover every question in the course
+- `EXAM_PREP`: Balanced approach for exam readiness (85% coverage, 75% mastery)
+- `MASTERY_FOCUSED`: Deep understanding over breadth
+- `WEAKNESS_REPAIR`: Fix identified gaps first
+
+**Progress Tracking**: 
+- Milestone achievements (25%, 50%, 75% coverage)
+- Learning momentum analysis
+- Detailed progress reports with recommendations
+
+### 5. **Smart Distribution Control**
+The enhanced algorithm ensures:
+- **40% Weakness questions** (reduced from 60% to make room for coverage)
+- **25% New questions** (strategically selected for coverage gaps)
+- **15% SRS questions** (spaced repetition for retention)
+- **20% Coverage gap questions** (new category for comprehensive coverage)
+
+### 6. **Usage Examples**
+
+```python
+# Start a comprehensive coverage quiz
+service.start_adaptive_quiz(
+    user_id=123, 
+    course_id=456, 
+    quiz_length=20,
+    focus_area="circuits",  # Focus on specific topic
+    difficulty_target="medium"  # Target specific difficulty
+)
+
+# Get learning path for comprehensive coverage
+analytics = CoverageAnalytics()
+learning_path = analytics.generate_learning_path(
+    user_performance=performance_data,
+    all_questions=question_metadata,
+    goal=CoverageGoal.COMPREHENSIVE,
+    target_weeks=8
+)
+
+# Track progress toward exam readiness
+progress = service.get_user_progress_summary(user_id=123, course_id=456)
+exam_readiness = progress['exam_readiness']['score']  # 0-100 score
+```
+
+This enhanced system will systematically help users work through all questions in a course while adapting to their learning patterns and ensuring they're properly prepared for exams. The difficulty scoring integration ensures questions are presented at the right cognitive level, while the coverage tracking ensures no topics are left behind.
+
+
+
+
+
+
+You've found the exact problem! The logs clearly show the security check is failing because your user
+  (5135164547) is not flagged as an admin in the database.
+
+  I've examined the scripts/manage_admins.py script, and it's exactly what we need. It requires a two-step
+  process: first to find your internal database ID, and second to promote that ID to admin.
+
+  Please follow these steps:
+
+  Step 1: Find Your User ID
+
+  Run this command to list all users in the database:
+
+   1 python scripts/manage_admins.py --list
+  In the output, find the line with your Telegram ID (5135164547) and note the internal ID on that same
+  line.
+
+  Step 2: Promote Yourself to Admin
+
+  Now, use the ID you just found to run the promotion command. Replace <YOUR_ID> with your actual ID from
+  Step 1, and choose a secure password.
+
+   1 python scripts/manage_admins.py --promote <YOUR_ID> --password 'your-new-password'
+
+  After you run this, the "Acknowledge" button will work correctly.
+
+  Now that we have a definitive solution, I will clean up the diagnostic logging and helper scripts I added.
